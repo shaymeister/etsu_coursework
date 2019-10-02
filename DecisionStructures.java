@@ -122,7 +122,7 @@ public class DecisionStructures
                 System.out.println("2nd: " + runner1);
                 System.out.println("3rd: " + runner2);
             }
-            else // error cqtching
+            else // error catching
             {
                 System.out.println("An unexpected error has occured");
             }
