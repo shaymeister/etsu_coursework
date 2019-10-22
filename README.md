@@ -14,6 +14,22 @@ name of the runner who came in first, second, and third
 It will calculate the required amount of ingredients needed to bake x number of
 cookies. With x being defined by the user during the execution of the program
 
+# Project 1
+- GOAL: Evaluates the following skills:
+1) Use sequential logic to write an algorithm
+2) Create a simple class to do some input from the keyboard,
+   output and simple calculations
+3) Declare and define identifiers of primitive types
+4) Use constant identifiers where appropriate
+5) Request and process input from the keyboard
+6) Perform basic mathematical operations
+7) Display output to the monitor
+
+# Project 2
+- GOAL: test the student's ability to use the knowledge of Java that they have 
+obtained up to this point in the course: input validation, decision structures,
+looping structures,and random number generation.
+
 # RomanNumerals.java  
 - GOAL: Practice the use of switch statements  
 The purpose this program is to accept an integer from the user and respond with
