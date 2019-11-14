@@ -186,7 +186,7 @@ public class Project3
         // Loop through every row and column, checking for winning moves
         for(int i = 0; i <= 2; i++)
         {
-            // Check if said column is available to conquer --------------------
+            // Check if said column is available to conquer
             if (board[i][0] != 'O' && board[i][1] != 'O' && board[i][2] != 'O')
             {
                 /* Check if the computer has occupied the first two slots in said column
@@ -257,9 +257,9 @@ public class Project3
                         return "C2";
                     }
                 } // END: if the outer two slots are occupied by computer
-            } // END: looping through columns for winning move -----------------
+            } // END: looping through columns for winning move
 
-            // Check if said row is available to conquer -----------------------
+            // Check if said row is available to conquer
             if (board[0][i] != 'O' && board[1][i] != 'O' && board[2][i] != 'O')
             {
                 /* Check if the computer has occupied the first two slots in said row
@@ -330,8 +330,8 @@ public class Project3
                         return "B3";
                     }
                 } // END: if outer two slots are occupied by the computer
-            } // END: looping through  for winning move -----------------
-        }
+            } // END: looping through rows for winning move 
+        } // END: looping through all rows and columns for winning move
 
         // check '\' diagonal for winning move
         if(board[0][0] != 'O' && board[1][1] != 'O' && board[2][2] != 'O')
@@ -386,104 +386,142 @@ public class Project3
         // Loop through every row and column, checking for defensive moves
         for(int i = 0; i <= 2; i++)
         {
+            // check if opponent has the chance to win in said column
             if (board[i][0] != 'X' && board[i][1] != 'X' && board[i][2] != 'X')
             {
+                // check if the user has occupied the first two slots
                 if(board[i][0] == 'O' && board[i][1] == 'O')
                 {
+                    // determine which column to play into
                     if (i == 0)
                     {
+                        // column 1, last slot 
                         return "A3";
                     }
                     else if (i == 1)
                     {
+                        // column 2, last slot
                         return "B3";
                     }
                     else if (i == 2)
                     {
+                        // column 3, last slot
                         return "C3";
                     }
-                }
-                else if(board[i][1] == 'O' && board[i][2] == 'O')
-                {
-                    if (i == 0)
-                    {
-                        return "A1";
-                    }
-                    else if (i == 1)
-                    {
-                        return "B1";
-                    }
-                    else if (i == 2)
-                    {
-                        return "C1";
-                    }
-                }
+                } // END: checking for defensive moves in last row
+
+                // check if the user has occupied the outer two slots
                 else if(board[i][0] == 'O' && board[i][2] == 'O')
                 {
+                    // determine which column tp play into
                     if (i == 0)
                     {
+                        // column 1, slot 2
                         return "A2";
                     }
                     else if (i == 1)
                     {
+                        // column 2, slot 2
                         return "B2";
                     }
                     else if (i == 2)
                     {
+                        // column 3, slot 2
                         return "C2";
                     }
-                }
-            }
-            if (board[0][i] != 'X' && board[1][i] != 'X' && board[2][i] != 'X')
-            {
-                if(board[0][i] == 'O' && board[1][i] == 'O')
+                } // END: checking for defensive moves in middle row
+
+                // check if the user has occupied the last to slots
+                else if(board[i][1] == 'O' && board[i][2] == 'O')
                 {
+                    // determine which column to play into
                     if (i == 0)
                     {
-                        return "C1";
-                    }
-                    else if (i == 1)
-                    {
-                        return "C2";
-                    }
-                    else if (i == 2)
-                    {
-                        return "C3";
-                    }
-                }
-                else if(board[1][i] == 'O' && board[2][i] == 'O')
-                {
-                    if (i == 0)
-                    {
+                        // column 1, slot 1
                         return "A1";
                     }
                     else if (i == 1)
                     {
-                        return "A2";
+                        // column 2, slot 1
+                        return "B1";
                     }
                     else if (i == 2)
                     {
-                        return "A3";
+                        // column 3, slot 1
+                        return "C1";
                     }
-                }
-                else if(board[0][i] == 'O' && board[2][i] == 'O')
+                } // END: checking for defensive moves in first row
+            } // END: checking columns for winning moves
+
+            // check if the user has the chance to win in said row
+            if (board[0][i] != 'X' && board[1][i] != 'X' && board[2][i] != 'X')
+            {
+                // check if the first two slots have been occupied by the user
+                if(board[0][i] == 'O' && board[1][i] == 'O')
                 {
+                    // determine which row to play into
                     if (i == 0)
                     {
+                        // row 1, last column
+                        return "C1";
+                    }
+                    else if (i == 1)
+                    {
+                        // row 2, last column
+                        return "C2";
+                    }
+                    else if (i == 2)
+                    {
+                        // row 3, last column
+                        return "C3";
+                    }
+                } // END: checking for defensive moves in last column
+
+                // check if the two outer slots have been occupied by the user
+                else if(board[0][i] == 'O' && board[2][i] == 'O')
+                {
+                    // determine which row to play into
+                    if (i == 0)
+                    {
+                        // column 2, slot 1
                         return "B1";
                     }
                     else if (i == 1)
                     {
+                        // column 2, slot 2
                         return "B2";
                     }
                     else if (i == 2)
                     {
+                        // column 2, slot 3
                         return "B3";
                     }
-                }
-            }
-        }
+                } // END: checking for defensive moves in middle column
 
+                // check if the last two slots have been occupied by the user
+                else if(board[1][i] == 'O' && board[2][i] == 'O')
+                {
+                    // determine which row to play into
+                    if (i == 0)
+                    {
+                        // column 1, slot 1
+                        return "A1";
+                    }
+                    else if (i == 1)
+                    {
+                        // column 1, slot 2
+                        return "A2";
+                    }
+                    else if (i == 2)
+                    {
+                        // column 1, slot 3
+                        return "A3";
+                    }
+                } // END: checking for defensive moves in last column
+            } // END: checking for defensive moves in rows
+        } // END: checking for defensive moves in all columns and rows
+
+        // TODO documentation
         if(board[0][0] != 'X' && board[1][1] != 'X' && board[2][2] != 'X')
         {
             if (board[0][0] == 'O' && board[1][1] == 'O')
