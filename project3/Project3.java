@@ -28,23 +28,13 @@ import java.util.Random;
  */
 public class Project3
 {
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: main <br>
+     * Method Purpose: used to call all other methods <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
-     * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      */
     public static void main(String[] args)
     {
@@ -56,26 +46,18 @@ public class Project3
     } //END: 'main' method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: game <br>
+     * Method Purpose: acts as the central nervous system of the game;
+     * used to direct the flow of the game <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
-     * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      */
     public static void game()
     {
         /* Class Instaces
-         * Random class: used to randomly determine which player will make the first move.
+         * Random class: used to randomly determine which PLAYER will make the first move.
          */
         Random random = new Random();
 
@@ -114,11 +96,11 @@ public class Project3
              */
             if(userTurn)
             {
-                /* Ask the user for their move by calling the 'player' method.
+                /* Ask the user for their move by calling the 'PLAYER' method.
                  * This method will toggle the boolean 'userTurn',
                  * allowing the computer to make the next move.
                  */
-                userTurn = player(board, round);
+                userTurn = PLAYER(board, round);
             }
             else
             {
@@ -136,36 +118,33 @@ public class Project3
         } //END: for loop (going through every round of the match)
     } //END: 'game' method
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: computer <br>
+     * Method Purpose: represents the computer within the game <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param board a character array that represents the playing surface
+     * @param round integer value that represents the progression of the game
+     * @return true, enabling the user to make the next move
      */
     public static boolean computer(char[][] board, int round)
     {
-        //TODO - Finish Documentation
         // Variables
-        char player = 'X';
-        String move = " ";
+        final char PLAYER = 'X'; // designates the character to represent the computer
+        String move = " "; // to hold the move to be made my the computer
 
-        while(!submitMove(move, board, player))
+        // while the computer hasn't made a correct move, generate another
+        while(!submitMove(move, board, PLAYER))
         {
+            // call the generateMove method to generate a move for the computer
             move = generateMove(board, round);
         }
 
+        // if it is the first round of the game, tell the user the computer is going first
         if(round == 1)
         {
             System.out.println("\nThe computer will start first.\n"
@@ -176,165 +155,235 @@ public class Project3
             System.out.println("The computer has chosen to go in " + move);
         }
 
-        checkStatus(board, player);
+        // see if a winning move has been made
+        checkStatus(board, PLAYER);
+
+        // return true, allowing the user to make the next move
         return true;
     }
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: generateMove <br>
+     * Method Purpose: determine the best move to be made by the computer, then make said move <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param board a character array representing the playing surface
+     * @param round an integer that represents game progression
+     * @return a String containing the best move for the computer
      */
     public static String generateMove(char[][] board, int round)
     {
-        //TODO - Finish Documentation
-        String move = null;
+        // Class Instances
         Random random = new Random();
+
+        // Variables
+        String move = null; // to hold the best move
+        
+        // Loop through every row and column, checking for winning moves
         for(int i = 0; i <= 2; i++)
         {
+            // Check if said column is available to conquer --------------------
             if (board[i][0] != 'O' && board[i][1] != 'O' && board[i][2] != 'O')
             {
+                /* Check if the computer has occupied the first two slots in said column
+                 * if so, play in the last slot
+                 */
                 if(board[i][0] == 'X' && board[i][1] == 'X')
                 {
+                    // Determine which column to play into
                     if (i == 0)
                     {
+                        // column 1, last slot
                         return "A3";
                     }
                     else if (i == 1)
                     {
+                        // column 2, last slot
                         return "B3";
                     }
                     else if (i == 2)
                     {
+                        // column 3, last slot
                         return "C3";
                     }
-                }
+                } // END: if first two slots are occupied by computer
+
+                /* Check if the computer has occupied the last two slots in said column
+                 * if so, play in the first slot
+                 */
                 else if(board[i][1] == 'X' && board[i][2] == 'X')
                 {
+                    // determine which column to play into
                     if (i == 0)
                     {
+                        // column 1, first slot
                         return "A1";
                     }
                     else if (i == 1)
                     {
+                        // column 2, first slot
                         return "B1";
                     }
                     else if (i == 2)
                     {
+                        // column 3, first slot 
                         return "C1";
                     }
-                }
+                } // END: if the last two slots are occupied by computer
+
+                /* Check if the computer has occupied the outer two slots in said column
+                 * if so, play in the middle slot
+                 */
                 else if(board[i][0] == 'X' && board[i][2] == 'X')
                 {
+                    // determine which column to play into
                     if (i == 0)
                     {
+                        // column 1, middle slot
                         return "A2";
                     }
                     else if (i == 1)
                     {
+                        // column 2, middle slot
                         return "B2";
                     }
                     else if (i == 2)
                     {
+                        // column 3, middle slot
                         return "C2";
                     }
-                }
-            }
+                } // END: if the outer two slots are occupied by computer
+            } // END: looping through columns for winning move -----------------
 
+            // Check if said row is available to conquer -----------------------
             if (board[0][i] != 'O' && board[1][i] != 'O' && board[2][i] != 'O')
             {
+                /* Check if the computer has occupied the first two slots in said row
+                 * if so, play in the last slot
+                 */
                 if(board[0][i] == 'X' && board[1][i] == 'X')
                 {
+                    // Determine which row to play into
                     if (i == 0)
                     {
+                        // row 1, last slot
                         return "C1";
                     }
                     else if (i == 1)
                     {
+                        // row 2, last slot
                         return "C2";
                     }
                     else if (i == 2)
                     {
+                        // row 3, last slot
                         return "C3";
                     }
-                }
+                } // END: if first two slots are occupied by the computer
+
+                /* Check if the computer has occupied the last two slots in said row
+                 * if so, play in the first slot
+                 */
                 else if(board[1][i] == 'X' && board[2][i] == 'X')
                 {
+                    // determine which row to play into
                     if (i == 0)
                     {
+                        // row 1, first slot
                         return "A1";
                     }
                     else if (i == 1)
                     {
+                        // row 2, first slot
                         return "A2";
                     }
                     else if (i == 2)
                     {
+                        // row 3, first slot
                         return "A3";
                     }
-                }
+                } // END: if the last two slots are occupied by the user
+
+                /* Check if the computer has occupied the outer two slots in said row
+                 * if so, play in the middle slot
+                 */
                 else if(board[0][i] == 'X' && board[2][i] == 'X')
                 {
+                    // determine which row to play into
                     if (i == 0)
                     {
+                        // row 1, middle slot
                         return "B1";
                     }
                     else if (i == 1)
                     {
+                        // row 2, middle slot
                         return "B2";
                     }
                     else if (i == 2)
                     {
+                        // row 3, middle slot
                         return "B3";
                     }
-                }
-            }
+                } // END: if outer two slots are occupied by the computer
+            } // END: looping through  for winning move -----------------
         }
 
+        // check '\' diagonal for winning move
         if(board[0][0] != 'O' && board[1][1] != 'O' && board[2][2] != 'O')
         {
+            // check if the first two slots are occupied by the computer
             if (board[0][0] == 'X' && board[1][1] == 'X')
             {
+                // column 3, last slot
                 return "C3";
             }
+
+            // check if the outer two slots are occupied by the computer
             else if (board[0][0] == 'X' && board[2][2] == 'X')
             {
+                // column 2, middle slot
                 return "B2";
             }
+
+            // check if last two slots are occupied by the computer
             else if (board[2][2] == 'X' && board[1][1] == 'X')
             {
+                // column 1, first slot
                 return "A1";
             }
-        }
+        } // END: checking for '\' diagonal winning moves
 
+        // check '/' diagonal for winning move
         if(board[2][0] != 'O' && board[1][1] != 'O' && board[0][2] != 'O')
         {
+            // check if the last two slots are occopied by the computer
             if (board[2][0] == 'X' && board[1][1] == 'X')
             {
+                // column 1, last slot
                 return "A3";
             }
+
+            // check if the outer two slots are occupied by th
             else if (board[2][0] == 'X' && board[0][2] == 'X')
             {
+                // column 2, middle slot
                 return "B2";
             }
+
+            // check if the first two slots are occupied by the computer
             else if (board[0][2] == 'X' && board[1][1] == 'X')
             {
+                // column 3, first slot
                 return "C1";
             }
-        }
+        } // END: checking for '\' diagonal winning moves
+
+        // Loop through every row and column, checking for defensive moves
         for(int i = 0; i <= 2; i++)
         {
             if (board[i][0] != 'X' && board[i][1] != 'X' && board[i][2] != 'X')
@@ -660,7 +709,7 @@ public class Project3
      *   @param  name of param2 description of param2, etc.
      *   @return a String containing the data read from the file.
      */
-    public static boolean player(char[][] board, int round)
+    public static boolean PLAYER(char[][] board, int round)
     {
         //TODO - Finish Documentation
         // Class instances
@@ -668,9 +717,9 @@ public class Project3
         
         // variables
         String move = "none";
-        char player = 'O';
+        char PLAYER = 'O';
         int counter = 0;
-        while(!isMoveValid(move) || !submitMove(move, board, player))
+        while(!isMoveValid(move) || !submitMove(move, board, PLAYER))
         {   
             if (counter++ > 0)
             {
@@ -686,7 +735,7 @@ public class Project3
             }
             move = keyboard.nextLine();
         }
-        checkStatus(board, player);
+        checkStatus(board, PLAYER);
         return false;
     }
 
@@ -708,13 +757,13 @@ public class Project3
      *   @param  name of param2 description of param2, etc.
      *   @return a String containing the data read from the file.
      */
-    public static void checkStatus(char[][] board, char player)
+    public static void checkStatus(char[][] board, char PLAYER)
     {
         //TODO - Finish Documentation
-        if (isWinner(board, player)) 
+        if (isWinner(board, PLAYER)) 
         {
             printBoard(board);
-            if (player == 'O')
+            if (PLAYER == 'O')
             {
                 System.out.println("Congrats, you have won the game!");
             }
@@ -804,7 +853,7 @@ public class Project3
      *   @param  name of param2 description of param2, etc.
      *   @return a String containing the data read from the file.
      */
-    public static boolean isWinner(char[][] board, char player)
+    public static boolean isWinner(char[][] board, char PLAYER)
     {
         //TODO - Finish Documentation
         // Check each column and row for a winner
@@ -936,14 +985,14 @@ public class Project3
      *   @param  name of param2 description of param2, etc.
      *   @return a String containing the data read from the file.
      */
-    public static boolean submitMove(String move, char[][] board, char player)
+    public static boolean submitMove(String move, char[][] board, char PLAYER)
     {
         //TODO - Finish Documentation
         if (move.equals("A1"))
         {
             if (board[0][0] == ' ')
             {
-                board[0][0] = player;
+                board[0][0] = PLAYER;
                 return true;
             } 
         }
@@ -951,7 +1000,7 @@ public class Project3
         {
             if (board[0][1] == ' ')
             {
-                board[0][1] = player;
+                board[0][1] = PLAYER;
                 return true;
             } 
         }
@@ -959,7 +1008,7 @@ public class Project3
         {
             if (board[0][2] == ' ')
             {
-                board[0][2] = player;
+                board[0][2] = PLAYER;
                 return true;
             } 
         }
@@ -967,7 +1016,7 @@ public class Project3
         {
             if (board[1][0] == ' ')
             {
-                board[1][0] = player;
+                board[1][0] = PLAYER;
                 return true;
             } 
         }
@@ -975,7 +1024,7 @@ public class Project3
         {
             if (board[1][1] == ' ')
             {
-                board[1][1] = player;
+                board[1][1] = PLAYER;
                 return true;
             } 
         }
@@ -983,7 +1032,7 @@ public class Project3
         {
             if (board[1][2] == ' ')
             {
-                board[1][2] = player;
+                board[1][2] = PLAYER;
                 return true;
             } 
         }
@@ -991,7 +1040,7 @@ public class Project3
         {
             if (board[2][0] == ' ')
             {
-                board[2][0] = player;
+                board[2][0] = PLAYER;
                 return true;
             } 
         }   
@@ -999,7 +1048,7 @@ public class Project3
         {
             if (board[2][1] == ' ')
             {
-                board[2][1] = player;
+                board[2][1] = PLAYER;
                 return true;
             } 
         }
@@ -1007,7 +1056,7 @@ public class Project3
         {
             if (board[2][2] == ' ')
             {
-                board[2][2] = player;
+                board[2][2] = PLAYER;
                 return true;
             } 
         }
@@ -1048,7 +1097,7 @@ public class Project3
             + "You will be playing against a smart computer!\n"
             + "\n"
             + "Rules:\n"
-            + "1) Which player goes first will be chosen randomly\n"
+            + "1) Which PLAYER goes first will be chosen randomly\n"
             + "2) To win, there must be 3 of a kind in a straight line in any direction\n"
             + "3) To place your chracter, you will be asked to enter a String (A-C,1-3)\n"
             + "4) Have fun!");
