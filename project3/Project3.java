@@ -521,101 +521,170 @@ public class Project3
             } // END: checking for defensive moves in rows
         } // END: checking for defensive moves in all columns and rows
 
-        // TODO documentation
+        // check the '\' diagonal for a potential loss
         if(board[0][0] != 'X' && board[1][1] != 'X' && board[2][2] != 'X')
         {
+            // check if the first two slots are occupied by the user
             if (board[0][0] == 'O' && board[1][1] == 'O')
             {
+                // column 3, slot 3
                 return "C3";
             }
+
+            // check if the two outer slots are occupied by the user
             else if (board[0][0] == 'O' && board[2][2] == 'O')
             {
+                // column 2, slot 2
                 return "B2";
             }
+
+            // check if the last two slots are occupied by the user
             else if (board[2][2] == 'O' && board[1][1] == 'O')
             {
+                // column 1, slot 1
                 return "A1";
             }
-        }
+        } // END: checking for potential loss in the '\' diagonal
 
+        // check the '/' diagonal for a potential loss
         if(board[2][0] != 'X' && board[1][1] != 'X' && board[0][2] != 'X')
         {
+            // check if the first two slots are occupied by the user
             if (board[2][0] == 'O' && board[1][1] == 'O')
             {
+                // column 1, slot 3
                 return "A3";
             }
+
+            // check if the outer two slots are occupied by the user
             else if (board[2][0] == 'O' && board[0][2] == 'O')
             {
+                // column 2, slot 2
                 return "B2";
             }
+
+            // check if th last two slots are occupied by the user
             else if (board[0][2] == 'O' && board[1][1] == 'O')
             {
+                // column 3, slot 1
                 return "C1";
             }
-        }
+        } // END: checking for potential loss in the '\' diagonal
         
+        // this switch is used when there are no available winning or defensive moves available
         switch(round)
         {
+            // round 1
             case 1:
             {
+                // column 1, slot 1
                 return "A1";
             }
 
+            // round 2
             case 2:
             {
+                /* check if the user has played in the middle position
+                 * if true: column 1, slot 1
+                 * if false: column 1, slot 2
+                 */
                 return (board[1][1] == 'O') ? "A1" : "A2";
             }
 
+            // round 3
             case 3:
             {
+                // check if the user has played in the middle position
                 if(board[1][1] == 'O')
                 {
+                    // column 3, slot 3
                     return "C3";
                 }
+
+                // check if the last two slots are available in the first column
                 else if(board[0][1] == ' ' && board[0][2] == ' ')
                 {
+                    // column 1, slot 3
                     return "A3";
                 }
+
+                // check if the last two slots are available in the first row
                 else if(board[1][0] == ' ' && board[2][0] == ' ')
                 {
+                    // column 3, slot 1
                     return "C1";
                 }
+
+                // break out of the switch
                 break;
             }
 
+            // round 4
             case 4:
             {
+                /* check if:
+                 * the use user has played in either of the leftmost corners &&
+                 * if the computer has played in the middle
+                 */
                 if((board[0][0] == 'O' || board[0][2] == 'O') && board[1][1] == 'X')
                 {
+                    // column 1, slot 2
                     return "A2";
                 }
+
+                /* check if:
+                 * the use user has played in either of the right corners &&
+                 * if the computer has played in the middle
+                 */
                 if((board[2][0] == 'O' || board[2][2] == 'O') && board[1][1] == 'X')
                 {
+                    // column 3, slot 2
                     return "C2";
                 }
+                
+                // break away from the switch
                 break;
             }
 
+            // rounds 5 & 6
             case 5:
             case 6:
             {
+                // Check if the user has played in any of the last two slots in row 1 and column 3 
                 if(board[1][0] != 'O' && board[2][0] != 'O' && board[2][1] != 'O' && board[2][2] != 'O')
                 {
+                    /* Check if the computer has previously gone in the second column, row 2
+                     * if true: column 3, slot 3
+                     * if false: column 3, slot 1
+                     */ 
                     return (board[2][0] == 'X') ? "C3" : "C1";
                 }
+
+                // Check if the user has played in any of the last two slots in column 1 and row 3
                 else if(board[0][1] != 'O' && board[0][2] != 'O' && board[1][2] != 'O' && board[2][2] != 'O')
                 {
+                    /* Check if the computer has previously gone in the first column, row 3
+                     * if true: column 3, slot 3
+                     * if false: column 1, slot 3
+                     */ 
                     return (board[0][2] == 'X') ? "C3" : "A3";
                 }
-                else if(board[1][1] != 'O' && board[1][1] != 'X')
-                {
+
+                // check if the middle slot in empty
+                else if(board[1][1] == ' ')
+                { 
+                    // column 2, slot 2
                     return "B2";
                 }
+
+                // break away from the switch
                 break;
             }
 
+            // round 7
             case 7:
             {
+                // TODO documentation
                 if (board[1][0] != 'O' && board[2][0] != 'O')
                 {
                     if(board[1][0] == 'X')
