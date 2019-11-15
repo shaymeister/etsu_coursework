@@ -100,7 +100,7 @@ public class Project3
                  * This method will toggle the boolean 'userTurn',
                  * allowing the computer to make the next move.
                  */
-                userTurn = PLAYER(board, round);
+                userTurn = player(board, round);
             }
             else
             {
@@ -179,9 +179,6 @@ public class Project3
     {
         // Class Instances
         Random random = new Random();
-
-        // Variables
-        String move = null; // to hold the best move
         
         // Loop through every row and column, checking for winning moves
         for(int i = 0; i <= 2; i++)
@@ -684,286 +681,340 @@ public class Project3
             // round 7
             case 7:
             {
-                // TODO documentation
+                // check if the computer has a winning chance via the first row
                 if (board[1][0] != 'O' && board[2][0] != 'O')
                 {
+                    // check which slot in which the computer has already played
                     if(board[1][0] == 'X')
                     {
+                        // column 3, slot 1
                         return "C1";
                     }
                     else if(board[2][0] == 'X')
                     {
+                        // column 2, slot 1
                         return "B1";
                     }
                 }
+
+                // check if the computer has a winning chance via the first column
                 else if (board[0][1] != 'O' && board[0][2] != 'O')
                 {
+                    // check which slot in which the computer has already played
                     if (board[0][1] == 'X')
                     {
+                        // column 1, slot 3
                         return "A3";
                     }
                     else if (board[0][2] == 'X')
                     {
+                        // column 1, slot 2
                         return "A2";
                     }
                 }
+
+                // check if the computer has a winning chance via row 3
                 else if (board[0][2] != 'X' && board[1][2] != 'O' && board[2][2] != 'X')
                 {
+                    // column 2, slot 3
                     return "B3";
                 }
+
+                // check if the computer has a winning chance column 3
                 else if (board[2][0] != 'X' && board[2][1] != 'O' && board[2][2] != 'X')
                 {
+                    // column 3, slot 2
                     return "C2";
                 }
+
+                // check if the computer has a winning chance via the '/' diagonal
                 else if (board[0][2] != 'O' && board[1][1] != 'O' && board[2][0] != 'O')
                 {
+                    // check if the computer has occupied the first two slots
                     if(board[0][2] == 'X' && board[1][1] == 'X')
                     {
+                        // column 1, slot 1
                         return "C1";
                     }
-                    else if(board[2][0] == 'X' && board[1][1] == 'X')
-                    {
-                        return "A3";
-                    }
+                    
+                    // check if the computer has occupied the two outer slots
                     else if(board[0][2] == 'X' && board[1][1] == 'X')
                     {
+                        // column 2, slot 2
                         return "B2";
                     }
+
+                    // check if the computer has occupied the last two slots
+                    else if(board[2][0] == 'X' && board[1][1] == 'X')
+                    {
+                        // column 1, slot 3
+                        return "A3";
+                    }
                 }
+
+                // check if the computer has a winning chance via the '\' diagonal
                 else if (board[1][1] != 'O' && board[2][2] != 'O')
                 {
+                    /* assuming the computer has occupied the first slot,
+                     * check if the computer has occupied the middle slot
+                     */ 
                     if (board[1][1] == 'X')
                     {
+                        // column 3, slot 3
                         return "C3";
                     }
+
+                    /* assuming the computer has occupied the first slot,
+                     * check if the computer has occupied the last slot
+                     */ 
                     else if (board[2][2] == 'X')
                     {
+                        // column 2, slot 2
                         return "B2";
                     }
                 }
+                
+                // break away from the switch
                 break;
             }
         }
 
+        // randomly generate a number from 0-8
         int randomNumber = random.nextInt(8);
 
+        // covert the random number into an actual move
         switch(randomNumber)
         {
+            // random number = 0
             case 0:
             {
+                // column 1, slot 1
                 return "A1";
             }
 
+            // random number = 1
             case 1:
             {
+                // column 1, slot 2
                 return "A2";
             }
 
+            // random number = 2
             case 2:
             {
+                // column 1, slot 3
                 return "A3";
             }
 
+            // random number = 3
             case 3:
             {
+                // column 2, slot 1
                 return "B1";
             }
 
+            // random number = 4
             case 4:
             {
+                // column 2, slot 2
                 return "B2";
             }
 
+            // random number = 5
             case 5:
             {
+                // column 2, slot 3
                 return "B3";
             }
 
+            // random number = 6
             case 6:
             {
+                // column 3, slot 1
                 return "C1";
             }
 
+            // random number = 7
             case 7:
             {
+                // column 3, slot 2
                 return "C2";
             }
 
+            // random number = 8
             case 8:
             {
+                // column 3, slot 3
                 return "C3";
-            }
-        }
+            } 
+        } // END: switch case = randomNumber
         return null;
-    }
+    } // END: generateMove method
 
-    
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: player <br>
+     * Method Purpose: to represent the user during tic-tac-toe <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
+     * 
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     *   @param board a character array that represents the playing surface
+     *   @param round an integer that represents game progression
+     *   @return a boolean allowing the computer to make the next move
      */
-    public static boolean PLAYER(char[][] board, int round)
+    public static boolean player(char[][] board, int round)
     {
-        //TODO - Finish Documentation
         // Class instances
         Scanner keyboard = new Scanner(System.in);
         
         // variables
-        String move = "none";
-        char PLAYER = 'O';
-        int counter = 0;
+        String move = "none"; // to hold the move of the player
+        char PLAYER = 'O';    // specifes the user's representation on the board
+        int counter = 0;      // used to for input validation
+
+        // while move is invalid, ask the user for their desired move
         while(!isMoveValid(move) || !submitMove(move, board, PLAYER))
         {   
+            // check if the user has entered an incorrect value and it trying again
             if (counter++ > 0)
             {
                 System.out.println("INVALID ENTRY!!! Please try again.");
             }
+
+            // first round of the match
             if(round == 1)
             {
                 System.out.print("\nSince the board is blank, where would you like to start? ");
             }
+
+            // all other rounds
             else
             {
                 System.out.print("Where would you like to play? ");
             }
+
+            // ask the user for their desired move
             move = keyboard.nextLine();
         }
+        
+        // check if the user has won the game
         checkStatus(board, PLAYER);
-        return false;
-    }
 
-    //TODO - Finish Documentation
+        // return false, allowing the computer to make the next move
+        return false;
+    } // END: player method
+
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: checkStatus <br>
+     * Method Purpose: determine if either player has won the match <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param board a character array that represents the playing surface
+     * @param PLAYER a character representing the current player
      */
     public static void checkStatus(char[][] board, char PLAYER)
     {
-        //TODO - Finish Documentation
+        // check for a winner
         if (isWinner(board, PLAYER)) 
         {
+            // display the board to the screen
             printBoard(board);
+
+            // check if the user was playing
             if (PLAYER == 'O')
             {
                 System.out.println("Congrats, you have won the game!");
             }
+
+            // assume the computer was playing
             else
             {
                 System.out.println("Sorry, the computer has won the game.");
             }
+
+            // ask the user if they would like to play again
             playAgain();
         }
-    }
+    } // END: checkStatus method
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: isCat <br>
+     * Method Purpose: determine if the game is a draw <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param board a character array that represents the playing surface
+     * @param i an integer value that presents game progression
+     * @return a boolean value specifying the game's continuity
      */
     public static boolean isCat(char[][] board, int i)
     {
+        // assume if the game is on the tenth round, automatic draw
         if(i >= 10)
         {
             return true;
         }
         return false;
-    }
+    } // END: isCat method
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: isMoveValid <br>
+     * Method Purpose: determine the validity of the desired move <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param move a string containing the desired move
+     * @return a boolean refering to the validity of the move
      */
     public static boolean isMoveValid(String move)
     {
-        //TODO - Finish Documentation
+        // define possible moves
         String[] possibleMoves = {"A1","A2","A3", "B1", "B2", "B3", "C1", "C2", "C3"};
 
+        // check the desired move by looping through array
         for(String possibleMove : possibleMoves)
         {
+            // if the desired moves matches an element within the array, return true
             if(move.equals(possibleMove))
             {
                 return true;
             }
         } 
-        return false;
-    }
 
-    //TODO - Finish Documentation
+        // else, return false
+        return false;
+    } // END: isMoveValid method
+
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: isWinner <br>
+     * Method Purpose: determine if a player has won the game <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param board a character array that represents the playing surface
+     * @param PLAYER a character value specifying the current player
+     * @return a boolean specifying if a player has won
      */
     public static boolean isWinner(char[][] board, char PLAYER)
     {
-        //TODO - Finish Documentation
-        // Check each column and row for a winner
+        /* Check each column and row for a winner
+         * if a win has occured, return true 
+         */
         for(int i = 0; i <= 2; i++)
         {
             if (board[i][0] == board[i][1] && board[i][0] == board[i][2])
@@ -982,7 +1033,9 @@ public class Project3
             }
         }
 
-        // check '\' diagonal for winner
+        /* check '\' diagonal for winner
+         * if a win has occured, return true
+         */
         if (board[0][0] == board[1][1] && board[0][0] == board[2][2])
         {
             if (!(board[1][1] == ' '))
@@ -991,7 +1044,9 @@ public class Project3
             }
         }
          
-        // check '/' diagonal for winner
+        /* check '/' diagonal for winner
+         * if a win has occured, return true
+         */
         if (board[0][2] == board[1][1] && board[0][2] == board[2][0])
         {
             if (!(board[1][1] == ' '))
@@ -999,72 +1054,62 @@ public class Project3
                 return true;
             }
         }
-         
+        
+        // else, return false
         return false;
-    }
+    } // END: isWinner method
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: playAgain <br>
+     * Method Purpose: determine if you user would like to play again <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
-     * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      */
     public static void playAgain()
     {
-        //TODO - Finish Documentation
+        // Class Instances
         Scanner keyboard = new Scanner(System.in);
-        char decision = ' ';
 
+        // Variables
+        char decision = ' '; // to hold the users decision
+
+        // while the user hasn't entered a value, ask them for the decision
         while (decision == ' ')
         {
             System.out.print("\nWould you like to play again? (Y/N) ");
             decision = keyboard.nextLine().toUpperCase().charAt(0);
         }
 
+        // if the user says yes, restart the game
         if (decision == 'Y')
         {
             game();
         }
+
+        // if the user says otherwise, end the game
         else
         {
             System.out.println("Thank you for playing!");
             System.exit(0);
         }
-    }
+    } // END: playAgain method
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: printBoard <br>
+     * Method Purpose: display the playing surface on the command line <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: Movember 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param board a character array that represents the playing surface
      */
     public static void printBoard(char[][] board)
     {
-        //TODO - Finish Documentation
+        // Displaying the playing surface via the command line
         System.out.println("\n"
             +"\n\t " + board[0][0] + " | " + board[1][0] + " | " + board[2][0]
             +"\n\t---|---|---"
@@ -1074,27 +1119,34 @@ public class Project3
             +"\n\n");
     }
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: submitMove <br>
+     * Method Purpose: determine if the desired move is available,
+     * if so, add the move to the board and return true
+     * else, don't add the move and return false <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
      * Notes on specifications, special algorithms, and assumptions:
      * notes go here
      *
      * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param move a string containing the desired move
+     * @param board a character array that represents the playing surface
+     * @param PLAYER a character that specifies the current player
+     * @return a boolean value that specifies the validity of the move
      */
     public static boolean submitMove(String move, char[][] board, char PLAYER)
     {
-        //TODO - Finish Documentation
+        /* Determine if the desired move is even possible
+         * Then determine if the move is available
+         * 
+         * if both = true, add the move to the board and return true
+         * if either = false, return false
+         */ 
         if (move.equals("A1"))
         {
             if (board[0][0] == ' ')
@@ -1168,29 +1220,20 @@ public class Project3
             } 
         }
         return false;
-    }
+    } // END: submitMove method
 
-    //TODO - Finish Documentation
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: welcome <br>
+     * Method Purpose: introduce the game to the player inform
+     * them of the rules and how to play<br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
-     * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      */
     public static void welcome()
     {
-        //TODO - Finish Documentation
+        // introduce the game to the user, the rules, and how to play
         System.out.println(
               "Welcome to my tic tac toe game!\n" 
             + "The board is layed out in a 3x3 grid as such:\n"
@@ -1208,5 +1251,5 @@ public class Project3
             + "2) To win, there must be 3 of a kind in a straight line in any direction\n"
             + "3) To place your chracter, you will be asked to enter a String (A-C,1-3)\n"
             + "4) Have fun!");
-    }
-}
+    } // END: welcome method
+} // END: Project3 class
