@@ -1,3 +1,4 @@
+import java.util.Random;
 public class Computer
 {
     char id;
@@ -38,7 +39,7 @@ public class Computer
         {
             return;
         }
-        generateRandomMove(someBoard);
+        getRandomMove(someBoard);
     }
 
     public boolean checkForBestMove(Board someBoard, boolean offensive)
@@ -348,6 +349,8 @@ public class Computer
         return false;
     } // END: checkForBestMove method
 
+
+
     public boolean checkForStrategicMove(Board someBoard, int round)
     {
         char[][] board = someBoard.playingSurface;
@@ -371,8 +374,10 @@ public class Computer
             {
                 // play in column 1, slot 1
                 someBoard.submitMove("A1", this.id);
+
+                // return to runtime environment
                 return true;
-            }
+            } // END: case 1
 
             // round 2
             case 2:
@@ -383,15 +388,21 @@ public class Computer
                  */
                 if (board[1][1] == 'O')
                 {
+                    // play in column 1, slot 1
                     someBoard.submitMove("A1", this.id);
+
+                    // return to runtime environment
                     return true;
                 }
                 else
                 {
+                    // play in column 1, slot 2
                     someBoard.submitMove("A2", this.id);
+
+                    // return to runtime environment
                     return true;
                 }
-            }
+            } // END: case 2
 
             // round 3
             case 3:
@@ -401,6 +412,8 @@ public class Computer
                 {
                     // play in column 3, slot 3
                     someBoard.submitMove("C3", this.id);
+
+                    // return to runtime environment
                     return true;
                 }
 
@@ -409,6 +422,8 @@ public class Computer
                 {
                     // play in column 1, slot 3
                     someBoard.submitMove("A3", this.id);
+
+                    // return to runtime environment
                     return true;
                 }
 
@@ -417,12 +432,14 @@ public class Computer
                 {
                     // play in column 3, slot 1
                     someBoard.submitMove("C1", this.id);
+
+                    // return to runtime environment
                     return true;
                 }
 
                 // break out of the switch
                 break;
-            }
+            } // END: case 3
 
             // round 4
             case 4:
@@ -435,6 +452,8 @@ public class Computer
                 {
                     // play in column 1, slot 2
                     someBoard.submitMove("A2", this.id);
+
+                    // return to runtime environment
                     return true;
                 }
 
@@ -446,12 +465,14 @@ public class Computer
                 {
                     // play in column 3, slot 2
                     someBoard.submitMove("C2", this.id);
+
+                    // return to runtime environment
                     return true;
                 }
 
                 // break away from the switch
                 return false;
-            }
+            } // END: case 4
 
             // rounds 5 & 6
             case 5:
@@ -464,7 +485,22 @@ public class Computer
                      * if true: column 3, slot 3
                      * if false: column 3, slot 1
                      */
-                    return (board[2][0] == offender) ? "C3" : "C1";
+                    if (board[2][0] == offender)
+                    {
+                        // play in column 3, slot 3
+                        someBoard.submitMove("C3", this.id);
+
+                        // return to runtime environment
+                        return true;
+                    }
+                    else
+                    {
+                        // play in column 3, slot 1
+                        someBoard.submitMove("C1", this.id);
+
+                        // return to runtime environment
+                        return true;
+                    }
                 }
 
                 // Check if the user has played in any of the last two slots in column 1 and row 3
@@ -475,119 +511,256 @@ public class Computer
                      * if false: column 1, slot 3
                      */
                     return (board[0][2] == offender) ? "C3" : "A3";
+                    if (board[0][2] == offender)
+                    {
+                        // play in column 3, slot 3
+                        someBoard.submitMove("C3", this.id);
+
+                        // return to runtime environment
+                        return true;
+                    }
                 }
 
                 // check if the middle slot in empty
                 else if(board[1][1] == ' ')
                 {
-                    // column 2, slot 2
-                    return "B2";
+                    // play in column 2, slot 2
+                    someBoard.submitMove("B2", this.id);
+
+                    // return to the runtime environment
+                    return true;
                 }
 
                 // break away from the switch
                 break;
-            }
+            } // END: cases 5 & 6
 
             // round 7
             case 7:
             {
                 // check if the computer has a winning chance via the first row
-                if (board[1][0] != 'O' && board[2][0] != 'O')
+                if (board[1][0] != defender && board[2][0] != defender)
                 {
                     // check which slot in which the computer has already played
-                    if(board[1][0] == 'X')
+                    if(board[1][0] == offender)
                     {
-                        // column 3, slot 1
-                        return "C1";
+                        // play in column 3, slot 1
+                        someBoard.submitMove("C1", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
-                    else if(board[2][0] == 'X')
+                    else if(board[2][0] == offender)
                     {
                         // column 2, slot 1
-                        return "B1";
+                        someBoard.submitMove("B1", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
                 }
 
                 // check if the computer has a winning chance via the first column
-                else if (board[0][1] != 'O' && board[0][2] != 'O')
+                else if (board[0][1] != defender && board[0][2] != defender)
                 {
                     // check which slot in which the computer has already played
-                    if (board[0][1] == 'X')
+                    if (board[0][1] == offender)
                     {
                         // column 1, slot 3
-                        return "A3";
+                        someBoard.submitMove("A3", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
-                    else if (board[0][2] == 'X')
+                    else if (board[0][2] == offender)
                     {
                         // column 1, slot 2
-                        return "A2";
+                        someBoard.submitMove("A2", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
                 }
 
                 // check if the computer has a winning chance via row 3
-                else if (board[0][2] != 'X' && board[1][2] != 'O' && board[2][2] != 'X')
+                else if (board[0][2] != offender && board[1][2] != defender && board[2][2] != offender)
                 {
                     // column 2, slot 3
-                    return "B3";
+                    someBoard.submitMove("B3", this.id);
+
+                    // return to runtime environment
+                    return true;
                 }
 
                 // check if the computer has a winning chance column 3
-                else if (board[2][0] != 'X' && board[2][1] != 'O' && board[2][2] != 'X')
+                else if (board[2][0] != offender && board[2][1] != defender && board[2][2] != offender)
                 {
                     // column 3, slot 2
-                    return "C2";
+                    someBoard.submitMove("C2", this.id);
+
+                    // return to runtime environment
+                    return true;
                 }
 
                 // check if the computer has a winning chance via the '/' diagonal
-                else if (board[0][2] != 'O' && board[1][1] != 'O' && board[2][0] != 'O')
+                else if (board[0][2] != defender && board[1][1] != defender && board[2][0] != defender)
                 {
                     // check if the computer has occupied the first two slots
-                    if(board[0][2] == 'X' && board[1][1] == 'X')
+                    if(board[0][2] == offender && board[1][1] == offender)
                     {
                         // column 1, slot 1
-                        return "C1";
+                        someBoard.submitMove("A1", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
 
                     // check if the computer has occupied the two outer slots
-                    else if(board[0][2] == 'X' && board[1][1] == 'X')
+                    else if(board[0][2] == offender && board[1][1] == offender)
                     {
                         // column 2, slot 2
-                        return "B2";
+                        someBoard.submitMove("B2", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
 
                     // check if the computer has occupied the last two slots
-                    else if(board[2][0] == 'X' && board[1][1] == 'X')
+                    else if(board[2][0] == offender && board[1][1] == offender)
                     {
                         // column 1, slot 3
-                        return "A3";
+                        someBoard.submitMove("A3", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
                 }
 
                 // check if the computer has a winning chance via the '\' diagonal
-                else if (board[1][1] != 'O' && board[2][2] != 'O')
+                else if (board[1][1] != defender && board[2][2] != defender)
                 {
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the middle slot
                      */
-                    if (board[1][1] == 'X')
+                    if (board[1][1] == offender)
                     {
                         // column 3, slot 3
-                        return "C3";
+                        someBoard.submitMove("C3", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
 
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the last slot
                      */
-                    else if (board[2][2] == 'X')
+                    else if (board[2][2] == offender)
                     {
                         // column 2, slot 2
-                        return "B2";
+                        someBoard.submitMove("B2", this.id);
+
+                        // return to runtime environment
+                        return true;
                     }
                 }
 
                 // break away from the switch
                 break;
-            }
-        }
+            } // END: case 7
 
+            default:
+            {
+                return false;
+            } // END: default case
+        } //END: switch(round)
+    } // END: checkForStrategicMove method
+
+
+
+    public void getRandomMove(Board someBoard)
+    {
+        String move = "A4";
+        do 
+        {
+            move = randomMoveGenerator()
+        } while (!someBoard.isMoveAvailable(move));
+        someBoard.submitMove(move, this.id);
+        
+        // return to the runtime environment
+        return;
+    }
+
+    public String randomMoveGenerator()
+    {
+        Random random = new Random();
+        // randomly generate a number from 0-8
+        int randomNumber = random.nextInt(8);
+
+        // covert the random number into an actual move
+        switch(randomNumber)
+        {
+            // random number = 0
+            case 0:
+            {
+                // column 1, slot 1
+                return "A1";
+            }
+ 
+            // random number = 1
+            case 1:
+            {
+                // column 1, slot 2
+                return "A2";
+            }
+ 
+            // random number = 2
+            case 2:
+            {
+                // column 1, slot 3
+                return "A3";
+            }
+ 
+            // random number = 3
+            case 3:
+            {
+                // column 2, slot 1
+                return "B1";
+            }
+ 
+            // random number = 4
+            case 4:
+            {
+                // column 2, slot 2
+                return "B2";
+            }
+ 
+            // random number = 5
+            case 5:
+            {
+                // column 2, slot 3
+                return "B3";
+            }
+ 
+            // random number = 6
+            case 6:
+            {
+                // column 3, slot 1
+                return "C1";
+            }
+ 
+            // random number = 7
+            case 7:
+            {
+                // column 3, slot 2
+                return "C2";
+            }
+ 
+            // random number = 8
+            case 8:
+            {
+                // column 3, slot 3
+                return "C3";
+            } 
+         } // END: switch case = randomNumber
     }
 } // END: Computer class
