@@ -41,17 +41,85 @@ public class Project4
 
     public static void playerVsPlayer()
     {
+        Random random = new Random();
+        Player player1 = new Player('X');
+        Player player2 = new Player('O');
+        Board board = new Board();
+        Scanner keyboard = new Scanner(System.in);
+        boolean toggle = random.nextBoolean();
+        String move = "flag";
 
+        for(int i = 1; i < 10; i++)
+        {
+            if (i == 1)
+            {
+                if(toggle)
+                {
+                    System.out.println("Player 1 gets to start!");
+                    player1.move(board);
+                    toggle = false;
+                }
+                else
+                {
+                    System.out.println("Player 2 gets to start!");
+                    player2.move(board);
+                    toggle = true;
+                }
+            }
+            else if (toggle)
+            {
+                player1.move(board);
+                toggle = false;
+            }
+            else
+            {
+                player2.move(board);
+                toggle = true;
+            }
+
+            if (i > 9 && !board.isCat())
+            {
+                System.out.println("The game has concluded in a draw!");
+                playAgain();
+            }
+        }
     }
 
     public static void playerVsComputer()
     {
+        Random random = new Random();
+        Player player = new Player();
+        Computer computer = new Computer();
+        Board board = new Board();
+        Scanner keyboard = new Scanner(System.in);
+        boolean toggle = random.nextBoolean();
 
+        if (toggle)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     public static void computerVsComputer()
     {
+        Random random = new Random();
+        Computer computer1 = new Computer('X');
+        Computer computer2 = new Computer('O');
+        Board board = new Board();
+        boolean toggle = random.nextBoolean();
 
+        if (toggle)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     public static void playAgain()

@@ -4,6 +4,11 @@ public class Player
 {
     char id;
 
+    public Player()
+    {
+        this.id = 'O';
+    }
+
     public Player(char character)
     {
         this.id = character;
@@ -28,13 +33,9 @@ public class Player
         {
             System.out.print("Where would you like to play?");
             move = keyboard.nextLine();
-        } while(!board.isMoveValid(move) && !board.isMoveAvailable(move));
+        } while(!(board.isMoveValid(move)) && !board.isMoveAvailable(move));
 
-        board.submitMove(move);
-    }
-
-    public boolean isMoveValid(String move)
-    {
-        return true;
+        board.submitMove(move, this.id);
+        board.printBoard();
     }
 }

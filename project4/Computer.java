@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Computer
 {
     char id;
@@ -22,7 +24,7 @@ public class Computer
         return this.id;
     }
 
-    public void move(Board someBoard, round)
+    public void move(Board someBoard, int round)
     {
         if (checkForBestMove(someBoard, true))
         {
@@ -464,7 +466,16 @@ public class Computer
                      * if true: column 3, slot 3
                      * if false: column 3, slot 1
                      */
-                    return (board[2][0] == offender) ? "C3" : "C1";
+                    if (board[2][0] == offender)
+                    {
+                        someBoard.submitMove("C3", this.id);
+                        return true;
+                    }
+                    else
+                    {
+                        someBoard.submitMove("C3", this.id);
+                        return true;
+                    }
                 }
 
                 // Check if the user has played in any of the last two slots in column 1 and row 3
@@ -474,14 +485,24 @@ public class Computer
                      * if true: column 3, slot 3
                      * if false: column 1, slot 3
                      */
-                    return (board[0][2] == offender) ? "C3" : "A3";
+                    if (board[0][2] == offender)
+                    {
+                        someBoard.submitMove("C3", this.id);
+                        return true;
+                    }
+                    else
+                    {
+                        someBoard.submitMove("A3", this.id);
+                        return true;
+                    }
                 }
 
                 // check if the middle slot in empty
                 else if(board[1][1] == ' ')
                 {
                     // column 2, slot 2
-                    return "B2";
+                    someBoard.submitMove("B2", this.id);
+                    return true;
                 }
 
                 // break away from the switch
@@ -498,12 +519,15 @@ public class Computer
                     if(board[1][0] == 'X')
                     {
                         // column 3, slot 1
-                        return "C1";
+                        someBoard.submitMove("C1", this.id);
+                        return true;
+
                     }
                     else if(board[2][0] == 'X')
                     {
                         // column 2, slot 1
-                        return "B1";
+                        someBoard.submitMove("B1", this.id);
+                        return true;
                     }
                 }
 
@@ -514,12 +538,14 @@ public class Computer
                     if (board[0][1] == 'X')
                     {
                         // column 1, slot 3
-                        return "A3";
+                        someBoard.submitMove("A3", this.id);
+                        return true;
                     }
                     else if (board[0][2] == 'X')
                     {
                         // column 1, slot 2
-                        return "A2";
+                        someBoard.submitMove("A2", this.id);
+                        return true;
                     }
                 }
 
@@ -527,14 +553,16 @@ public class Computer
                 else if (board[0][2] != 'X' && board[1][2] != 'O' && board[2][2] != 'X')
                 {
                     // column 2, slot 3
-                    return "B3";
+                    someBoard.submitMove("B3", this.id);
+                    return true;
                 }
 
                 // check if the computer has a winning chance column 3
                 else if (board[2][0] != 'X' && board[2][1] != 'O' && board[2][2] != 'X')
                 {
                     // column 3, slot 2
-                    return "C2";
+                    someBoard.submitMove("C2", this.id);
+                    return true;
                 }
 
                 // check if the computer has a winning chance via the '/' diagonal
@@ -544,21 +572,24 @@ public class Computer
                     if(board[0][2] == 'X' && board[1][1] == 'X')
                     {
                         // column 1, slot 1
-                        return "C1";
+                        someBoard.submitMove("C1", this.id);
+                        return true;
                     }
 
                     // check if the computer has occupied the two outer slots
                     else if(board[0][2] == 'X' && board[1][1] == 'X')
                     {
                         // column 2, slot 2
-                        return "B2";
+                        someBoard.submitMove("B2", this.id);
+                        return true;
                     }
 
                     // check if the computer has occupied the last two slots
                     else if(board[2][0] == 'X' && board[1][1] == 'X')
                     {
                         // column 1, slot 3
-                        return "A3";
+                        someBoard.submitMove("A3", this.id);
+                        return true;
                     }
                 }
 
@@ -571,7 +602,8 @@ public class Computer
                     if (board[1][1] == 'X')
                     {
                         // column 3, slot 3
-                        return "C3";
+                        someBoard.submitMove("C3", this.id);
+                        return true;
                     }
 
                     /* assuming the computer has occupied the first slot,
@@ -580,7 +612,8 @@ public class Computer
                     else if (board[2][2] == 'X')
                     {
                         // column 2, slot 2
-                        return "B2";
+                        someBoard.submitMove("B2", this.id);
+                        return true;
                     }
                 }
 
@@ -588,6 +621,87 @@ public class Computer
                 break;
             }
         }
+        return false;
+    }
 
+    public void generateRandomMove(Board someboard)
+    {
+        Random random = new Random();
+        String move = "flag";
+
+        do
+        {
+            // randomly generate a number from 0-8
+            int randomNumber = random.nextInt(8);
+
+            // covert the random number into an actual move
+            switch(randomNumber)
+            {
+                // random number = 0
+                case 0:
+                {
+                    // column 1, slot 1
+                    move = "A1";
+                }
+
+                // random number = 1
+                case 1:
+                {
+                    // column 1, slot 2
+                    move = "A2";
+                }
+
+                // random number = 2
+                case 2:
+                {
+                    // column 1, slot 3
+                    move = "A3";
+                }
+
+                // random number = 3
+                case 3:
+                {
+                    // column 2, slot 1
+                    move = "B1";
+                }
+
+                // random number = 4
+                case 4:
+                {
+                    // column 2, slot 2
+                    move = "B2";
+                }
+
+                // random number = 5
+                case 5:
+                {
+                    // column 2, slot 3
+                    move = "B3";
+                }
+
+                // random number = 6
+                case 6:
+                {
+                    // column 3, slot 1
+                    move = "C1";
+                }
+
+                // random number = 7
+                case 7:
+                {
+                    // column 3, slot 2
+                    move = "C2";
+                }
+
+                // random number = 8
+                case 8:
+                {
+                    // column 3, slot 3
+                    move = "C3";
+                }
+            } // END: switch case = randomNumber
+        } while (!someboard.isMoveAvailable(move));
+
+        someboard.submitMove(move, this.id);
     }
 } // END: Computer class
