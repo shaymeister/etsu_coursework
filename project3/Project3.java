@@ -3,9 +3,9 @@
  * File name: Project3.java
  * Project name: Project 3
  * -----------------------------------------------------------------------------
- * Author’s name and email: Shay Snyder snyderse2@etsu.edu			
+ * Author’s name and email: Shay Snyder snyderse2@etsu.edu
  * Course-Section: CSCI 1250-088
- * Creation Date: November 7, 2019	
+ * Creation Date: November 7, 2019
  * Last modified: (Shay Snyder, 11/11/2019, snyderse2@etsu.edu)
  * -----------------------------------------------------------------------------
  */
@@ -42,7 +42,7 @@ public class Project3
         welcome();
 
         // Start the game itself
-        game(); 
+        game();
     } //END: 'main' method
 
     /**
@@ -179,7 +179,7 @@ public class Project3
     {
         // Class Instances
         Random random = new Random();
-        
+
         // Loop through every row and column, checking for winning moves
         for(int i = 0; i <= 2; i++)
         {
@@ -227,7 +227,7 @@ public class Project3
                     }
                     else if (i == 2)
                     {
-                        // column 3, first slot 
+                        // column 3, first slot
                         return "C1";
                     }
                 } // END: if the last two slots are occupied by computer
@@ -327,7 +327,7 @@ public class Project3
                         return "B3";
                     }
                 } // END: if outer two slots are occupied by the computer
-            } // END: looping through rows for winning move 
+            } // END: looping through rows for winning move
         } // END: looping through all rows and columns for winning move
 
         // check '\' diagonal for winning move
@@ -392,7 +392,7 @@ public class Project3
                     // determine which column to play into
                     if (i == 0)
                     {
-                        // column 1, last slot 
+                        // column 1, last slot
                         return "A3";
                     }
                     else if (i == 1)
@@ -567,7 +567,7 @@ public class Project3
                 return "C1";
             }
         } // END: checking for potential loss in the '\' diagonal
-        
+
         // this switch is used when there are no available winning or defensive moves available
         switch(round)
         {
@@ -638,7 +638,7 @@ public class Project3
                     // column 3, slot 2
                     return "C2";
                 }
-                
+
                 // break away from the switch
                 break;
             }
@@ -647,13 +647,13 @@ public class Project3
             case 5:
             case 6:
             {
-                // Check if the user has played in any of the last two slots in row 1 and column 3 
+                // Check if the user has played in any of the last two slots in row 1 and column 3
                 if(board[1][0] != 'O' && board[2][0] != 'O' && board[2][1] != 'O' && board[2][2] != 'O')
                 {
                     /* Check if the computer has previously gone in the second column, row 2
                      * if true: column 3, slot 3
                      * if false: column 3, slot 1
-                     */ 
+                     */
                     return (board[2][0] == 'X') ? "C3" : "C1";
                 }
 
@@ -663,13 +663,13 @@ public class Project3
                     /* Check if the computer has previously gone in the first column, row 3
                      * if true: column 3, slot 3
                      * if false: column 1, slot 3
-                     */ 
+                     */
                     return (board[0][2] == 'X') ? "C3" : "A3";
                 }
 
                 // check if the middle slot in empty
                 else if(board[1][1] == ' ')
-                { 
+                {
                     // column 2, slot 2
                     return "B2";
                 }
@@ -736,7 +736,7 @@ public class Project3
                         // column 1, slot 1
                         return "C1";
                     }
-                    
+
                     // check if the computer has occupied the two outer slots
                     else if(board[0][2] == 'X' && board[1][1] == 'X')
                     {
@@ -757,7 +757,7 @@ public class Project3
                 {
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the middle slot
-                     */ 
+                     */
                     if (board[1][1] == 'X')
                     {
                         // column 3, slot 3
@@ -766,14 +766,14 @@ public class Project3
 
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the last slot
-                     */ 
+                     */
                     else if (board[2][2] == 'X')
                     {
                         // column 2, slot 2
                         return "B2";
                     }
                 }
-                
+
                 // break away from the switch
                 break;
             }
@@ -846,7 +846,7 @@ public class Project3
             {
                 // column 3, slot 3
                 return "C3";
-            } 
+            }
         } // END: switch case = randomNumber
         return null;
     } // END: generateMove method
@@ -858,7 +858,7 @@ public class Project3
      * <hr>
      * Date created: November 11, 2019 <br>
      * Last modified: November 11, 2019 <br>
-     * 
+     *
      * <hr>
      *   @param board a character array that represents the playing surface
      *   @param round an integer that represents game progression
@@ -868,7 +868,7 @@ public class Project3
     {
         // Class instances
         Scanner keyboard = new Scanner(System.in);
-        
+
         // variables
         String move = "none"; // to hold the move of the player
         char PLAYER = 'O';    // specifes the user's representation on the board
@@ -876,7 +876,7 @@ public class Project3
 
         // while move is invalid, ask the user for their desired move
         while(!isMoveValid(move) || !submitMove(move, board, PLAYER))
-        {   
+        {
             // check if the user has entered an incorrect value and it trying again
             if (counter++ > 0)
             {
@@ -898,7 +898,7 @@ public class Project3
             // ask the user for their desired move
             move = keyboard.nextLine();
         }
-        
+
         // check if the user has won the game
         checkStatus(board, PLAYER);
 
@@ -921,7 +921,7 @@ public class Project3
     public static void checkStatus(char[][] board, char PLAYER)
     {
         // check for a winner
-        if (isWinner(board, PLAYER)) 
+        if (isWinner(board, PLAYER))
         {
             // display the board to the screen
             printBoard(board);
@@ -991,7 +991,7 @@ public class Project3
             {
                 return true;
             }
-        } 
+        }
 
         // else, return false
         return false;
@@ -1013,7 +1013,7 @@ public class Project3
     public static boolean isWinner(char[][] board, char PLAYER)
     {
         /* Check each column and row for a winner
-         * if a win has occured, return true 
+         * if a win has occured, return true
          */
         for(int i = 0; i <= 2; i++)
         {
@@ -1023,7 +1023,7 @@ public class Project3
                 {
                     return true;
                 }
-            } 
+            }
             if (board[0][i] == board[1][i] && board[0][i] == board[2][i])
             {
                 if (!(board[0][i] == ' '))
@@ -1043,7 +1043,7 @@ public class Project3
                 return true;
             }
         }
-         
+
         /* check '/' diagonal for winner
          * if a win has occured, return true
          */
@@ -1054,7 +1054,7 @@ public class Project3
                 return true;
             }
         }
-        
+
         // else, return false
         return false;
     } // END: isWinner method
@@ -1143,17 +1143,17 @@ public class Project3
     {
         /* Determine if the desired move is even possible
          * Then determine if the move is available
-         * 
+         *
          * if both = true, add the move to the board and return true
          * if either = false, return false
-         */ 
+         */
         if (move.equals("A1"))
         {
             if (board[0][0] == ' ')
             {
                 board[0][0] = PLAYER;
                 return true;
-            } 
+            }
         }
         else if (move.equals("A2"))
         {
@@ -1161,7 +1161,7 @@ public class Project3
             {
                 board[0][1] = PLAYER;
                 return true;
-            } 
+            }
         }
         else if (move.equals("A3"))
         {
@@ -1169,7 +1169,7 @@ public class Project3
             {
                 board[0][2] = PLAYER;
                 return true;
-            } 
+            }
         }
         else if (move.equals("B1"))
         {
@@ -1177,7 +1177,7 @@ public class Project3
             {
                 board[1][0] = PLAYER;
                 return true;
-            } 
+            }
         }
         else if (move.equals("B2"))
         {
@@ -1185,7 +1185,7 @@ public class Project3
             {
                 board[1][1] = PLAYER;
                 return true;
-            } 
+            }
         }
         else if (move.equals("B3"))
         {
@@ -1193,7 +1193,7 @@ public class Project3
             {
                 board[1][2] = PLAYER;
                 return true;
-            } 
+            }
         }
         else if (move.equals("C1"))
         {
@@ -1201,15 +1201,15 @@ public class Project3
             {
                 board[2][0] = PLAYER;
                 return true;
-            } 
-        }   
+            }
+        }
         else if (move.equals("C2"))
         {
             if (board[2][1] == ' ')
             {
                 board[2][1] = PLAYER;
                 return true;
-            } 
+            }
         }
         else if (move.equals("C3"))
         {
@@ -1217,7 +1217,7 @@ public class Project3
             {
                 board[2][2] = PLAYER;
                 return true;
-            } 
+            }
         }
         return false;
     } // END: submitMove method
@@ -1235,7 +1235,7 @@ public class Project3
     {
         // introduce the game to the user, the rules, and how to play
         System.out.println(
-              "Welcome to my tic tac toe game!\n" 
+              "Welcome to my tic tac toe game!\n"
             + "The board is layed out in a 3x3 grid as such:\n"
             + "\n"
             + "\t(A1)|(B1)|(C1)\n"
