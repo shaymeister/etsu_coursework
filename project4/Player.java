@@ -26,14 +26,14 @@ public class Player
 
     public void move(Board board)
     {
-        String move = null;
+        String move = "flag";
         Scanner keyboard = new Scanner(System.in);
 
-        do
+        while(!board.isMoveAvailable(move))
         {
-            System.out.print("Where would you like to play?");
+            System.out.print("Where would you like to play? ");
             move = keyboard.nextLine();
-        } while(!(board.isMoveValid(move)) && !board.isMoveAvailable(move));
+        }
 
         board.submitMove(move, this.id);
         board.printBoard();

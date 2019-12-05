@@ -26,24 +26,42 @@ public class Computer
 
     public void move(Board someBoard, int round)
     {
-        if (checkForBestMove(someBoard, true))
-        {
-            return;
-        }
+        String move = "noMoveAvailable";
 
-        if (checkForBestMove(someBoard, false))
+        do
         {
-            return;
-        }
+            if (move.equals("noMoveAvailable"))
+            {
+                move = checkForBestMove(someBoard, true);
+            }
 
-        if (checkForStrategicMove(someBoard, round))
-        {
-            return;
-        }
-        generateRandomMove(someBoard);
+            if (move.equals("noMoveAvailable"))
+            {
+                move = checkForBestMove(someBoard, true);
+            }
+
+            if (move.equals("noMoveAvailable"))
+            {
+                move = checkForStrategicMove(someBoard, round);
+            }
+
+            if (move.equals("noMoveAvailable"))
+            {
+                move = checkForBestMove(someBoard, true);
+            }
+
+            if (move.equals("noMoveAvailable"))
+            {
+                move = generateRandomMove(someBoard);
+            }
+
+        } while (!someBoard.isMoveAvailable(move));
+
+        someBoard.submitMove(move, this.id);
+        someBoard.printBoard();
     }
 
-    public boolean checkForBestMove(Board someBoard, boolean offensive)
+    public String checkForBestMove(Board someBoard, boolean offensive)
     {
         char[][] board = someBoard.playingSurface;
         char offender = ' ';
@@ -90,26 +108,17 @@ public class Computer
                     if (i == 0)
                     {
                         // play in column 1, last slot
-                        someBoard.submitMove("A3", this.id);
-
-                        // return to the runtime environment
-                        return true;
+                        return "A3";
                     }
                     else if (i == 1)
                     {
                         // play in column 2, last slot
-                        someBoard.submitMove("B3", this.id);
-
-                        // return to the runtime environment
-                        return true;
+                        return "B3";
                     }
                     else if (i == 2)
                     {
                         // play in column 3, last slot
-                        someBoard.submitMove("C3", this.id);
-
-                        // return to the runtime environment
-                        return true;
+                        return "B3";
                     }
                 } // END: if first two slots are occupied by computer
 
@@ -122,26 +131,17 @@ public class Computer
                     if (i == 0)
                     {
                         // play in column 1, first slot
-                        someBoard.submitMove("A1", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "A1";
                     }
                     else if (i == 1)
                     {
                         // play in column 2, first slot
-                        someBoard.submitMove("B1", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "B1";
                     }
                     else if (i == 2)
                     {
                         // play in column 3, first slot
-                        someBoard.submitMove("C1", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "B2";
                     }
                 } // END: if the last two slots are occupied by computer
 
@@ -154,26 +154,17 @@ public class Computer
                     if (i == 0)
                     {
                         // pay in column 1, middle slot
-                        someBoard.submitMove("A2", this.id);
-
-                        // return to runtime environent
-                        return true;
+                        return "A2";
                     }
                     else if (i == 1)
                     {
                         // play in column 2, middle slot
-                        someBoard.submitMove("B2", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "B2";
                     }
                     else if (i == 2)
                     {
                         // play in column 3, middle slot
-                        someBoard.submitMove("C2", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "C2";
                     }
                 } // END: if the outer two slots are occupied by computer
             } // END: looping through columns for winning move
@@ -190,26 +181,17 @@ public class Computer
                     if (i == 0)
                     {
                         // play in row 1, last slot
-                        someBoard.submitMove("C1", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "C1";
                     }
                     else if (i == 1)
                     {
                         // play in row 2, last slot
-                        someBoard.submitMove("C2", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "C2";
                     }
                     else if (i == 2)
                     {
                         // play in row 3, last slot
-                        someBoard.submitMove("C3", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "C3";
                     }
                 } // END: if first two slots are occupied by the computer
 
@@ -222,26 +204,17 @@ public class Computer
                     if (i == 0)
                     {
                         // play in row 1, first slot
-                        someBoard.submitMove("A1", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "A1";
                     }
                     else if (i == 1)
                     {
                         // play in row 2, first slot
-                        someBoard.submitMove("A2", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "A2";
                     }
                     else if (i == 2)
                     {
                         // play in row 3, first slot
-                        someBoard.submitMove("A3", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "A3";
                     }
                 } // END: if the last two slots are occupied by the user
 
@@ -254,26 +227,17 @@ public class Computer
                     if (i == 0)
                     {
                         // play in row 1, middle slot
-                        someBoard.submitMove("B1", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "B1";
                     }
                     else if (i == 1)
                     {
                         // play in row 2, middle slot
-                        someBoard.submitMove("B2", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "B2";
                     }
                     else if (i == 2)
                     {
                         // play in row 3, middle slot
-                        someBoard.submitMove("B3", this.id);
-
-                        // return to runtime environment
-                        return true;
+                        return "B3";
                     }
                 } // END: if outer two slots are occupied by the computer
             } // END: looping through rows for winning move
@@ -286,30 +250,21 @@ public class Computer
             if (board[0][0] == offender && board[1][1] == offender)
             {
                 // play in column 3, last slot
-                someBoard.submitMove("C3", this.id);
-
-                // return to runtime environment
-                return true;
+                return "C3";
             }
 
             // check if the outer two slots are occupied by the computer
             else if (board[0][0] == offender && board[2][2] == offender)
             {
-                // coplay in lumn 2, middle slot
-                someBoard.submitMove("B2", this.id);
-
-                // return to runtime environment
-                return true;
+                // play in column 2, middle slot
+                return "B2";
             }
 
             // check if last two slots are occupied by the computer
             else if (board[2][2] == offender && board[1][1] == offender)
             {
                 // play in column 1, first slot
-                someBoard.submitMove("A1", this.id);
-
-                // return to runtime environment
-                return true;
+                return "A1";
             }
         } // END: checking for '\' diagonal winning moves
 
@@ -320,36 +275,28 @@ public class Computer
             if (board[2][0] == offender && board[1][1] == offender)
             {
                 //play in  column 1, last slot
-                someBoard.submitMove("A3", this.id);
-
-                // return to runtime environment
-                return true;
+                return "A3";
             }
 
             // check if the outer two slots are occupied by th
             else if (board[2][0] == offender && board[0][2] == offender)
             {
-                // cplay in olumn 2, middle slot
-                someBoard.submitMove("B2", this.id);
-
-                // return to runtime environment
-                return true;
+                // play in column 2, middle slot
+                return "B2";
             }
 
             // check if the first two slots are occupied by the computer
             else if (board[0][2] == offender && board[1][1] == offender)
             {
                 // play in column 3, first slot
-                someBoard.submitMove("C1", this.id);
-
-                // return to runtime environment
-                return true;
+                return "C1";
             }
         } // END: checking for '\' diagonal winning moves
 
-        return false;
+        return "noMoveAvailable";
     } // END: checkForBestMove method
 
+    // TODO finish converting return types
     public boolean checkForStrategicMove(Board someBoard, int round)
     {
         char[][] board = someBoard.playingSurface;
@@ -452,7 +399,7 @@ public class Computer
                 }
 
                 // break away from the switch
-                return false;
+                break;
             }
 
             // rounds 5 & 6
@@ -513,17 +460,17 @@ public class Computer
             case 7:
             {
                 // check if the computer has a winning chance via the first row
-                if (board[1][0] != 'O' && board[2][0] != 'O')
+                if (board[1][0] != defender && board[2][0] != defender)
                 {
                     // check which slot in which the computer has already played
-                    if(board[1][0] == 'X')
+                    if(board[1][0] == offender)
                     {
                         // column 3, slot 1
                         someBoard.submitMove("C1", this.id);
                         return true;
 
                     }
-                    else if(board[2][0] == 'X')
+                    else if(board[2][0] == offender)
                     {
                         // column 2, slot 1
                         someBoard.submitMove("B1", this.id);
@@ -532,16 +479,16 @@ public class Computer
                 }
 
                 // check if the computer has a winning chance via the first column
-                else if (board[0][1] != 'O' && board[0][2] != 'O')
+                else if (board[0][1] != defender && board[0][2] != defender)
                 {
                     // check which slot in which the computer has already played
-                    if (board[0][1] == 'X')
+                    if (board[0][1] == offender)
                     {
                         // column 1, slot 3
                         someBoard.submitMove("A3", this.id);
                         return true;
                     }
-                    else if (board[0][2] == 'X')
+                    else if (board[0][2] == offender)
                     {
                         // column 1, slot 2
                         someBoard.submitMove("A2", this.id);
@@ -550,7 +497,7 @@ public class Computer
                 }
 
                 // check if the computer has a winning chance via row 3
-                else if (board[0][2] != 'X' && board[1][2] != 'O' && board[2][2] != 'X')
+                else if (board[0][2] != offender && board[1][2] != defender && board[2][2] != defender)
                 {
                     // column 2, slot 3
                     someBoard.submitMove("B3", this.id);
@@ -558,7 +505,7 @@ public class Computer
                 }
 
                 // check if the computer has a winning chance column 3
-                else if (board[2][0] != 'X' && board[2][1] != 'O' && board[2][2] != 'X')
+                else if (board[2][0] != offender && board[2][1] != defender && board[2][2] != defender)
                 {
                     // column 3, slot 2
                     someBoard.submitMove("C2", this.id);
@@ -566,10 +513,10 @@ public class Computer
                 }
 
                 // check if the computer has a winning chance via the '/' diagonal
-                else if (board[0][2] != 'O' && board[1][1] != 'O' && board[2][0] != 'O')
+                else if (board[0][2] != defender && board[1][1] != defender && board[2][0] != defender)
                 {
                     // check if the computer has occupied the first two slots
-                    if(board[0][2] == 'X' && board[1][1] == 'X')
+                    if(board[0][2] == offender && board[1][1] == offender)
                     {
                         // column 1, slot 1
                         someBoard.submitMove("C1", this.id);
@@ -577,7 +524,7 @@ public class Computer
                     }
 
                     // check if the computer has occupied the two outer slots
-                    else if(board[0][2] == 'X' && board[1][1] == 'X')
+                    else if(board[0][2] == offender && board[1][1] == offender)
                     {
                         // column 2, slot 2
                         someBoard.submitMove("B2", this.id);
@@ -585,7 +532,7 @@ public class Computer
                     }
 
                     // check if the computer has occupied the last two slots
-                    else if(board[2][0] == 'X' && board[1][1] == 'X')
+                    else if(board[2][0] == offender && board[1][1] == offender)
                     {
                         // column 1, slot 3
                         someBoard.submitMove("A3", this.id);
@@ -594,12 +541,12 @@ public class Computer
                 }
 
                 // check if the computer has a winning chance via the '\' diagonal
-                else if (board[1][1] != 'O' && board[2][2] != 'O')
+                else if (board[1][1] != defender && board[2][2] != defender)
                 {
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the middle slot
                      */
-                    if (board[1][1] == 'X')
+                    if (board[1][1] == offender)
                     {
                         // column 3, slot 3
                         someBoard.submitMove("C3", this.id);
@@ -609,7 +556,7 @@ public class Computer
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the last slot
                      */
-                    else if (board[2][2] == 'X')
+                    else if (board[2][2] == offender)
                     {
                         // column 2, slot 2
                         someBoard.submitMove("B2", this.id);

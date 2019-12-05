@@ -68,11 +68,13 @@ public class Project4
             }
             else if (toggle)
             {
+                System.out.println("Player 1's Move");
                 player1.move(board);
                 toggle = false;
             }
             else
             {
+                System.out.println("Player 2's Move");
                 player2.move(board);
                 toggle = true;
             }
@@ -93,14 +95,39 @@ public class Project4
         Board board = new Board();
         Scanner keyboard = new Scanner(System.in);
         boolean toggle = random.nextBoolean();
-
-        if (toggle)
+        for(int round = 1; round < 10; round++)
         {
+            if (round == 1)
+            {
+                if(toggle)
+                {
+                    System.out.println("Computer gets to start!");
+                    computer.move(board, round);
+                    toggle = false;
+                }
+                else
+                {
+                    System.out.println("You get to start!");
+                    player.move(board);
+                    toggle = true;
+                }
+            }
+            if (toggle)
+            {
+                computer.move(board, round);
+                toggle = false;
+            }
+            else
+            {
+                player.move(board);
+                toggle = true;
+            }
 
-        }
-        else
-        {
-
+            if (round > 9 && !board.isCat())
+            {
+                System.out.println("The game has concluded in a draw!");
+                playAgain();
+            }
         }
     }
 
@@ -112,13 +139,39 @@ public class Project4
         Board board = new Board();
         boolean toggle = random.nextBoolean();
 
-        if (toggle)
+        for(int round = 1; round < 10; round++)
         {
+            if (round == 1)
+            {
+                if(toggle)
+                {
+                    System.out.println("Computer 1 gets to start!");
+                    computer1.move(board, round);
+                    toggle = false;
+                }
+                else
+                {
+                    System.out.println("Computer 2 gets to start!");
+                    computer2.move(board, round);
+                    toggle = true;
+                }
+            }
+            else if (toggle)
+            {
+                computer1.move(board, round);
+                toggle = false;
+            }
+            else
+            {
+                computer2.move(board, round);
+                toggle = true;
+            }
 
-        }
-        else
-        {
-
+            if (round > 9 && !board.isCat())
+            {
+                System.out.println("The game has concluded in a draw!");
+                playAgain();
+            }
         }
     }
 

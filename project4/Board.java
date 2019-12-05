@@ -73,7 +73,7 @@ public class Board
 
         for(String validMove : validMoves)
         {
-            if (move == validMove)
+            if (move.equals(validMove))
             {
                 return true;
             }
@@ -83,39 +83,39 @@ public class Board
 
     public boolean isMoveAvailable(String move)
     {
-        if (move == "A1" && this.playingSurface[0][0] == ' ')
+        if (move.equals("A1") && this.playingSurface[0][0] == ' ')
         {
             return true;
         }
-        else if (move == "A2" && this.playingSurface[0][1] == ' ')
+        else if (move.equals("A2") && this.playingSurface[0][1] == ' ')
         {
             return true;
         }
-        else if (move == "A3" && this.playingSurface[0][2] == ' ')
+        else if (move.equals("A3") && this.playingSurface[0][2] == ' ')
         {
             return true;
         }
-        else if (move == "B1" && this.playingSurface[1][0] == ' ')
+        else if (move.equals("B1") && this.playingSurface[1][0] == ' ')
         {
             return true;
         }
-        else if (move == "B2" && this.playingSurface[1][1] == ' ')
+        else if (move.equals("B2") && this.playingSurface[1][1] == ' ')
         {
             return true;
         }
-        else if (move == "B3" && this.playingSurface[1][2] == ' ')
+        else if (move.equals("B3") && this.playingSurface[1][2] == ' ')
         {
             return true;
         }
-        else if (move == "C1" && this.playingSurface[2][0] == ' ')
+        else if (move.equals("C1") && this.playingSurface[2][0] == ' ')
         {
             return true;
         }
-        else if (move == "C2" && this.playingSurface[2][1] == ' ')
+        else if (move.equals("C2") && this.playingSurface[2][1] == ' ')
         {
             return true;
         }
-        else if (move == "C3" && this.playingSurface[2][2] == ' ')
+        else if (move.equals("C3") && this.playingSurface[2][2] == ' ')
         {
             return true;
         }
@@ -127,54 +127,54 @@ public class Board
 
     public void submitMove(String move, char someId)
     {
-        if (move == "A1" && this.playingSurface[0][0] == ' ')
+        if (move.equals("A1") && this.playingSurface[0][0] == ' ')
         {
             this.playingSurface[0][0] = someId;
             return;
         }
-        else if (move == "A2" && this.playingSurface[0][1] == ' ')
+        else if (move.equals("A2") && this.playingSurface[0][1] == ' ')
         {
             this.playingSurface[0][1] = someId;
             return;
         }
-        else if (move == "A3" && this.playingSurface[0][2] == ' ')
+        else if (move.equals("A3") && this.playingSurface[0][2] == ' ')
         {
             this.playingSurface[0][2] = someId;
             return;
         }
-        else if (move == "B1" && this.playingSurface[1][0] == ' ')
+        else if (move.equals("B1") && this.playingSurface[1][0] == ' ')
         {
             this.playingSurface[1][0] = someId;
             return;
         }
-        else if (move == "B2" && this.playingSurface[1][1] == ' ')
+        else if (move.equals("B2") && this.playingSurface[1][1] == ' ')
         {
             this.playingSurface[1][1] = someId;
             return;
         }
-        else if (move == "B3" && this.playingSurface[1][2] == ' ')
+        else if (move.equals("B3") && this.playingSurface[1][2] == ' ')
         {
             this.playingSurface[1][2] = someId;
             return;
         }
-        else if (move == "C1" && this.playingSurface[2][0] == ' ')
+        else if (move.equals("C1") && this.playingSurface[2][0] == ' ')
         {
             this.playingSurface[2][0] = someId;
             return;
         }
-        else if (move == "C2" && this.playingSurface[2][1] == ' ')
+        else if (move.equals("C2") && this.playingSurface[2][1] == ' ')
         {
             this.playingSurface[2][1] = someId;
             return;
         }
-        else if (move == "C3" && this.playingSurface[2][2] == ' ')
+        else if (move.equals("C3") && this.playingSurface[2][2] == ' ')
         {
             this.playingSurface[2][2] = someId;
             return;
         }
         else
         {
-            System.out.println("An unexpected error has occured");
+            System.out.println("An incorrect move has been submitted.");
             System.exit(0);
         }
     }
