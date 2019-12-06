@@ -296,8 +296,7 @@ public class Computer
         return "noMoveAvailable";
     } // END: checkForBestMove method
 
-    // TODO finish converting return types
-    public boolean checkForStrategicMove(Board someBoard, int round)
+    public String checkForStrategicMove(Board someBoard, int round)
     {
         char[][] board = someBoard.playingSurface;
         char offender = ' ';
@@ -319,8 +318,7 @@ public class Computer
             case 1:
             {
                 // play in column 1, slot 1
-                someBoard.submitMove("A1", this.id);
-                return true;
+                return "A1";
             }
 
             // round 2
@@ -332,13 +330,11 @@ public class Computer
                  */
                 if (board[1][1] == 'O')
                 {
-                    someBoard.submitMove("A1", this.id);
-                    return true;
+                    return "A1";
                 }
                 else
                 {
-                    someBoard.submitMove("A2", this.id);
-                    return true;
+                    return "A2";
                 }
             }
 
@@ -349,24 +345,21 @@ public class Computer
                 if(board[1][1] == defender)
                 {
                     // play in column 3, slot 3
-                    someBoard.submitMove("C3", this.id);
-                    return true;
+                    return "C3";
                 }
 
                 // check if the last two slots are available in the first column
                 else if(board[0][1] == ' ' && board[0][2] == ' ')
                 {
                     // play in column 1, slot 3
-                    someBoard.submitMove("A3", this.id);
-                    return true;
+                    return "A3";
                 }
 
                 // check if the last two slots are available in the first row
                 else if(board[1][0] == ' ' && board[2][0] == ' ')
                 {
                     // play in column 3, slot 1
-                    someBoard.submitMove("C1", this.id);
-                    return true;
+                    return "C1";
                 }
 
                 // break out of the switch
@@ -383,8 +376,7 @@ public class Computer
                 if((board[0][0] == defender || board[0][2] == defender) && board[1][1] == offender)
                 {
                     // play in column 1, slot 2
-                    someBoard.submitMove("A2", this.id);
-                    return true;
+                    return "A2";
                 }
 
                 /* check if:
@@ -394,8 +386,7 @@ public class Computer
                 if((board[2][0] == defender || board[2][2] == defender) && board[1][1] == offender)
                 {
                     // play in column 3, slot 2
-                    someBoard.submitMove("C2", this.id);
-                    return true;
+                    return "C2";
                 }
 
                 // break away from the switch
@@ -415,13 +406,11 @@ public class Computer
                      */
                     if (board[2][0] == offender)
                     {
-                        someBoard.submitMove("C3", this.id);
-                        return true;
+                        return "C3";
                     }
                     else
                     {
-                        someBoard.submitMove("C3", this.id);
-                        return true;
+                        return "C1";
                     }
                 }
 
@@ -434,13 +423,11 @@ public class Computer
                      */
                     if (board[0][2] == offender)
                     {
-                        someBoard.submitMove("C3", this.id);
-                        return true;
+                        return "C3";
                     }
                     else
                     {
-                        someBoard.submitMove("A3", this.id);
-                        return true;
+                        return "A3";
                     }
                 }
 
@@ -448,8 +435,7 @@ public class Computer
                 else if(board[1][1] == ' ')
                 {
                     // column 2, slot 2
-                    someBoard.submitMove("B2", this.id);
-                    return true;
+                    return "B2";
                 }
 
                 // break away from the switch
@@ -466,15 +452,13 @@ public class Computer
                     if(board[1][0] == offender)
                     {
                         // column 3, slot 1
-                        someBoard.submitMove("C1", this.id);
-                        return true;
+                        return "C1";
 
                     }
                     else if(board[2][0] == offender)
                     {
                         // column 2, slot 1
-                        someBoard.submitMove("B1", this.id);
-                        return true;
+                        return "B1";
                     }
                 }
 
@@ -485,14 +469,12 @@ public class Computer
                     if (board[0][1] == offender)
                     {
                         // column 1, slot 3
-                        someBoard.submitMove("A3", this.id);
-                        return true;
+                        return "A3";
                     }
                     else if (board[0][2] == offender)
                     {
                         // column 1, slot 2
-                        someBoard.submitMove("A2", this.id);
-                        return true;
+                        return "A2";
                     }
                 }
 
@@ -500,17 +482,17 @@ public class Computer
                 else if (board[0][2] != offender && board[1][2] != defender && board[2][2] != defender)
                 {
                     // column 2, slot 3
-                    someBoard.submitMove("B3", this.id);
-                    return true;
+                    return "B3";
                 }
 
                 // check if the computer has a winning chance column 3
                 else if (board[2][0] != offender && board[2][1] != defender && board[2][2] != defender)
                 {
                     // column 3, slot 2
-                    someBoard.submitMove("C2", this.id);
-                    return true;
+                    return "C2";
                 }
+
+                // TODO Finish refactoring return values
 
                 // check if the computer has a winning chance via the '/' diagonal
                 else if (board[0][2] != defender && board[1][1] != defender && board[2][0] != defender)
