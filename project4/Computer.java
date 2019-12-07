@@ -1,78 +1,162 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File name:
+ * Project name:
+ *
+ * -----------------------------------------------------------------------------
+ * Author’s name and email:
+ * Course-Section:
+ *
+ * Creation Date:
+ * Last modified: (Name, Date, email)
+ *
+ * -----------------------------------------------------------------------------
+ */
+
+// Imports
 import java.util.Random;
 
+/**
+ * Class Name: class name here <br>
+ * Class Purpose: class purpose here <br>
+ *
+ * <hr>
+ * Date created: date here <br>
+ * Last modified: name, email, date here
+ * @author Author’s name here
+ */
 public class Computer
 {
     char id;
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public Computer()
     {
         this.id = 'X';
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public Computer(char someChar)
     {
         this.id = someChar;
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public void setId(char someId)
     {
         this.id = someId;
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public char getId()
     {
         return this.id;
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public void move(Board someBoard, int round)
     {
         String move = "noMoveAvailable";
 
-        // TODO Remove after testing
-        System.out.println("Test Spot 1");
         do
         {
-            // TODO Remove after testing
-            System.out.println("Test Spot 1.1");
-
             if (move.equals("noMoveAvailable"))
             {
-                // TODO Remove after testing
-                System.out.println("Test Spot 1.2");
-
                 move = checkForWinningMove(someBoard);
             }
 
-            // TODO Remove after testing
-            System.out.println("Test Spot 1.3");
-
             if (move.equals("noMoveAvailable"))
             {
-                // TODO Remove after testing
-                System.out.println("Test Spot 1.4");
-
                 move = checkForDefensiveMove(someBoard);
             }
 
-            // TODO Remove after testing
-            System.out.println("Test Spot 1.5");
-
             if (move.equals("noMoveAvailable"))
             {
-                // TODO Remove after testing
-                System.out.println("Test Spot 1.6");
-
                 move = checkForStrategicMove(someBoard, round);
             }
 
-            // TODO Remove after testing
-            System.out.println("Test Spot 1.7");
-
             if (move.equals("noMoveAvailable"))
             {
-                // TODO Remove after testing
-                System.out.println("Test Spot 1.8");
-
                 move = generateRandomMove(someBoard);
             }
 
@@ -83,6 +167,23 @@ public class Computer
         someBoard.printBoard();
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public String checkForWinningMove(Board someBoard)
     {
         char[][] board = someBoard.playingSurface;
@@ -95,26 +196,17 @@ public class Computer
             opponent = 'X';
         }
 
-        // TODO Remove after testing
-        System.out.println("Test Spot 2");
-
         // Loop through every row and column, checking for winning moves
         for(int i = 0; i <= 2; i++)
         {
             // Check if said column is available to conquer
             if (board[i][0] != opponent && board[i][1] != opponent && board[i][2] != opponent)
             {
-                // TODO Remove after testing
-                System.out.println("Test Spot 2.1");
-
                 /* Check if this computer has occupied the first two slots in said column
                  * if so, play in the last slot
                  */
                 if (board[i][0] == computer && board[i][1] == computer)
                 {
-                    // TODO Remove after testing
-                    System.out.println("Test Spot 2.2");
-
                     // Determine which column to play into
                     if (i == 0)
                     {
@@ -138,9 +230,6 @@ public class Computer
                  */
                 else if (board[i][1] == computer && board[i][2] == computer)
                 {
-                    // TODO Remove after testing
-                    System.out.println("Test Spot 2.3");
-
                     // determine which column to play into
                     if (i == 0)
                     {
@@ -164,9 +253,6 @@ public class Computer
                  */
                 else if(board[i][0] == 'X' && board[i][2] == computer)
                 {
-                    // TODO Remove after testing
-                    System.out.println("Test Spot 2.4");
-
                     // determine which column to play into
                     if (i == 0)
                     {
@@ -189,17 +275,11 @@ public class Computer
             // Check if said row is available to conquer
             if (board[0][i] != opponent && board[1][i] != opponent && board[2][i] != opponent)
             {
-                // TODO Remove after testing
-                System.out.println("Test Spot 2.5");
-
                 /* Check if the computer has occupied the first two slots in said row
                  * if so, play in the last slot
                  */
                 if(board[0][i] == computer && board[1][i] == computer)
                 {
-                    // TODO Remove after testing
-                    System.out.println("Test Spot 2.6");
-
                     // Determine which row to play into
                     if (i == 0)
                     {
@@ -223,9 +303,6 @@ public class Computer
                  */
                 else if(board[1][i] == computer && board[2][i] == computer)
                 {
-                    // TODO Remove after testing
-                    System.out.println("Test Spot 2.7");
-
                     // determine which row to play into
                     if (i == 0)
                     {
@@ -249,9 +326,6 @@ public class Computer
                  */
                 else if(board[0][i] == computer && board[2][i] == computer)
                 {
-                    // TODO Remove after testing
-                    System.out.println("Test Spot 2.8");
-
                     // determine which row to play into
                     if (i == 0)
                     {
@@ -326,6 +400,23 @@ public class Computer
         return "noMoveAvailable";
     } // END: checkForBestMove method
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public String checkForDefensiveMove(Board someBoard)
     {
         char[][] board = someBoard.playingSurface;
@@ -530,6 +621,23 @@ public class Computer
         return "noMoveAvailable";
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public String checkForStrategicMove(Board someBoard, int round)
     {
         char[][] board = someBoard.playingSurface;
@@ -777,6 +885,23 @@ public class Computer
         return "noMoveAvailable";
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public String generateRandomMove(Board someboard)
     {
         Random random = new Random();

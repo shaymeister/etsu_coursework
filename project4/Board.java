@@ -1,7 +1,48 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File name:
+ * Project name:
+ *
+ * -----------------------------------------------------------------------------
+ * Author’s name and email:
+ * Course-Section:
+ *
+ * Creation Date:
+ * Last modified: (Name, Date, email)
+ *
+ * -----------------------------------------------------------------------------
+ */
+
+/**
+ * Class Name: class name here <br>
+ * Class Purpose: class purpose here <br>
+ *
+ * <hr>
+ * Date created: date here <br>
+ * Last modified: name, email, date here
+ * @author Author’s name here
+ */
 public class Board
 {
     char[][] playingSurface = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public boolean isCat()
     {
         for (int i = 0; i < 3; i++)
@@ -14,6 +55,23 @@ public class Board
         return true;
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public boolean isWinner()
     {
         /* Check each column and row for a winner
@@ -67,6 +125,23 @@ public class Board
         return false;
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public boolean isMoveValid(String move)
     {
         String[] validMoves = {"A1","A2","A3","B1","B2","B3","C1","C2","C3"};
@@ -81,6 +156,23 @@ public class Board
         return false;
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public boolean isMoveAvailable(String move)
     {
         if (move.equals("A1") && this.playingSurface[0][0] == ' ')
@@ -125,6 +217,23 @@ public class Board
         }
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public void submitMove(String move, char someId)
     {
         if (move.equals("A1") && this.playingSurface[0][0] == ' ')
@@ -179,6 +288,23 @@ public class Board
         }
     }
 
+    /**
+     * Method Name: method name here <br>
+     * Method Purpose: method purpose here <br>
+     *
+     * <hr>
+     * Date created: date here <br>
+     * Last modified: date here <br>
+     *
+     * <hr>
+     * Notes on specifications, special algorithms, and assumptions:
+     * notes go here
+     *
+     * <hr>
+     *   @param  name of param1 description of param1
+     *   @param  name of param2 description of param2, etc.
+     *   @return a String containing the data read from the file.
+     */
     public void printBoard()
     {
         // Displaying the playing surface via the command line
