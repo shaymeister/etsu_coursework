@@ -12,26 +12,34 @@ public class Project4
     public static void startGame()
     {
         Scanner keyboard = new Scanner(System.in);
-        int userChoice = -1;
-        System.out.print("As the user, you have three ways to play the game:"
-                         + "\n1) player vs player"
-                         + "\n2) player vs computer"
-                         + "\n3) computer vs computer"
-                         +"\nEnter an integer: ");
+        char userChoice = ' ';
+        System.out.print("\nAs the user, you have three ways to play the game:"
+                         + "\na) player vs player"
+                         + "\nb) player vs computer"
+                         + "\nc) computer vs computer"
+                         +"\nEnter a character: ");
         do
         {
-            userChoice = keyboard.nextInt();
-        } while (userChoice <= 0 || userChoice >= 4);
+            try
+            {
+                userChoice = keyboard.nextLine().charAt(0);
+            }
+            catch(Exception e)
+            {
+                startGame();
+            }
+        } while (userChoice != 'a' && userChoice != 'b' && userChoice != 'c');
 
+        System.out.println(" ");
         switch(userChoice)
         {
-            case 1:
+            case 'a':
                 playerVsPlayer();
                 break;
-            case 2:
+            case 'b':
                 playerVsComputer();
                 break;
-            case 3:
+            case 'c':
                 computerVsComputer();
                 break;
         }
@@ -49,37 +57,39 @@ public class Project4
         boolean toggle = random.nextBoolean();
         String move = "flag";
 
-        for(int i = 1; i < 10; i++)
+        for(int round = 1; round < 10; round++)
         {
-            if (i == 1)
+            if (round == 1)
             {
                 if(toggle)
                 {
-                    System.out.println("Player 1 gets to start!");
+                    System.out.println("Player 1 gets to start! ( X )");
                     player1.move(board);
                     toggle = false;
                 }
                 else
                 {
-                    System.out.println("Player 2 gets to start!");
+                    System.out.println("Player 2 gets to start! ( O )");
                     player2.move(board);
                     toggle = true;
                 }
             }
             else if (toggle)
             {
-                System.out.println("Player 1's Move");
+                System.out.println("Player 1's Move ( X )");
                 player1.move(board);
+                checkForWinner(board, round, "Player 1");
                 toggle = false;
             }
             else
             {
-                System.out.println("Player 2's Move");
+                System.out.println("Player 2's Move ( O )");
                 player2.move(board);
+                checkForWinner(board, round, "Player 2");
                 toggle = true;
             }
 
-            if (i > 9 && !board.isCat())
+            if (round > 9 && !board.isCat())
             {
                 System.out.println("The game has concluded in a draw!");
                 playAgain();
@@ -101,25 +111,27 @@ public class Project4
             {
                 if(toggle)
                 {
-                    System.out.println("Computer gets to start!");
+                    System.out.println("Computer gets to start! ( X )");
                     computer.move(board, round);
                     toggle = false;
                 }
                 else
                 {
-                    System.out.println("You get to start!");
+                    System.out.println("You get to start! ( O )");
                     player.move(board);
                     toggle = true;
                 }
             }
-            if (toggle)
+            else if (toggle)
             {
                 computer.move(board, round);
+                checkForWinner(board, round, "The computer");
                 toggle = false;
             }
             else
             {
                 player.move(board);
+                checkForWinner(board, round, "You");
                 toggle = true;
             }
 
@@ -145,26 +157,38 @@ public class Project4
             {
                 if(toggle)
                 {
-                    System.out.println("Computer 1 gets to start!");
+                    System.out.println("Computer 1 gets to start!  ( X )");
                     computer1.move(board, round);
                     toggle = false;
                 }
                 else
                 {
-                    System.out.println("Computer 2 gets to start!");
+                    System.out.println("Computer 2 gets to start! ( O )");
                     computer2.move(board, round);
                     toggle = true;
                 }
             }
             else if (toggle)
             {
+                System.out.println("Computer 1's Move ( X )");
                 computer1.move(board, round);
                 toggle = false;
+
+                if (round >= 5)
+                {
+                    checkForWinner(board, round, "Computer1");
+                }
             }
             else
             {
+                System.out.println("Computer 2's Move ( O )");
                 computer2.move(board, round);
                 toggle = true;
+
+                if (round >= 5)
+                {
+                    checkForWinner(board, round, "You");
+                }
             }
 
             if (round > 9 && !board.isCat())
@@ -172,6 +196,21 @@ public class Project4
                 System.out.println("The game has concluded in a draw!");
                 playAgain();
             }
+
+            try {
+                Thread.sleep(500);
+            }
+            catch ( InterruptedException ie) { }
+
+        }
+    }
+
+    public static void checkForWinner(Board someBoard, int round, String player)
+    {
+        if (round >= 5 && someBoard.isWinner())
+        {
+            System.out.println(player + " has won the game!");
+            playAgain();
         }
     }
 
@@ -179,15 +218,16 @@ public class Project4
     {
         Scanner keyboard = new Scanner(System.in);
         char userChoice = ' ';
-        System.out.print("Would you like to play again? (Y/N)");
+        System.out.print("Would you like to play again? (Y/N) ");
         do
         {
             userChoice = keyboard.nextLine().toUpperCase().charAt(0);
-        } while (userChoice != 'Y' || userChoice != 'N');
+        } while (userChoice != 'Y' && userChoice != 'N');
 
         if (userChoice == 'Y')
         {
             startGame();
+            System.out.println("Shouldn't be here");
         }
         else
         {

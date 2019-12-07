@@ -28,169 +28,192 @@ public class Computer
     {
         String move = "noMoveAvailable";
 
+        // TODO Remove after testing
+        System.out.println("Test Spot 1");
         do
         {
-            if (move.equals("noMoveAvailable"))
-            {
-                move = checkForBestMove(someBoard, true);
-            }
+            // TODO Remove after testing
+            System.out.println("Test Spot 1.1");
 
             if (move.equals("noMoveAvailable"))
             {
-                move = checkForBestMove(someBoard, true);
+                // TODO Remove after testing
+                System.out.println("Test Spot 1.2");
+
+                move = checkForWinningMove(someBoard);
             }
+
+            // TODO Remove after testing
+            System.out.println("Test Spot 1.3");
 
             if (move.equals("noMoveAvailable"))
             {
+                // TODO Remove after testing
+                System.out.println("Test Spot 1.4");
+
+                move = checkForDefensiveMove(someBoard);
+            }
+
+            // TODO Remove after testing
+            System.out.println("Test Spot 1.5");
+
+            if (move.equals("noMoveAvailable"))
+            {
+                // TODO Remove after testing
+                System.out.println("Test Spot 1.6");
+
                 move = checkForStrategicMove(someBoard, round);
             }
 
-            if (move.equals("noMoveAvailable"))
-            {
-                move = checkForBestMove(someBoard, true);
-            }
+            // TODO Remove after testing
+            System.out.println("Test Spot 1.7");
 
             if (move.equals("noMoveAvailable"))
             {
+                // TODO Remove after testing
+                System.out.println("Test Spot 1.8");
+
                 move = generateRandomMove(someBoard);
             }
 
         } while (!someBoard.isMoveAvailable(move));
 
+        System.out.println("The computer has chosen to play in slot " + move);
         someBoard.submitMove(move, this.id);
         someBoard.printBoard();
     }
 
-    public String checkForBestMove(Board someBoard, boolean offensive)
+    public String checkForWinningMove(Board someBoard)
     {
         char[][] board = someBoard.playingSurface;
-        char offender = ' ';
-        char defender = ' ';
-        if (this.id == 'X')
+        char computer = 'X',
+             opponent = 'O';
+
+        if (this.id == 'O')
         {
-            if (offensive)
-            {
-                offender = 'X';
-                defender = 'Y';
-            }
-            else
-            {
-                offender = 'Y';
-                defender = 'N';
-            }
+            computer = 'O';
+            opponent = 'X';
         }
-        else if (this.id == 'Y')
-        {
-            if (offensive)
-            {
-                offender = 'Y';
-                defender = 'X';
-            }
-            else
-            {
-                offender = 'N';
-                defender = 'Y';
-            }
-        }
+
+        // TODO Remove after testing
+        System.out.println("Test Spot 2");
 
         // Loop through every row and column, checking for winning moves
         for(int i = 0; i <= 2; i++)
         {
             // Check if said column is available to conquer
-            if (board[i][0] != defender && board[i][1] != defender && board[i][2] != defender)
+            if (board[i][0] != opponent && board[i][1] != opponent && board[i][2] != opponent)
             {
-                /* Check if the computer has occupied the first two slots in said column
+                // TODO Remove after testing
+                System.out.println("Test Spot 2.1");
+
+                /* Check if this computer has occupied the first two slots in said column
                  * if so, play in the last slot
                  */
-                if(board[i][0] == offender && board[i][1] == offender)
+                if (board[i][0] == computer && board[i][1] == computer)
                 {
+                    // TODO Remove after testing
+                    System.out.println("Test Spot 2.2");
+
                     // Determine which column to play into
                     if (i == 0)
                     {
-                        // play in column 1, last slot
+                        // column 1, last slot
                         return "A3";
                     }
                     else if (i == 1)
                     {
-                        // play in column 2, last slot
+                        // column 2, last slot
                         return "B3";
                     }
                     else if (i == 2)
                     {
-                        // play in column 3, last slot
-                        return "B3";
+                        // column 3, last slot
+                        return "C3";
                     }
                 } // END: if first two slots are occupied by computer
 
-                /* Check if the computer has occupied the last two slots in said column
+                /* Check if this computer has occupied the last two slots in said column
                  * if so, play in the first slot
                  */
-                else if(board[i][1] == offender && board[i][2] == offender)
+                else if (board[i][1] == computer && board[i][2] == computer)
                 {
+                    // TODO Remove after testing
+                    System.out.println("Test Spot 2.3");
+
                     // determine which column to play into
                     if (i == 0)
                     {
-                        // play in column 1, first slot
+                        // column 1, first slot
                         return "A1";
                     }
                     else if (i == 1)
                     {
-                        // play in column 2, first slot
+                        // column 2, first slot
                         return "B1";
                     }
                     else if (i == 2)
                     {
-                        // play in column 3, first slot
-                        return "B2";
+                        // column 3, first slot
+                        return "C1";
                     }
                 } // END: if the last two slots are occupied by computer
 
-                /* Check if the computer has occupied the outer two slots in said column
+                /* Check if this computer has occupied the outer two slots in said column
                  * if so, play in the middle slot
                  */
-                else if(board[i][0] == offender && board[i][2] == offender)
+                else if(board[i][0] == 'X' && board[i][2] == computer)
                 {
+                    // TODO Remove after testing
+                    System.out.println("Test Spot 2.4");
+
                     // determine which column to play into
                     if (i == 0)
                     {
-                        // pay in column 1, middle slot
+                        // column 1, middle slot
                         return "A2";
                     }
                     else if (i == 1)
                     {
-                        // play in column 2, middle slot
+                        // column 2, middle slot
                         return "B2";
                     }
                     else if (i == 2)
                     {
-                        // play in column 3, middle slot
+                        // column 3, middle slot
                         return "C2";
                     }
                 } // END: if the outer two slots are occupied by computer
             } // END: looping through columns for winning move
 
             // Check if said row is available to conquer
-            if (board[0][i] != defender && board[1][i] != defender && board[2][i] != defender)
+            if (board[0][i] != opponent && board[1][i] != opponent && board[2][i] != opponent)
             {
+                // TODO Remove after testing
+                System.out.println("Test Spot 2.5");
+
                 /* Check if the computer has occupied the first two slots in said row
                  * if so, play in the last slot
                  */
-                if(board[0][i] == offender && board[1][i] == offender)
+                if(board[0][i] == computer && board[1][i] == computer)
                 {
+                    // TODO Remove after testing
+                    System.out.println("Test Spot 2.6");
+
                     // Determine which row to play into
                     if (i == 0)
                     {
-                        // play in row 1, last slot
+                        // row 1, last slot
                         return "C1";
                     }
                     else if (i == 1)
                     {
-                        // play in row 2, last slot
+                        // row 2, last slot
                         return "C2";
                     }
                     else if (i == 2)
                     {
-                        // play in row 3, last slot
+                        // row 3, last slot
                         return "C3";
                     }
                 } // END: if first two slots are occupied by the computer
@@ -198,22 +221,25 @@ public class Computer
                 /* Check if the computer has occupied the last two slots in said row
                  * if so, play in the first slot
                  */
-                else if(board[1][i] == offender && board[2][i] == offender)
+                else if(board[1][i] == computer && board[2][i] == computer)
                 {
+                    // TODO Remove after testing
+                    System.out.println("Test Spot 2.7");
+
                     // determine which row to play into
                     if (i == 0)
                     {
-                        // play in row 1, first slot
+                        // row 1, first slot
                         return "A1";
                     }
                     else if (i == 1)
                     {
-                        // play in row 2, first slot
+                        // row 2, first slot
                         return "A2";
                     }
                     else if (i == 2)
                     {
-                        // play in row 3, first slot
+                        // row 3, first slot
                         return "A3";
                     }
                 } // END: if the last two slots are occupied by the user
@@ -221,22 +247,25 @@ public class Computer
                 /* Check if the computer has occupied the outer two slots in said row
                  * if so, play in the middle slot
                  */
-                else if(board[0][i] == offender && board[2][i] == offender)
+                else if(board[0][i] == computer && board[2][i] == computer)
                 {
+                    // TODO Remove after testing
+                    System.out.println("Test Spot 2.8");
+
                     // determine which row to play into
                     if (i == 0)
                     {
-                        // play in row 1, middle slot
+                        // row 1, middle slot
                         return "B1";
                     }
                     else if (i == 1)
                     {
-                        // play in row 2, middle slot
+                        // row 2, middle slot
                         return "B2";
                     }
                     else if (i == 2)
                     {
-                        // play in row 3, middle slot
+                        // row 3, middle slot
                         return "B3";
                     }
                 } // END: if outer two slots are occupied by the computer
@@ -244,73 +273,275 @@ public class Computer
         } // END: looping through all rows and columns for winning move
 
         // check '\' diagonal for winning move
-        if(board[0][0] != defender && board[1][1] != defender && board[2][2] != defender)
+        if(board[0][0] != opponent && board[1][1] != opponent && board[2][2] != opponent)
         {
             // check if the first two slots are occupied by the computer
-            if (board[0][0] == offender && board[1][1] == offender)
+            if (board[0][0] == computer && board[1][1] == computer)
             {
-                // play in column 3, last slot
+                // column 3, last slot
                 return "C3";
             }
 
             // check if the outer two slots are occupied by the computer
-            else if (board[0][0] == offender && board[2][2] == offender)
+            else if (board[0][0] == computer && board[2][2] == computer)
             {
-                // play in column 2, middle slot
+                // column 2, middle slot
                 return "B2";
             }
 
             // check if last two slots are occupied by the computer
-            else if (board[2][2] == offender && board[1][1] == offender)
+            else if (board[2][2] == computer && board[1][1] == computer)
             {
-                // play in column 1, first slot
+                // column 1, first slot
                 return "A1";
             }
         } // END: checking for '\' diagonal winning moves
 
         // check '/' diagonal for winning move
-        if(board[2][0] != defender && board[1][1] != defender && board[0][2] != defender)
+        if(board[2][0] != opponent && board[1][1] != opponent && board[0][2] != opponent)
         {
             // check if the last two slots are occopied by the computer
-            if (board[2][0] == offender && board[1][1] == offender)
+            if (board[2][0] == computer && board[1][1] == computer)
             {
-                //play in  column 1, last slot
+                // column 1, last slot
                 return "A3";
             }
 
             // check if the outer two slots are occupied by th
-            else if (board[2][0] == offender && board[0][2] == offender)
+            else if (board[2][0] == computer && board[0][2] == computer)
             {
-                // play in column 2, middle slot
+                // column 2, middle slot
                 return "B2";
             }
 
             // check if the first two slots are occupied by the computer
-            else if (board[0][2] == offender && board[1][1] == offender)
+            else if (board[0][2] == computer && board[1][1] == computer)
             {
-                // play in column 3, first slot
+                // column 3, first slot
                 return "C1";
             }
         } // END: checking for '\' diagonal winning moves
 
+
         return "noMoveAvailable";
     } // END: checkForBestMove method
+
+    public String checkForDefensiveMove(Board someBoard)
+    {
+        char[][] board = someBoard.playingSurface;
+
+        char computer = 'X',
+             opponent = 'O';
+
+        if (this.id == 'O')
+        {
+            computer = 'O';
+            opponent = 'X';
+        }
+
+        // Loop through every row and column, checking for defensive moves
+        for(int i = 0; i <= 2; i++)
+        {
+            // check if opponent has the chance to win in said column
+            if (board[i][0] != computer && board[i][1] != computer && board[i][2] != computer)
+            {
+                // check if the opponent has occupied the first two slots
+                if(board[i][0] == opponent && board[i][1] == opponent)
+                {
+                    // determine which column to play into
+                    if (i == 0)
+                    {
+                        // column 1, last slot
+                        return "A3";
+                    }
+                    else if (i == 1)
+                    {
+                        // column 2, last slot
+                        return "B3";
+                    }
+                    else if (i == 2)
+                    {
+                        // column 3, last slot
+                        return "C3";
+                    }
+                } // END: checking for defensive moves in last row
+
+                // check if the opponent has occupied the outer two slots
+                else if(board[i][0] == opponent && board[i][2] == opponent)
+                {
+                    // determine which column tp play into
+                    if (i == 0)
+                    {
+                        // column 1, slot 2
+                        return "A2";
+                    }
+                    else if (i == 1)
+                    {
+                        // column 2, slot 2
+                        return "B2";
+                    }
+                    else if (i == 2)
+                    {
+                        // column 3, slot 2
+                        return "C2";
+                    }
+                } // END: checking for defensive moves in middle row
+
+                // check if the opponent has occupied the last to slots
+                else if(board[i][1] == opponent && board[i][2] == opponent)
+                {
+                    // determine which column to play into
+                    if (i == 0)
+                    {
+                        // column 1, slot 1
+                        return "A1";
+                    }
+                    else if (i == 1)
+                    {
+                        // column 2, slot 1
+                        return "B1";
+                    }
+                    else if (i == 2)
+                    {
+                        // column 3, slot 1
+                        return "C1";
+                    }
+                } // END: checking for defensive moves in first row
+            } // END: checking columns for winning moves
+
+            // check if the opponent has the chance to win in said row
+            if (board[0][i] != computer && board[1][i] != computer && board[2][i] != computer)
+            {
+                // check if the first two slots have been occupied by the opponent
+                if(board[0][i] == opponent && board[1][i] == opponent)
+                {
+                    // determine which row to play into
+                    if (i == 0)
+                    {
+                        // row 1, last column
+                        return "C1";
+                    }
+                    else if (i == 1)
+                    {
+                        // row 2, last column
+                        return "C2";
+                    }
+                    else if (i == 2)
+                    {
+                        // row 3, last column
+                        return "C3";
+                    }
+                } // END: checking for defensive moves in last column
+
+                // check if the two outer slots have been occupied by the opponent
+                else if(board[0][i] == opponent && board[2][i] == opponent)
+                {
+                    // determine which row to play into
+                    if (i == 0)
+                    {
+                        // column 2, slot 1
+                        return "B1";
+                    }
+                    else if (i == 1)
+                    {
+                        // column 2, slot 2
+                        return "B2";
+                    }
+                    else if (i == 2)
+                    {
+                        // column 2, slot 3
+                        return "B3";
+                    }
+                } // END: checking for defensive moves in middle column
+
+                // check if the last two slots have been occupied by the opponent
+                else if(board[1][i] == opponent && board[2][i] == opponent)
+                {
+                    // determine which row to play into
+                    if (i == 0)
+                    {
+                        // column 1, slot 1
+                        return "A1";
+                    }
+                    else if (i == 1)
+                    {
+                        // column 1, slot 2
+                        return "A2";
+                    }
+                    else if (i == 2)
+                    {
+                        // column 1, slot 3
+                        return "A3";
+                    }
+                } // END: checking for defensive moves in last column
+            } // END: checking for defensive moves in rows
+        } // END: checking for defensive moves in all columns and rows
+
+        // check the '\' diagonal for a potential loss
+        if(board[0][0] != computer && board[1][1] != computer && board[2][2] != computer)
+        {
+            // check if the first two slots are occupied by the opponent
+            if (board[0][0] == opponent && board[1][1] == opponent)
+            {
+                // column 3, slot 3
+                return "C3";
+            }
+
+            // check if the two outer slots are occupied by the opponent
+            else if (board[0][0] == opponent && board[2][2] == opponent)
+            {
+                // column 2, slot 2
+                return "B2";
+            }
+
+            // check if the last two slots are occupied by the opponent
+            else if (board[2][2] == opponent && board[1][1] == opponent)
+            {
+                // column 1, slot 1
+                return "A1";
+            }
+        } // END: checking for potential loss in the '\' diagonal
+
+        // check the '/' diagonal for a potential loss
+        if(board[2][0] != computer && board[1][1] != computer && board[0][2] != computer)
+        {
+            // check if the first two slots are occupied by the opponent
+            if (board[2][0] == opponent && board[1][1] == opponent)
+            {
+                // column 1, slot 3
+                return "A3";
+            }
+
+            // check if the outer two slots are occupied by the opponent
+            else if (board[2][0] == opponent && board[0][2] == opponent)
+            {
+                // column 2, slot 2
+                return "B2";
+            }
+
+            // check if th last two slots are occupied by the opponent
+            else if (board[0][2] == opponent && board[1][1] == opponent)
+            {
+                // column 3, slot 1
+                return "C1";
+            }
+        } // END: checking for potential loss in the '\' diagonal
+
+        return "noMoveAvailable";
+    }
 
     public String checkForStrategicMove(Board someBoard, int round)
     {
         char[][] board = someBoard.playingSurface;
-        char offender = ' ';
-        char defender = ' ';
-        if (this.id == 'X')
+        char computer = 'X',
+             opponent = 'O';
+
+        if (this.id == 'O')
         {
-            offender = 'X';
-            defender = 'O';
+            computer = 'O';
+            opponent = 'X';
         }
-        else if (this.id == 'Y')
-        {
-            offender = 'O';
-            offender = 'X';
-        }
+
         // this switch is used when there are no available winning or defensive moves available
         switch(round)
         {
@@ -324,25 +555,25 @@ public class Computer
             // round 2
             case 2:
             {
-                /* check if the user has played in the middle position
+                /* check if the opponent has played in the middle position
                  * if true: column 1, slot 1
                  * if false: column 1, slot 2
                  */
-                if (board[1][1] == 'O')
+                if (board[1][1] == opponent)
                 {
                     return "A1";
                 }
                 else
                 {
-                    return "A2";
+                    return "B2";
                 }
             }
 
             // round 3
             case 3:
             {
-                // check if the user has played in the middle position
-                if(board[1][1] == defender)
+                // check if the opponent has played in the middle position
+                if(board[1][1] == opponent)
                 {
                     // play in column 3, slot 3
                     return "C3";
@@ -373,7 +604,7 @@ public class Computer
                  * the use user has played in either of the leftmost corners &&
                  * if the computer has played in the middle
                  */
-                if((board[0][0] == defender || board[0][2] == defender) && board[1][1] == offender)
+                if((board[0][0] == opponent || board[0][2] == opponent) && board[1][1] == computer)
                 {
                     // play in column 1, slot 2
                     return "A2";
@@ -383,7 +614,7 @@ public class Computer
                  * the use user has played in either of the right corners &&
                  * if the computer has played in the middle
                  */
-                if((board[2][0] == defender || board[2][2] == defender) && board[1][1] == offender)
+                if((board[2][0] == opponent || board[2][2] == opponent) && board[1][1] == computer)
                 {
                     // play in column 3, slot 2
                     return "C2";
@@ -398,13 +629,13 @@ public class Computer
             case 6:
             {
                 // Check if the user has played in any of the last two slots in row 1 and column 3
-                if(board[1][0] != defender && board[2][0] != defender && board[2][1] != defender && board[2][2] != defender)
+                if(board[1][0] != opponent && board[2][0] != opponent && board[2][1] != opponent && board[2][2] != opponent)
                 {
                     /* Check if the computer has previously gone in the second column, row 2
                      * if true: column 3, slot 3
                      * if false: column 3, slot 1
                      */
-                    if (board[2][0] == offender)
+                    if (board[2][0] == computer)
                     {
                         return "C3";
                     }
@@ -414,14 +645,14 @@ public class Computer
                     }
                 }
 
-                // Check if the user has played in any of the last two slots in column 1 and row 3
-                else if(board[0][1] != defender && board[0][2] != defender && board[1][2] != defender && board[2][2] != defender)
+                // Check if the opponent has played in any of the last two slots in column 1 and row 3
+                else if(board[0][1] != opponent && board[0][2] != opponent && board[1][2] != opponent && board[2][2] != opponent)
                 {
                     /* Check if the computer has previously gone in the first column, row 3
                      * if true: column 3, slot 3
                      * if false: column 1, slot 3
                      */
-                    if (board[0][2] == offender)
+                    if (board[0][2] == computer)
                     {
                         return "C3";
                     }
@@ -446,16 +677,16 @@ public class Computer
             case 7:
             {
                 // check if the computer has a winning chance via the first row
-                if (board[1][0] != defender && board[2][0] != defender)
+                if (board[1][0] != opponent && board[2][0] != opponent)
                 {
                     // check which slot in which the computer has already played
-                    if(board[1][0] == offender)
+                    if(board[1][0] == computer)
                     {
                         // column 3, slot 1
                         return "C1";
 
                     }
-                    else if(board[2][0] == offender)
+                    else if(board[2][0] == computer)
                     {
                         // column 2, slot 1
                         return "B1";
@@ -463,15 +694,15 @@ public class Computer
                 }
 
                 // check if the computer has a winning chance via the first column
-                else if (board[0][1] != defender && board[0][2] != defender)
+                else if (board[0][1] != opponent && board[0][2] != opponent)
                 {
                     // check which slot in which the computer has already played
-                    if (board[0][1] == offender)
+                    if (board[0][1] == computer)
                     {
                         // column 1, slot 3
                         return "A3";
                     }
-                    else if (board[0][2] == offender)
+                    else if (board[0][2] == computer)
                     {
                         // column 1, slot 2
                         return "A2";
@@ -479,70 +710,63 @@ public class Computer
                 }
 
                 // check if the computer has a winning chance via row 3
-                else if (board[0][2] != offender && board[1][2] != defender && board[2][2] != defender)
+                else if (board[0][2] != computer && board[1][2] != opponent && board[2][2] != opponent)
                 {
                     // column 2, slot 3
                     return "B3";
                 }
 
                 // check if the computer has a winning chance column 3
-                else if (board[2][0] != offender && board[2][1] != defender && board[2][2] != defender)
+                else if (board[2][0] != computer && board[2][1] != opponent && board[2][2] != opponent)
                 {
                     // column 3, slot 2
                     return "C2";
                 }
 
-                // TODO Finish refactoring return values
-
                 // check if the computer has a winning chance via the '/' diagonal
-                else if (board[0][2] != defender && board[1][1] != defender && board[2][0] != defender)
+                else if (board[0][2] != opponent && board[1][1] != opponent && board[2][0] != opponent)
                 {
                     // check if the computer has occupied the first two slots
-                    if(board[0][2] == offender && board[1][1] == offender)
+                    if(board[0][2] == computer && board[1][1] == computer)
                     {
                         // column 1, slot 1
-                        someBoard.submitMove("C1", this.id);
-                        return true;
+                        return "C1";
                     }
 
                     // check if the computer has occupied the two outer slots
-                    else if(board[0][2] == offender && board[1][1] == offender)
+                    else if(board[0][2] == computer && board[1][1] == computer)
                     {
                         // column 2, slot 2
-                        someBoard.submitMove("B2", this.id);
-                        return true;
+                        return "B2";
                     }
 
                     // check if the computer has occupied the last two slots
-                    else if(board[2][0] == offender && board[1][1] == offender)
+                    else if(board[2][0] == computer && board[1][1] == computer)
                     {
                         // column 1, slot 3
-                        someBoard.submitMove("A3", this.id);
-                        return true;
+                        return "A3";
                     }
                 }
 
                 // check if the computer has a winning chance via the '\' diagonal
-                else if (board[1][1] != defender && board[2][2] != defender)
+                else if (board[1][1] != opponent && board[2][2] != opponent)
                 {
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the middle slot
                      */
-                    if (board[1][1] == offender)
+                    if (board[1][1] == computer)
                     {
                         // column 3, slot 3
-                        someBoard.submitMove("C3", this.id);
-                        return true;
+                        return "C3";
                     }
 
                     /* assuming the computer has occupied the first slot,
                      * check if the computer has occupied the last slot
                      */
-                    else if (board[2][2] == offender)
+                    else if (board[2][2] == computer)
                     {
                         // column 2, slot 2
-                        someBoard.submitMove("B2", this.id);
-                        return true;
+                        return "B2";
                     }
                 }
 
@@ -550,10 +774,10 @@ public class Computer
                 break;
             }
         }
-        return false;
+        return "noMoveAvailable";
     }
 
-    public void generateRandomMove(Board someboard)
+    public String generateRandomMove(Board someboard)
     {
         Random random = new Random();
         String move = "flag";
@@ -561,7 +785,7 @@ public class Computer
         do
         {
             // randomly generate a number from 0-8
-            int randomNumber = random.nextInt(8);
+            int randomNumber = random.nextInt(9);
 
             // covert the random number into an actual move
             switch(randomNumber)
@@ -631,6 +855,6 @@ public class Computer
             } // END: switch case = randomNumber
         } while (!someboard.isMoveAvailable(move));
 
-        someboard.submitMove(move, this.id);
+        return move;
     }
 } // END: Computer class
