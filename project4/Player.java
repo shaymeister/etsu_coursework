@@ -1,14 +1,14 @@
 /**
  * -----------------------------------------------------------------------------
- * File name:
- * Project name:
+ * File name: Player.java
+ * Project name: Project4
  *
  * -----------------------------------------------------------------------------
- * Author’s name and email:
- * Course-Section:
+ * Author’s name and email: Shay Snyder
+ * Course-Section: CSCI 1250.088
  *
- * Creation Date:
- * Last modified: (Name, Date, email)
+ * Creation Date: December 8, 2918
+ * Last modified: (Shay Snyder, 12/08/19, snyderse2@etsu.edu)
  *
  * -----------------------------------------------------------------------------
  */
@@ -17,135 +17,118 @@
 import java.util.Scanner;
 
 /**
- * Class Name: class name here <br>
- * Class Purpose: class purpose here <br>
+ * Class Name: Player <br>
+ * Class Purpose: represent a human player within a game of tic-tac-toe <br>
  *
  * <hr>
- * Date created: date here <br>
- * Last modified: name, email, date here
- * @author Author’s name here
+ * Date created: December 8, 2019 <br>
+ * Last modified: Shay Snyder, snyderse2@etsu.edu, 12/08/19
+ * @author Shay Snyder
  */
 public class Player
 {
     char id;
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Constructor Name: Player<br>
+     * Constructor Purpose: Create a default Player object<br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
-     * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * Date created: December 8, 2019 <br>
+     * Last modified: 12/08/19 <br>
      */
     public Player()
     {
+        // Set this player's id to 'O'
         this.id = 'O';
-    }
+    } // END: Player (no-arg) constructor
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Constructor Name: Player <br>
+     * Method Purpose: Create a custom Player obect <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 8, 2019 <br>
+     * Last modified: 12/08/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param character a char variable that holds the player's board piece
      */
     public Player(char character)
     {
+        // Set this player's id to the argumented value
         this.id = character;
-    }
+    } // END: Player (arg) constructor
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: setID <br>
+     * Method Purpose: mutate the player's id <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 8, 2019 <br>
+     * Last modified: 12/08/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param character a char variable that contains the desired identifier
+     * @return void
      */
     public void setId(char character)
     {
+        // Set this player's id to the argumented value
         this.id = character;
-    }
+    } // END: setID method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: getID <br>
+     * Method Purpose: retrieve the player's id <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 8, 2019 <br>
+     * Last modified: 12/08/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @return id, the player's custom identifier
      */
     public char getId()
     {
+        // return the player's id
         return this.id;
-    }
+    } // END: getID method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: move <br>
+     * Method Purpose: allow the player to make a move <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 8, 2019 <br>
+     * Last modified: 12/08/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param board a Board object that represents the playing surface
+     * @return void
      */
     public void move(Board board)
     {
-        String move = "flag";
+        // Create an instance of the scanner class
         Scanner keyboard = new Scanner(System.in);
 
+        // Variables
+        String move = "flag"; // to hold the player's desired move
+
+        // While an invalid move has been entered, prompt the user to enter another
         while(!board.isMoveAvailable(move))
         {
+            // Display the question
             System.out.print("Where would you like to play? ");
-            move = keyboard.nextLine();
-        }
 
+            // Get the user's move from the keyboard
+            move = keyboard.nextLine();
+        } // END: while(!board.isMoveAvailable(move))
+
+        // Submit the player move
         board.submitMove(move, this.id);
+
+        // Display the board to the command line
         board.printBoard();
-    }
-}
+    } // END: move method
+} // END: Player class

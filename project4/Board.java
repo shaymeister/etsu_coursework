@@ -1,76 +1,69 @@
 /**
  * -----------------------------------------------------------------------------
- * File name:
- * Project name:
+ * File name: Board.java
+ * Project name: Project4
  *
  * -----------------------------------------------------------------------------
- * Author’s name and email:
- * Course-Section:
+ * Author’s name and email: Shay Snyder snyderse2@etsu.edu
+ * Course-Section: CSCI 1250.088
  *
- * Creation Date:
- * Last modified: (Name, Date, email)
+ * Creation Date: December 8, 2019
+ * Last modified: (Shay Snyder, 12/08/19, snyderse2@etsu.edu)
  *
  * -----------------------------------------------------------------------------
  */
 
 /**
- * Class Name: class name here <br>
- * Class Purpose: class purpose here <br>
+ * Class Name: Board <br>
+ * Class Purpose: build an object that represents the playing surface <br>
  *
  * <hr>
- * Date created: date here <br>
- * Last modified: name, email, date here
- * @author Author’s name here
+ * Date created: December 8, 2019 <br>
+ * Last modified: Shay Snyder, snyderse2@etsu.edu, 12/08/19
+ * @author Shay Snyder
  */
 public class Board
 {
+    // Class level variables
     char[][] playingSurface = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: isCat <br>
+     * Method Purpose: determine if not possible moves can be made <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 8. 2019 <br>
+     * Last modified: 12/08/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @return a boolean representing the cat status of the board
      */
     public boolean isCat()
     {
+        // Loop through every slot
         for (int i = 0; i < 3; i++)
         {
+            // If any slot on the board is empty, return false
             if (this.playingSurface[0][i] == ' ' || this.playingSurface[i][0] == ' ')
             {
                 return false;
             }
         }
+
+        // If all slots are full, return true;
         return true;
     }
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: isWinner <br>
+     * Method Purpose: determine if a winning move has been made <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 8, 2019 <br>
+     * Last modified: 12/08/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @return a boolean as to the state of a player winning the game
      */
     public boolean isWinner()
     {
@@ -123,55 +116,50 @@ public class Board
 
         // else, return false
         return false;
-    }
+    } // END: isWinner method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: isMoveValid <br>
+     * Method Purpose: determine the validity of the desired move <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param move a string containing the desired move
+     * @return a boolean refering to the validity of the move
      */
     public boolean isMoveValid(String move)
     {
+        // define possible moves
         String[] validMoves = {"A1","A2","A3","B1","B2","B3","C1","C2","C3"};
 
+        // check the desired move by looping through array
         for(String validMove : validMoves)
         {
+            // if the desired moves matches an element within the array, return true
             if (move.equals(validMove))
             {
                 return true;
             }
         }
+
+        // else, return false
         return false;
-    }
+    } // END: isMoveValid method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: isMoveAvailable <br>
+     * Method Purpose: determine if a given move is possible <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 8. 2019 <br>
+     * Last modified: December 8, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param move a String variable that specifies a player's desired move
+     * @return a boolean as to the validity of said move
      */
     public boolean isMoveAvailable(String move)
     {
@@ -218,24 +206,25 @@ public class Board
     }
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: submitMove <br>
+     * Method Purpose: add the argumented move to the board <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: November 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param move a string containing the desired move
+     * @param someId a character that specifies the current player
      */
     public void submitMove(String move, char someId)
     {
+        /* Determine if the desired move is even possible
+         * Then determine if the move is available
+         *
+         * if both = true, add the move to the board and return true
+         * if either = false, return false
+         */
         if (move.equals("A1") && this.playingSurface[0][0] == ' ')
         {
             this.playingSurface[0][0] = someId;
@@ -286,24 +275,18 @@ public class Board
             System.out.println("An incorrect move has been submitted.");
             System.exit(0);
         }
-    }
+    } // END: submitMove method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: printBoard <br>
+     * Method Purpose: display the playing surface on the command line <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: November 11, 2019 <br>
+     * Last modified: Movember 11, 2019 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @return void
      */
     public void printBoard()
     {
