@@ -33,9 +33,13 @@ looping structures,and random number generation.
 - GOAL: The goal of this project is to create Tic-Tac-Toe game
 
 The focus of the project is 
+
 ● decision structures
+
 ● looping structures
+
 ● arrays
+
 ● and methods
 
 # Project 4
