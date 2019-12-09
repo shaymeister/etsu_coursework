@@ -30,6 +30,18 @@ cookies. With x being defined by the user during the execution of the program
 obtained up to this point in the course: input validation, decision structures,
 looping structures,and random number generation.
 
+# Project 3
+- GOAL: The goal of this project is to create Tic-Tac-Toe game
+The focus of the project is 
+● decision structures
+● looping structures
+● arrays
+● and methods
+
+# Project 4
+- GOAL: The goal is to change your previous, procedural implementation of tic-tac-toe in project #3
+into an object oriented one.
+
 # RomanNumerals.java  
 - GOAL: Practice the use of switch statements  
 The purpose this program is to accept an integer from the user and respond with
