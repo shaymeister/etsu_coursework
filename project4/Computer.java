@@ -1,14 +1,14 @@
 /**
  * -----------------------------------------------------------------------------
- * File name:
- * Project name:
+ * File name: Computer.java
+ * Project name: Project4
  *
  * -----------------------------------------------------------------------------
- * Author’s name and email:
- * Course-Section:
+ * Author’s name and email: Shay Snyder snyderse2@etsu.edu
+ * Course-Section: CSCI 1250.088
  *
- * Creation Date:
- * Last modified: (Name, Date, email)
+ * Creation Date: December 7, 2019
+ * Last modified: (Shay Snyder, 12/07/19, snyderse2@etsu.edu)
  *
  * -----------------------------------------------------------------------------
  */
@@ -17,127 +17,87 @@
 import java.util.Random;
 
 /**
- * Class Name: class name here <br>
- * Class Purpose: class purpose here <br>
+ * Class Name: Computer <br>
+ * Class Purpose: act as the blueprint for a computer player in tic-tac-toe <br>
  *
  * <hr>
- * Date created: date here <br>
- * Last modified: name, email, date here
- * @author Author’s name here
+ * Date created: December 07, 2019 <br>
+ * Last modified: Shay Snyder, snyderse2@etsu.edu, 12/07/19
+ * @author Shay Snyder
  */
 public class Computer
 {
+    // Global Variables
     char id;
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: Computer <br>
+     * Method Purpose: act as the default constructor for the computer class <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
-     * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * Date created: December 07, 2019 <br>
+     * Last modified: 12/07/19 <br>
      */
     public Computer()
     {
+        // Set this object's idenifier to X
         this.id = 'X';
-    }
+    } // END: Computer (no-arg) constructor
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: Computer <br>
+     * Method Purpose: create a computer object with some argumented value <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 7, 2019 <br>
+     * Last modified: 12/07/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param someChar a char variable that contains the desired identifier
      */
     public Computer(char someChar)
     {
+        // assign this computer object's idenifier to the specified value
         this.id = someChar;
-    }
+    } // END: Computer (arg) constructor
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: setID <br>
+     * Method Purpose: mutate the given object's identifier <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 7, 2019 <br>
+     * Last modified: 12/07/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param someId a char variable that contains the desired idenifier
+     * @return void
      */
     public void setId(char someId)
     {
+        // set this objects idenifier to the argumented value
         this.id = someId;
-    }
+    } // END: setId method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: move <br>
+     * Method Purpose: allow the computer to make a move <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 7, 2019 <br>
+     * Last modified: 12/07/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
-     */
-    public char getId()
-    {
-        return this.id;
-    }
-
-    /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
-     *
-     * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
-     *
-     * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param someBoard a Board object that represents the playing surface
+     * @param round an int variable that represents game progression
+     * @return void
      */
     public void move(Board someBoard, int round)
     {
+        // Variables
         String move = "noMoveAvailable";
 
+        // Repeat until a move has been determined
         do
         {
             if (move.equals("noMoveAvailable"))
@@ -162,31 +122,34 @@ public class Computer
 
         } while (!someBoard.isMoveAvailable(move));
 
+        // tell the user where the computer has decided to play
         System.out.println("The computer has chosen to play in slot " + move);
+
+        // submit said move to the playing surface
         someBoard.submitMove(move, this.id);
+
+        // display said surface to the command line
         someBoard.printBoard();
-    }
+    } // END: move method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: checkForWinning <br>
+     * Method Purpose: allow the computer to determine if a fatal move can be made <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 7, 2019 <br>
+     * Last modified: 12/07/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param someBoard a Board object that represents the playing surface
+     * @return a String containing the computer's move
      */
     public String checkForWinningMove(Board someBoard)
     {
+        // Variables
         char[][] board = someBoard.playingSurface;
+
+        // Compensate for different indentifers
         char computer = 'X',
              opponent = 'O';
 
@@ -398,29 +361,26 @@ public class Computer
 
 
         return "noMoveAvailable";
-    } // END: checkForBestMove method
+    } // END: checkForWinningMove method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: checkForDefensiveMove <br>
+     * Method Purpose: allow the computer to determine if a defensive move can be made <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 7, 2019 <br>
+     * Last modified: 12/07/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param someBoard a Board object that represents the playing surface
+     * @return a String containing the computer's move
      */
     public String checkForDefensiveMove(Board someBoard)
     {
+        // Variables
         char[][] board = someBoard.playingSurface;
 
+        // Compensate for differing idenifiers
         char computer = 'X',
              opponent = 'O';
 
@@ -619,28 +579,26 @@ public class Computer
         } // END: checking for potential loss in the '\' diagonal
 
         return "noMoveAvailable";
-    }
+    } // END: checkForDefensiveMove method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: checkForStrategicMove <br>
+     * Method Purpose: allow the computer to determine if a strategic move can be made <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 7, 2019 <br>
+     * Last modified: 12/07/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param someBoard a Board object that represents the playing surface
+     * @return a String containing the computer's move
      */
     public String checkForStrategicMove(Board someBoard, int round)
     {
+        // Variables
         char[][] board = someBoard.playingSurface;
+
+        // Compensate for differing identifiers
         char computer = 'X',
              opponent = 'O';
 
@@ -883,30 +841,29 @@ public class Computer
             }
         }
         return "noMoveAvailable";
-    }
+    } // END: checkForStrategicMove method
 
     /**
-     * Method Name: method name here <br>
-     * Method Purpose: method purpose here <br>
+     * Method Name: generateRandomMove <br>
+     * Method Purpose: allow the computer to randomly play <br>
      *
      * <hr>
-     * Date created: date here <br>
-     * Last modified: date here <br>
+     * Date created: December 7, 2019 <br>
+     * Last modified: 12/07/19 <br>
      *
      * <hr>
-     * Notes on specifications, special algorithms, and assumptions:
-     * notes go here
-     *
-     * <hr>
-     *   @param  name of param1 description of param1
-     *   @param  name of param2 description of param2, etc.
-     *   @return a String containing the data read from the file.
+     * @param someBoard a Board object that represents the playing surface
+     * @return a String containing the computer's move
      */
     public String generateRandomMove(Board someboard)
     {
+        // Class Instances
         Random random = new Random();
+
+        // Variables
         String move = "flag";
 
+        // Randomly generate a move until said move is playable
         do
         {
             // randomly generate a number from 0-8
@@ -981,5 +938,5 @@ public class Computer
         } while (!someboard.isMoveAvailable(move));
 
         return move;
-    }
+    } // END generateRandomMove method
 } // END: Computer class
