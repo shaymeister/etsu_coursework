@@ -32,15 +32,11 @@ looping structures,and random number generation.
 # Project 3
 - GOAL: The goal of this project is to create Tic-Tac-Toe game
 
-The focus of the project is 
-
-● decision structures
-
-● looping structures
-
-● arrays
-
-● and methods
+The focus of the project is <br />
+● decision structures <br />
+● looping structures <br />
+● arrays <br />
+● and methods <br />
 
 # Project 4
 - GOAL: The goal is to change your previous, procedural implementation of tic-tac-toe in project #3
