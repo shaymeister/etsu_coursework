@@ -26,12 +26,12 @@ cookies. With x being defined by the user during the execution of the program
 7) Display output to the monitor
 
 # Project 2
-- GOAL: test the student's ability to use the knowledge of Java that they have 
-obtained up to this point in the course: input validation, decision structures,
+- GOAL: test the student's ability to use input validation, decision structures,
 looping structures,and random number generation.
 
 # Project 3
 - GOAL: The goal of this project is to create Tic-Tac-Toe game
+
 The focus of the project is 
 ● decision structures
 ● looping structures
