@@ -10,7 +10,8 @@
  */
 
 /**
- * Enter type purpose here
+ * create an enumerated datatype that represents the
+ * major industries within the credit card business
  *
  * <hr>
  * Date created: Jan 31, 2020
@@ -27,4 +28,4 @@ public enum Industry
     HEALTHCARE_OR_TELECOMMUNICATIONS,
     NATIONAL_ASSIGNMENT,
     UNKNOWN
-}
+} // END: Industry enum

@@ -27,8 +27,9 @@ public class CreditCard
 
 	// ----- Variables -----
 	// use the calendar object to get the current date and year
-	private int currentMonth = calendar.get(calendar.MONTH);
-	private int currentYear = calendar.get(calendar.MONTH);
+	// +1 is used here because the months in Calendar are zero-indexed
+	private int currentMonth = calendar.get(calendar.MONTH) + 1;
+	private int currentYear = calendar.get(calendar.YEAR);
 	private String cardHolderName;
 	private String cardNumber;
 	private String expirationDate;
