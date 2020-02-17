@@ -116,7 +116,7 @@ public class Card
 	 */
     public String toString()
     {
-        return "the " + face + " aof " + suit;
+        return "the " + face + " of " + suit;
     }
 
 } // END: Card class
