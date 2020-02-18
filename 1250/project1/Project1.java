@@ -26,10 +26,10 @@ public class Project1
 {
     /**
      * Method Name: Main <br>
-     * Method Purpose: Ties the entire project together given it is the main method 
+     * Method Purpose: Ties the entire project together given it is the main method
      * The user will be prompted to enter to enter their name and how many hours of tv they watch
      * daily. Given these varaible, the main method will determine the user's initials and calculate
-     * the sum of their respective unicode values. Furthermore, main method will calculate the 
+     * the sum of their respective unicode values. Furthermore, main method will calculate the
      * amount of tv the user will watch over x number of years given their daily avg. The output of
      * these calculations will be printed to the cmd line in three units: hours, days, years.<br>
      *
@@ -38,13 +38,13 @@ public class Project1
      * Last Modified: September 25, 2019 <br>
      *
      * <br>
-     * Notes: 
+     * Notes:
      * Project1 assumes:
      * - a year consists of exactly 365 days
      * - a day consists of exactly 24 hours
-     * 
-     * Leap years are not accounted for in the program's calculations 
-     * 
+     *
+     * Leap years are not accounted for in the program's calculations
+     *
      * <br>
      * @param args array of Strings (not used in this program)
      * @return void
@@ -57,9 +57,9 @@ public class Project1
         // Contants
         final double DAYS_PER_YEAR = 365, // holds the number of days per year
                      HOURS_PER_DAY = 24; // holds the number of hours per day
-        
+
         final int NUM_OF_YEARS = 10; // holds the number of years used for calculations
-        
+
         final String MY_NAME = "Shay"; // hols the name of the programmer
 
         // Variables
@@ -75,9 +75,9 @@ public class Project1
                hoursWatched, // hours of TV watched over x number of years given daily avg
                daysWatched, // days of TV watched over x number of years given daily avg
                yearsWatched; // years of TV watched over x number of years given daily avg
-               
+
         int unicodeSum; // to hold the sumation of the user's initital's unicode
-        
+
         // Introduce yourself and ask the user for their name and assign to "firstName"
         System.out.print("\n"+
                          "**********************************************************\n" +
@@ -141,6 +141,6 @@ public class Project1
                          "\n" +
                          "That's eye opening isn't it, " + fullName + "!?\n" +
                          "\n" +
-                         "**********************************************************\n"); 
+                         "**********************************************************\n");
     } // END Main Method
 } // END Class Project1
