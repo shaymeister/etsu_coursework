@@ -56,6 +56,18 @@ public class CreditCard
 	} // END: CreditCard constructor
 
 	/**
+	 * return the expiration status of a credit card object
+     *
+	 * <hr>
+	 * Date created: Feb 23, 2020
+	 */
+	public boolean getIsCardExpired()
+	{
+		// return the isCardExpired boolean attribute from this card
+		return this.isCardExpired;
+	} // END: getIsCardExpired() method
+
+	/**
 	 * allow programs that instanciate the CredidCard class to manipulate
      * the String attribute containing the cardholder's name
 	 *
@@ -159,14 +171,12 @@ public class CreditCard
 			 * that the card's account number is located between the 6th and
 			 * last digits encluding the 6th and last digits
 			 */
-			report = "---------------------------------------------------------------------------\n"
-				   + "Is Card Number Valid? " + this.isCardNumberValid + "\n"
-				   + "Is Card Expired? " + this.isCardExpired + "\n"
-				   + "Issuer Identification Number: " + this.cardNumber.substring(0, 6) + "\n"
-				   + "Card issuer: " + this.issuer + "\n"
-				   + "Card Holder: " + this.cardHolderName + "\n"
+			report = "Card Holder: " + this.cardHolderName + "\n"
 				   + "Card Number: " + this.cardNumber + "\n"
 				   + "Expiration Date: " + this.expirationDate + "\n"
+				   + "Is Card Expired? " + this.isCardExpired + "\n"
+				   + "Issuer Identification Number: " + this.cardNumber.substring(0, 6) + "\n"
+				   + "Card Issuer: " + this.issuer + "\n"
 				   + "Account Number: " + this.cardNumber.substring(6, this.cardNumber.length() - 1) + "\n"
 				   + "---------------------------------------------------------------------------";
 		}
@@ -210,7 +220,7 @@ public class CreditCard
 		}
 		// checking if card expired in future months
 		else if(this.expirationDate.length() == 7 &&
-			(Integer.parseInt(this.expirationDate.substring(0, 2)) < currentMonth &&
+			(Integer.parseInt(this.expirationDate.substring(0, 2)) > currentMonth &&
 			Integer.parseInt(this.expirationDate.substring(3, 7)) == currentYear))
 		{
 			this.isCardExpired = false;
