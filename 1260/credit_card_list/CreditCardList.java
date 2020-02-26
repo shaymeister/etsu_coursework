@@ -8,8 +8,11 @@
  * Creation Date: Feb 13, 2020
  * ---------------------------------------------------------------------------
  */
+
+ // Required Packages
 import java.lang.StringBuilder;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * create an ArrayList of CreditCard objects and
@@ -102,55 +105,194 @@ import java.util.ArrayList;
     } // END: removeCard() method
 
     /**
-	 * TODO Add Description
+	 * Loop through every card within the wallet and return a string detailing
+     * every credit card that is expired
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
 	 *
 	 * <hr>
 	 */
-    public ArrayList<CreditCard> getCardsByExpir()
+    public String getCardsByExpir()
     {
-        return null;
+        // Create a StringBuilder object to hold all expired cards
+        StringBuilder string = new StringBuilder();
+
+        /*
+         * create a boolean variable:
+         * true = some cards are expired
+         * false = no cards are expired
+         */
+        boolean someCardsExpired = false;
+
+        /*
+         * add a line to the beginning of the string describing the cards within
+         */
+        string.append("The following credit cards are expired:\n"
+                    + "---------------------------------------------------------------------------\n");
+
+        // loop through every card in the current wallet
+        for (int i = 0; i < wallet.size(); i++)
+        {
+            /*
+             * If the CreditCardList object at index i is expired, add it to
+             * the new StringBuilder object
+             */
+            if (wallet.get(i).getIsCardExpired())
+            {
+                // add the expired card to the StringBuilder object
+                string.append(wallet.get(i).generateReport());
+
+                // change the toggle to true since a card is expired
+                someCardsExpired = true;
+            } // END: retrieving expired cards
+        } // END: looping through every card within the wallet
+
+        // if some cards are expired, return the String holding their information
+        if (someCardsExpired)
+        {
+            // return the wallet containing the newly created CreditCardList Object
+            return string.toString();
+        }
+
+        // default: return a String stating that no cards are expired
+        return "No cards are expired!";
     } // END: getCardsbyExpir() method
 
     /**
-	 * TODO Add Description
+	 * return a String object detailing the card at index n
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
 	 *
 	 * <hr>
 	 */
-    public CreditCard getCardByIndex(int n)
+    public String getCardByIndex(int n)
     {
-        return null;
+        // make sure the desired index is in the ArrayList
+        if (n < 0 || n >= wallet.size())
+        {
+            /*
+             * if the desired index is outside of the array index
+             * return a string saying there is no card at index n
+             */
+            return "No card is available at index " + n;
+        }
+
+        // return the card at index n
+        return "The card at index " + n + ":\n"
+             + "---------------------------------------------------------------------------\n"
+             + wallet.get(n).generateReport();
     } // END: getCardByIndex() method
 
     /**
-	 * TODO Add Description
+	 * return a String detailing all cards whose holder matches the
+     * argumented String
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
 	 *
 	 * <hr>
 	 */
-    public ArrayList<CreditCard> getCardsByName(String name)
+    public String getCardsByName(String name)
     {
-        return null;
+        // Create a StringBuilder object to hold all matches
+        StringBuilder string = new StringBuilder();
+
+        /*
+         * create a boolean variable:
+         * true = some cards match
+         * false = no cards match
+         */
+        boolean cardsFound = false;
+
+        /*
+         * add a line to the beginning of the string describing the cards within
+         */
+        string.append("The following credit cards are held by " + name + ":\n"
+                    + "---------------------------------------------------------------------------\n");
+
+        // loop through every card in the current wallet
+        for (int i = 0; i < wallet.size(); i++)
+        {
+            /*
+             * If the CreditCardList object at index i is held by the given
+             * name, add it to the new StringBuilder object
+             */
+            if (wallet.get(i).getCardHolder().equals(name))
+            {
+                // add the expired card to the StringBuilder object
+                string.append(wallet.get(i).generateReport());
+
+                // change the toggle to true since a match was found
+                cardsFound = true;
+            } // END: retrieving matching cards
+        } // END: looping through every card within the wallet
+
+        // if some matches are found, return the String holding their information
+        if (cardsFound)
+        {
+            // return the wallet containing the newly created CreditCardList Object
+            return string.toString();
+        }
+
+        // default: return a String stating that no matches are found
+        return "No matches were found!";
     } // END: getCardsByName() method
 
     /**
-	 * TODO Add Description
+	 * return a String detailing all cards whose number matches the
+     * argumented String
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
 	 *
 	 * <hr>
 	 */
-    public ArrayList<CreditCard> getCardsByNumber(String number)
+    public String getCardsByNumber(String number)
     {
-        return null;
+        // Create a StringBuilder object to hold all matches
+        StringBuilder string = new StringBuilder();
+
+        /*
+         * create a boolean variable:
+         * true = some cards match
+         * false = no cards match
+         */
+        boolean cardsFound = false;
+
+        /*
+         * add a line to the beginning of the string describing the cards within
+         */
+        string.append("The following credit cards have the number " + number + ":\n"
+                    + "---------------------------------------------------------------------------\n");
+
+        // loop through every card in the current wallet
+        for (int i = 0; i < wallet.size(); i++)
+        {
+            /*
+             * If the CreditCardList object at index i has a matching card
+             * number, add it to the new StringBuilder object
+             */
+            if (wallet.get(i).getCardNumber().equals(number))
+            {
+                // add the matching card to the StringBuilder object
+                string.append(wallet.get(i).generateReport());
+
+                // change the toggle to true since a match was found
+                cardsFound = true;
+            } // END: retrieving matching cards
+        } // END: looping through every card within the wallet
+
+        // if some matches are found, return the String holding their information
+        if (cardsFound)
+        {
+            // return the wallet containing the newly created CreditCardList Object
+            return string.toString();
+        }
+
+        // default: return a String stating that no matches are found
+        return "No matches were found!";
     } // END: getCardsByNumber() met
 
     /**
@@ -175,6 +317,9 @@ import java.util.ArrayList;
         // create a new StringBuilder object
         StringBuilder allCards = new StringBuilder();
 
+        // the following addition is for better visuals
+        allCards.append("---------------------------------------------------------------------------\n");
+
         /*
          * loop through the entire wallet, and sending its information to the
          * StringBuilder object so the user can view their entire wallet
@@ -192,7 +337,7 @@ import java.util.ArrayList;
     } // END: getAllCards() method
 
     /**
-	 * TODO Add Description
+	 * Use the Java Comparator to sort the wallet by card number
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
@@ -201,11 +346,12 @@ import java.util.ArrayList;
 	 */
     public void sortCardsByNumber()
     {
-
+        // Use the Java Comparator to sort the wallet by card number
+        wallet.sort(Comparator.comparing(c -> c.getCardNumber()));
     } // END: sortCardsByNumber() method
 
     /**
-	 * TODO Add Description
+	 * Use the Java Comparator to sort the wallet by card holder
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
@@ -214,6 +360,7 @@ import java.util.ArrayList;
 	 */
     public void sortCardsByName()
     {
-
+        // Use the Java Comparator to sort the wallet by card holder
+        wallet.sort(Comparator.comparing(c -> c.getCardHolder()));
     } // END: sortCardsByName method
  } // END: CreditCardList class

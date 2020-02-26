@@ -68,6 +68,30 @@ public class CreditCard
 	} // END: getIsCardExpired() method
 
 	/**
+	 * return the card holder of a credit card object
+     *
+	 * <hr>
+	 * Date created: Feb 23, 2020
+	 */
+	public String getCardHolder()
+	{
+		// return the cardHolderName attribute from this card
+		return this.cardHolderName;
+	} // END: getCardHolder() method
+
+	/**
+	 * return the card number of a credit card object
+     *
+	 * <hr>
+	 * Date created: Feb 23, 2020
+	 */
+	public String getCardNumber()
+	{
+		// return the cardNumber boolean attribute from this card
+		return this.cardNumber;
+	} // END: getCardNumber() method
+
+	/**
 	 * allow programs that instanciate the CredidCard class to manipulate
      * the String attribute containing the cardholder's name
 	 *
@@ -174,8 +198,6 @@ public class CreditCard
 			report = "Card Holder: " + this.cardHolderName + "\n"
 				   + "Card Number: " + this.cardNumber + "\n"
 				   + "Expiration Date: " + this.expirationDate + "\n"
-				   + "Is Card Expired? " + this.isCardExpired + "\n"
-				   + "Issuer Identification Number: " + this.cardNumber.substring(0, 6) + "\n"
 				   + "Card Issuer: " + this.issuer + "\n"
 				   + "Account Number: " + this.cardNumber.substring(6, this.cardNumber.length() - 1) + "\n"
 				   + "---------------------------------------------------------------------------";
@@ -183,7 +205,7 @@ public class CreditCard
         // if the card isn't valid, generate a report listing that single attributes
 		else
 		{
-			report = "Sorry, the card number is invalid.";
+			report = "Sorry, the card number is invalid.\n---------------------------------------------------------------------------";
 		}
 
         // return the generated report to the runtime environment

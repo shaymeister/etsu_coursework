@@ -9,8 +9,12 @@
  * ---------------------------------------------------------------------------
  */
 
-import java.util.ArrayList;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.plaf.DimensionUIResource;
 
 /**
  * allow the user to interact with the CreditCardList class
@@ -90,12 +94,25 @@ public class CreditCardListDriver
                                       "add card"};
 
             /*
+             * create a JTextArea that will allow us to create a text area with
+             * a scroll bar so the user can view all of their cards
+             */
+            JTextArea textArea = new JTextArea(wallet.getAllCards(), 50, 50);
+
+            // make the text area uneditable
+            textArea.setEditable(false);
+
+            // create a scroll pane with our text area
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setMaximumSize(new DimensionUIResource(500, 500));
+            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+            /*
              * display a JOptionPane OptionDialog box that lists all cards in
              * the wallet and display various options for the user to
              * manipulate the wallet
              */
             int result = JOptionPane.showOptionDialog(null,
-                        wallet.getAllCards(), // string
+                        scrollPane,
                         "Credit Card List Manager",
                         JOptionPane.DEFAULT_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
@@ -458,7 +475,8 @@ public class CreditCardListDriver
     } // END: removeCard() method
 
     /**
-	 * TODO Add Description
+	 * Using JOptionPane, allow the users to select different manners to
+     * retrieve CreditCard objects from their wallet
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
@@ -467,12 +485,160 @@ public class CreditCardListDriver
 	 */
     private static void getCards(CreditCardList wallet)
     {
-        // FIXME Remove the print statement (testing)
-        System.out.println("Entered the getCards() method");
+        // String array of the possible ways to get the user's cards
+        final String[] OPTIONS = {"expiration date", "index", "card holder", "card number"};
+
+        /*
+         * Using JOptionPane, prompt the user to select the way to retrieve
+         * a given set of credit cards from their wallet
+         */
+        int result = JOptionPane.showOptionDialog(null,
+                        "Which attribute should the get method utilize?",
+                        "Credit Card List Manager",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        OPTIONS,
+                        -1);
+
+        // use a switch statement to manage the retrieval options in 'result'
+        switch (result)
+        {
+            // result = -1 occurs when the user closes the window
+            case -1:
+                /*
+                 * no method is called so return to the main screen
+                 * by breaking away from the switch
+                 */
+                break;
+
+            // result = 0 occurs when the user selects 'expiration date'
+            case 0:
+                /*
+                 * Use JOptionPane and the wallet's getCardsByExpir()
+                 * method to display all cards that are expired
+                 */
+                JOptionPane.showMessageDialog(null,
+                            wallet.getCardsByExpir(),
+                            "Credit Card List Manager",
+                            JOptionPane.INFORMATION_MESSAGE);
+                break;
+
+            // result = 1 occurs when the user selects 'index'
+            case 1:
+                /*
+                 * prompt the user to enter an integer value representing the location
+                 * of the credit card they would like to me retrieve
+                 */
+                String index = JOptionPane.showInputDialog(null,
+                        "Based on index, which card would you like to retrieve?",
+                        "Credit Card List Manager",
+                        JOptionPane.QUESTION_MESSAGE);
+
+                // if the user fails to enter a value or closes the window, return
+                if (index == null || index.equals(""))
+                {
+                    // return to the core() method
+                    core(wallet);
+                } // END: if index is blank or null
+
+                // make sure the argumented value can be parsed to an int
+                while (!isNumeric(index))
+                {
+                    // until a valid number is argumented, prompt the user to re-enter
+                    index = JOptionPane.showInputDialog(null,
+                        "Invalid Input! Based on index, which card would you like to retrieve?",
+                        "Credit Card List Manager",
+                        JOptionPane.WARNING_MESSAGE);
+
+                    // if the user fails to enter a value or closes the window, return
+                    if (index == null || index.equals(""))
+                    {
+                        // return to the core() method
+                        core(wallet);
+                    } // END: if index is blank or null
+                } // END: looping until valid index
+
+                // display information about the retrieved card
+                JOptionPane.showMessageDialog(null,
+                            wallet.getCardByIndex(Integer.parseInt(index)),
+                            "Credit Card List Manager",
+                            JOptionPane.INFORMATION_MESSAGE);
+                break;
+
+            // result = 2 occurs when the user selects 'card holder'
+            case 2:
+                /*
+                 * prompt the user to enter the name of the card holer they
+                 * would like to look for
+                 */
+                String name = JOptionPane.showInputDialog(null,
+                        "What card holder name would you like to look for?",
+                        "Credit Card List Manager",
+                        JOptionPane.QUESTION_MESSAGE);
+
+                // if the user fails to enter a value or closes the window, return
+                if (name == null || name.equals(""))
+                {
+                    // return to the core() method
+                    core(wallet);
+                } // END: if index is blank or null
+
+                // display information about the retrieved card
+                JOptionPane.showMessageDialog(null,
+                            wallet.getCardsByName(name),
+                            "Credit Card List Manager",
+                            JOptionPane.INFORMATION_MESSAGE);
+                break;
+
+            // result = 3 occures when the user selects 'card number'
+            case 3:
+                /*
+                 * prompt the user to enter an integer value representing the
+                 * number of the credit card they would like to retrieve
+                 */
+                String number = JOptionPane.showInputDialog(null,
+                        "What card number would you like to look for?",
+                        "Credit Card List Manager",
+                        JOptionPane.QUESTION_MESSAGE);
+
+                // if the user fails to enter a value or closes the window, return
+                if (number == null || number.equals(""))
+                {
+                    // return to the core() method
+                    core(wallet);
+                } // END: if index is blank or null
+
+                // make sure the argumented value can be parsed to an int
+                while (!isNumeric(number))
+                {
+                    // until a valid number is argumented, prompt the user to re-enter
+                    number = JOptionPane.showInputDialog(null,
+                        "Incorrect Input! What card number would you like to look for?",
+                        "Credit Card List Manager",
+                        JOptionPane.WARNING_MESSAGE);
+
+                    // if the user fails to enter a value or closes the window, return
+                    if (number == null || number.equals(""))
+                    {
+                        // return to the core() method
+                        core(wallet);
+                    } // END: if index is blank or null
+                } // END: looping until valid index
+
+                // display information about the retrieved card
+                JOptionPane.showMessageDialog(null,
+                            wallet.getCardsByNumber(number),
+                            "Credit Card List Manager",
+                            JOptionPane.INFORMATION_MESSAGE);
+                break;
+        } // END: switching through getCards() options
     } // END: getCards() method
 
     /**
-	 * TODO Add Description
+	 * Use JOptionPane to allow the user to choose to sort to their wallet by
+     * card holder or card number
+     * w
 	 *
 	 * <hr>
 	 * Date created: Feb 23, 2020
@@ -481,8 +647,53 @@ public class CreditCardListDriver
 	 */
     private static void sortCards(CreditCardList wallet)
     {
-        // FIXME Remove the print statement (testing)
-        System.out.println("Entered the sortCards() method");
-    } // END: sortCards() method
+        // String array of the possible ways to sort the user's cards
+        final String[] OPTIONS = {"card holder", "card number"};
 
+        /*
+         * Using JOptionPane, prompt the user to select the way to retrieve
+         * a given set of credit cards from their wallet
+         */
+        int result = JOptionPane.showOptionDialog(null,
+                        "Which attribute should the sort method utilize?",
+                        "Credit Card List Manager",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        OPTIONS,
+                        -1);
+
+        // switch through possible user actions
+        switch (result)
+        {
+            // result = -1 occurs when the user closes the window
+            case -1:
+                /*
+                 * no method is called so return to the main screen
+                 * by breaking away from the switch
+                 */
+                break;
+
+            // result = 0 occurs when the user selects 'card holder'
+            case 0:
+                // sort the cards by number
+                wallet.sortCardsByName();
+                break;
+
+            // result = 1 occures when user selects 'card number'
+            case 1:
+                // sort the cards by name
+                wallet.sortCardsByNumber();
+                break;
+
+            // the default is used for error catching
+            default:
+                // display a prompt the user about the unexpected error
+                JOptionPane.showMessageDialog(null,
+                                "Sorry, an unexpected error has occured.",
+                                "Credit Card List Manager",
+                                JOptionPane.WARNING_MESSAGE);
+                break;
+        } // END: switching through possible outcomes
+    } // END: sortCards() method
 } // END: CreditCardListDriver class
