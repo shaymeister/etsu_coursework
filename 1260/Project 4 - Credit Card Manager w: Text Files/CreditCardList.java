@@ -28,6 +28,12 @@ import java.util.Collections;
     // create a private ArrayList of CreditCard objects
     private ArrayList<CreditCard> wallet;
 
+    // create a boolean attribute so determine when a save is needed
+    boolean saveNeeded;
+
+    // create a String attribute representing the location of the CreditCardList
+    String filePath = null;
+
     /**
 	 * default, no-arg constructor for the CreditCardList class
 	 *
@@ -41,6 +47,35 @@ import java.util.Collections;
         // Initialize the ArrayList of CreditCard objects
         wallet = new ArrayList<CreditCard>();
     } // END: no-arg constructor
+
+    /**
+	 * TODO Finish Documentation
+	 *
+	 * <hr>
+	 * Date created: March 15, 2020
+	 *
+	 * <hr>
+	 */
+    public CreditCardList(String path)
+    {
+        // TODO Finish Implementation
+        System.out.println("Entered the argument constructor for the CreditCardList class");
+    } // END: arg constructor
+
+    /**
+	 * return the boolean attribute containing the save status of the
+     * CreditCard list
+	 *
+	 * <hr>
+	 * Date created: Feb 23, 2020
+	 *
+	 * <hr>
+	 */
+    public boolean getSaveNeeded()
+    {
+        // return the saveNeeded boolean
+        return this.saveNeeded;
+    } // END: getSaveNeeded() method
 
     /**
 	 * Add a new CreditCard object to the ArrayList<CreditCard>
@@ -427,4 +462,30 @@ import java.util.Collections;
             } // END: iterating over entire loop
         } // END: selection sort algorithm
     } // END: sortCardsByName method
+
+    /**
+	 * TODO Finish Documentation
+	 *
+	 * <hr>
+	 * Date created: March 15, 2020
+	 *
+	 * <hr>
+	 */
+    public void save()
+    {
+        // TODO: Finish Implementation
+    } // END: save() method
+
+    /**
+	 * TODO Finish Documentation
+	 *
+	 * <hr>
+	 * Date created: March 15, 2020
+	 *
+	 * <hr>
+	 */
+    public void save(String path)
+    {
+        // TODO: Finish Implementation
+    } // END: save() method
 } // END: CreditCardList class

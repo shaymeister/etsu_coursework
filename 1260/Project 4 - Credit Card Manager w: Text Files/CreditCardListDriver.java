@@ -9,10 +9,12 @@
  * ---------------------------------------------------------------------------
  */
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.DimensionUIResource;
 
 /**
@@ -39,14 +41,11 @@ public class CreditCardListDriver
 	 */
     public static void main(String[] args)
     {
-        // use the CreditCardList class to create a wallet object
-        CreditCardList wallet = new CreditCardList();
-
         // use the intro() method to introduce the project to the user
         intro();
 
         // start the main aspect of the program
-        core(wallet);
+        core(initializeCreditCardList());
     } // END: main() method
 
     /**
@@ -93,7 +92,7 @@ public class CreditCardListDriver
                                       "add card"};
 
             /*
-             * create agit  JTextArea that will allow us to create a text area with
+             * create a JTextArea that will allow us to create a text area with
              * a scroll bar so the user can view all of their cards
              */
             JTextArea textArea = new JTextArea(wallet.getAllCards(), 50, 50);
@@ -110,7 +109,7 @@ public class CreditCardListDriver
              * the wallet and display various options for the user to
              * manipulate the wallet
              */
-            int result = JOptionPane.showOptionDialog(null,
+            int result2 = JOptionPane.showOptionDialog(null,
                         scrollPane,
                         "Credit Card List Manager",
                         JOptionPane.DEFAULT_OPTION,
@@ -119,7 +118,7 @@ public class CreditCardListDriver
                         OPTIONS,
                         -1);
 
-            switch (result)
+            switch (result2)
             {
                 // User presses 'X' button
                 case -1:
@@ -176,6 +175,8 @@ public class CreditCardListDriver
                                     JOptionPane.WARNING_MESSAGE);
                     break;
             } // END: switching options
+
+            // TODO Check if the user's list needs to be saved; if so, save
         } // END: endless while loop
     } // END: core() method
 
@@ -190,6 +191,11 @@ public class CreditCardListDriver
 	 */
     private static void outro()
     {
+        /*
+         * TODO Implement functionality allowing the user to save their credit
+         * card list to a given file
+         */
+
         // ask the user if they are sure they would like to exit the program
         int result = JOptionPane.showConfirmDialog(null,
                 "Thank you for using the Credit Card List Manager!\n"
@@ -694,5 +700,110 @@ public class CreditCardListDriver
                                 JOptionPane.WARNING_MESSAGE);
                 break;
         } // END: switching through possible outcomes
-    } // END: sortCards() method
+    } // END: sortCards()
+
+    /**
+	 * This method allows the user to select the manner in which the program will run.
+     * They can choose to create a new CreditCardList or import a previous CreditCardList
+	 *
+	 * <hr>
+	 * Date created: March 17, 2020
+	 *
+	 * <hr>
+	 */
+    public static CreditCardList initializeCreditCardList()
+    {
+        /*
+         * this String variables contains the prompt that is displayed to the user
+         * when they are asked if they would like to import a previous
+         */
+        String promptImportPreviousList = "Would you like to import a previous CreditCardList\n"
+                                        + "or create a new CreditCardList?";
+        /*
+         * Ask the user if they would like to import a previous
+         * CreditCardList or create a new one.
+         */
+        int result = JOptionPane.showConfirmDialog(null,
+                            promptImportPreviousList,
+                            "Credit Card List Manager",
+                            JOptionPane.YES_NO_OPTION);
+
+        /*
+         * user selects yes: use the JFileChooser so they can import a previous CreditCardList
+         * user selects no: use the default no-arg constructor in the CreditCardList class
+         * user closes window: use the default no-arg constructor in the CreditCardList class
+         * default: use the default no-arg constructor in the CreditCardList class
+         */
+         switch(result)
+         {
+            // if the user selects 'yes'
+            case (JOptionPane.YES_OPTION):
+                    // call the importPreviousList() method and return the list
+                    return importPreviousList();
+
+            // if the user selects 'no'
+            case (JOptionPane.NO_OPTION):
+                // return the result of the default constructor for the CreditCardList class
+                return new CreditCardList();
+
+            // if the user closes the pane
+            case (JOptionPane.CLOSED_OPTION):
+                // ruturn the result of the default constructor for the CreditCardList class
+                return new CreditCardList();
+
+            // default result
+            default:
+                // ruturn the result of the default constructor for the CreditCardList class
+                return new CreditCardList();
+        } // END: switch(results)
+    } // END: initializeCreditCardList() method
+
+    /**
+	 * use the JFileChooser to allow the user to import a previous CreditCardList
+	 *
+	 * <hr>
+	 * Date created: March 17, 2020
+	 *
+	 * <hr>
+	 */
+    private static CreditCardList importPreviousList()
+    {
+        // TODO Implement Importing Previous CreditCardList from text files
+        System.out.println("Entered the importPreviousList method"); // remove
+
+        /*
+         * Create a new instance of the JFileChooser class with the default
+         * directory being the 'textfiles' folder
+         */
+        JFileChooser chooser = new JFileChooser("textfiles");
+
+        /*
+         * Create a file filter so only 'txt' files are shown
+         */
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text");
+
+        // set the extention filter to the dialog box
+        chooser.setFileFilter(filter);
+
+        // set the dialog title
+        chooser.setDialogTitle("Import a previous CreditCardList");
+
+        // set the dialog box tooltip
+        chooser.setApproveButtonToolTipText("Select the list you want to import; then click here");
+
+        // show the open dialog box to the user and save their answer in 'result'
+        int result = chooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION)
+        {
+            String path = chooser.getSelectedFile().getPath();
+
+            System.out.println(path);
+        }
+
+
+
+
+        return null; // FIXME correct the return variable
+    } // END: importPreviousList() method
 } // END: CreditCardListDriver class
