@@ -10,9 +10,13 @@
  */
 
 // Required Packages
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 /**
  * create an ArrayList of CreditCard objects and
@@ -28,8 +32,11 @@ import java.util.Collections;
     // create a private ArrayList of CreditCard objects
     private ArrayList<CreditCard> wallet;
 
-    // create a boolean attribute so determine when a save is needed
+    // create a boolean attribute to determine when a save is needed
     boolean saveNeeded;
+
+    // create a boolean attribute to determine if the list was imported
+    boolean imported;
 
     // create a String attribute representing the location of the CreditCardList
     String filePath = null;
@@ -45,11 +52,20 @@ import java.util.Collections;
     public CreditCardList()
     {
         // Initialize the ArrayList of CreditCard objects
-        wallet = new ArrayList<CreditCard>();
+        this.wallet = new ArrayList<CreditCard>();
+
+        // set the default file path
+        this.filePath = "tmp.text";
+
+        // set the saveNeedted and imported attributes to 'false'
+        this.imported = false;
+        this.saveNeeded = false;
+
     } // END: no-arg constructor
 
     /**
-	 * TODO Finish Documentation
+	 * create a list of CreditCard objects from a specificied file at
+     * the argumented path
 	 *
 	 * <hr>
 	 * Date created: March 15, 2020
@@ -58,8 +74,71 @@ import java.util.Collections;
 	 */
     public CreditCardList(String path)
     {
-        // TODO Finish Implementation
-        System.out.println("Entered the argument constructor for the CreditCardList class");
+        // Initialize the ArrayList of CreditCard objects
+        this.wallet = new ArrayList<CreditCard>();
+
+        // Attempt to read from the file at the argumented path
+        try
+        {
+            // initialize the PrintWriter class to the specified path
+            File file = new File(path);
+
+            // initialize the Scanner class with the specified file
+            Scanner inputFile = new Scanner(file);
+
+            // create a String array to hold each card's details
+            String[] cardDetails = null;
+
+            // loop through every line the argumented file
+            while(inputFile.hasNextLine())
+            {
+                // split the line of the file into the cardDetails String array
+                cardDetails = inputFile.nextLine().split("\\|");
+                
+                /* 
+                 * if the String array fits the following criteria, add the card to the list
+                 * 
+                 * 1) cardDetails != null : this ensures the String array contains some value
+                 * 2) cardDetails.length == 3 : this ensures that their are three distinct sets of
+                 *     data within a given line
+                 * 3) cardDetails[0] != null : this ensures that the first data attribute contains
+                 *     some form of data, even an empty String
+                 * 4) cardDetails[1] != null : this ensures that the second data attribute contains
+                 *     soem form of data, even an empty String
+                 * 5) isNumeric(cardDetails) : this ensure the data within the second data attribute
+                 *     is numerical
+                 * 6) cardDetails[2] != null : this ensures that there is some form of data within
+                 *     within the third data attribute, even an empty String
+                 * 7) cardDetails[2].length() == 7 : this ensures that the third data attribute is
+                 *     in the correct format (MM/YYYY)
+                 * 8) isNumeric(cardDetails[2].replace("/", "")) : aside from the forward slash,
+                 *     this ensures the third attribute contains numerical data
+                 */
+                if (cardDetails != null && cardDetails.length == 3 && cardDetails[0] != null && cardDetails[1] != null && 
+                    isNumeric(cardDetails[1]) && cardDetails[2] != null && cardDetails[2].length() == 7 && isNumeric(cardDetails[2].substring(0,2)) && isNumeric(cardDetails[2].substring(4)))
+                {
+                    /*
+                     * Create a new CreditCard object based upon the data in the cardDetails String[]
+                     * 
+                     * Assuming the cardDetails variable is in the correct format:
+                     * cardDetails[0] = the card holder's name in the form of a String
+                     * cardDetails[1] = the card's number in the form of a String
+                     * cardDetails[2] = the card's expiration date in the form of a String
+                     */
+                    wallet.add(new CreditCard(cardDetails[0], cardDetails[1], cardDetails[2]));
+                } // END: if data at line n is valid
+            } // END: looping through all lines within the file
+        } // END: attempting to read from file
+        // catch any errors that may arise
+        catch(IOException e)
+        {
+            // set the default file path
+            this.filePath = "tmp.text";
+
+            // set the saveNeedted and imported attributes to 'false'
+            this.imported = false;
+            this.saveNeeded = false;
+        } // END: error catching
     } // END: arg constructor
 
     /**
@@ -76,6 +155,20 @@ import java.util.Collections;
         // return the saveNeeded boolean
         return this.saveNeeded;
     } // END: getSaveNeeded() method
+
+    /**
+	 * return the boolean attribute specifiying if the list was imported
+	 *
+	 * <hr>
+	 * Date created: Feb 23, 2020
+	 *
+	 * <hr>
+	 */
+    public boolean getImported()
+    {
+        // return the imported boolean
+        return this.imported;
+    } // END: getImported() method
 
     /**
 	 * Add a new CreditCard object to the ArrayList<CreditCard>
@@ -462,6 +555,38 @@ import java.util.Collections;
             } // END: iterating over entire loop
         } // END: selection sort algorithm
     } // END: sortCardsByName method
+
+    /**
+	 * Determine if the argument String can be parsed to an int
+	 *
+	 * <hr>
+	 * Date created: Feb 23, 2020
+	 *
+	 * <hr>
+	 */
+    private static boolean isNumeric(String number)
+    {
+        /*
+         * Use a try catch to determine if the String can
+         * be parsed to an integer
+         */
+        try
+        {
+            // try to parse the String
+            Long.parseLong(number);
+        } // END: try
+        catch (Exception e)
+        {
+            // return false is the String fails to parse
+            return false;
+        } // END: catch
+
+        /*
+         * assuming no error what thrown, return true as the
+         * String was successfully parsed to an int
+         */
+        return true;
+    } // END: isNumeric() method
 
     /**
 	 * TODO Finish Documentation

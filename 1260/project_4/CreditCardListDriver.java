@@ -1,3 +1,4 @@
+
 /**
  * ---------------------------------------------------------------------------
  * File name: CreditCardListDriver.java
@@ -8,6 +9,8 @@
  * Creation Date: Feb 13, 2020
  * ---------------------------------------------------------------------------
  */
+
+import java.io.File;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -109,7 +112,7 @@ public class CreditCardListDriver
              * the wallet and display various options for the user to
              * manipulate the wallet
              */
-            int result2 = JOptionPane.showOptionDialog(null,
+            int result = JOptionPane.showOptionDialog(null,
                         scrollPane,
                         "Credit Card List Manager",
                         JOptionPane.DEFAULT_OPTION,
@@ -118,12 +121,12 @@ public class CreditCardListDriver
                         OPTIONS,
                         -1);
 
-            switch (result2)
+            switch (result)
             {
                 // User presses 'X' button
                 case -1:
                     // call the outro method
-                    outro();
+                    outro(wallet);
                     break;
 
                 // User presses 'get card(s)' button
@@ -176,7 +179,12 @@ public class CreditCardListDriver
                     break;
             } // END: switching options
 
-            // TODO Check if the user's list needs to be saved; if so, save
+            // if the list needs to be saved, save the list
+            if(wallet.getSaveNeeded())
+            {
+                // save the wallet
+                wallet.save();
+            } // END: if save needed
         } // END: endless while loop
     } // END: core() method
 
@@ -189,7 +197,7 @@ public class CreditCardListDriver
 	 *
 	 * <hr>
 	 */
-    private static void outro()
+    private static void outro(CreditCardList wallet)
     {
         /*
          * TODO Implement functionality allowing the user to save their credit
@@ -714,17 +722,10 @@ public class CreditCardListDriver
     public static CreditCardList initializeCreditCardList()
     {
         /*
-         * this String variables contains the prompt that is displayed to the user
-         * when they are asked if they would like to import a previous
-         */
-        String promptImportPreviousList = "Would you like to import a previous CreditCardList\n"
-                                        + "or create a new CreditCardList?";
-        /*
-         * Ask the user if they would like to import a previous
-         * CreditCardList or create a new one.
+         * Ask the user if they would like to import a previous CreditCardList
          */
         int result = JOptionPane.showConfirmDialog(null,
-                            promptImportPreviousList,
+                            "Would you like to import a previous CreditCardList?",
                             "Credit Card List Manager",
                             JOptionPane.YES_NO_OPTION);
 
@@ -734,8 +735,8 @@ public class CreditCardListDriver
          * user closes window: use the default no-arg constructor in the CreditCardList class
          * default: use the default no-arg constructor in the CreditCardList class
          */
-         switch(result)
-         {
+        switch(result)
+        {
             // if the user selects 'yes'
             case (JOptionPane.YES_OPTION):
                     // call the importPreviousList() method and return the list
@@ -768,9 +769,6 @@ public class CreditCardListDriver
 	 */
     private static CreditCardList importPreviousList()
     {
-        // TODO Implement Importing Previous CreditCardList from text files
-        System.out.println("Entered the importPreviousList method"); // remove
-
         /*
          * Create a new instance of the JFileChooser class with the default
          * directory being the 'textfiles' folder
@@ -796,14 +794,64 @@ public class CreditCardListDriver
 
         if (result == JFileChooser.APPROVE_OPTION)
         {
+            // get the path of the desired file
             String path = chooser.getSelectedFile().getPath();
+            
+            // determine if the desired file exists; assign the boolean result to 'pathValid'
+            boolean pathValid = new File(path).exists();
+            
+            /*
+             * If the file does exist, use the CredidCardList's
+             * arg constructor with the argumented file path
+             * 
+             * If the file doesn't exist, use the CreditCardList's
+             * default no-arg constructor
+             */
+            if (pathValid)
+            {
+                // import the desired CreditCardList
+                return new CreditCardList(path);
+            } // END: if desired file does exist
+            else
+            {
+                /*
+                 * Since the previously selected file doesn't exist, ask if the user if
+                 * they would like to try again. Since we are using JOptionPane, assign
+                 * their answer to an integer variable
+                 */
+                int repeat = JOptionPane.showConfirmDialog(
+                                null,
+                                "The desired file doesn't exist. Would you like to try again?",
+                                "Credit Card List Manager",
+                                JOptionPane.YES_NO_OPTION);
 
-            System.out.println(path);
-        }
+                /*
+                 * This if-statement will account for the various outcomes
+                 * of the aforementioned question
+                 * 
+                 * if the user selects 'yes': allow the user to try again
+                 */
+                if (repeat == JOptionPane.YES_OPTION)
+                {
+                    // allow the user to try again
+                    importPreviousList();
+                } // END: if user selects 'yes'
+                else
+                {
+                    // inform the user that a new, empty CreditCardList will be created
+                    JOptionPane.showMessageDialog(
+                                    null,
+                                    "An empty CreditCardList will be created.",
+                                    "CreditCardListManager",
+                                    JOptionPane.WARNING_MESSAGE);
 
+                    // if all else fails, create a new CreditCardList
+                    return new CreditCardList();
+                } // END: if user doesn't select yes
+            } // END: if file doesn't exist
+        } // END: if user selects a file
 
-
-
-        return null; // FIXME correct the return variable
+        // if all else fails, create a new CreditCardList
+        return new CreditCardList();
     } // END: importPreviousList() method
 } // END: CreditCardListDriver class
