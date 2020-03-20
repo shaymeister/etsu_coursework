@@ -232,7 +232,7 @@ public class CreditCardListDriver
             if (choice == JOptionPane.YES_OPTION)
             {
                 // create a new JFileChooser object in the 'textfiles' directory
-                JFileChooser chooser = new JFileChooser("textfiles");
+                JFileChooser chooser = new JFileChooser("CreditCardData");
 
                 // set the file extension filter to only show 'txt' files
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text");
@@ -283,7 +283,7 @@ public class CreditCardListDriver
             do
             {
                 // create a new JFileChooser object in the 'textfiles' directory
-                JFileChooser chooser = new JFileChooser("textfiles");
+                JFileChooser chooser = new JFileChooser("CreditCardData");
 
                 // set the file extension filter to only show 'txt' files
                 FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text");
@@ -882,7 +882,7 @@ public class CreditCardListDriver
          * Create a new instance of the JFileChooser class with the default
          * directory being the 'textfiles' folder
          */
-        JFileChooser chooser = new JFileChooser("textfiles");
+        JFileChooser chooser = new JFileChooser("CreditCardData");
 
         /*
          * Create a file filter so only 'txt' files are shown
