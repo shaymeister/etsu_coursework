@@ -86,6 +86,15 @@ public class CreditCardListDriver
         while (true)
         {
             /*
+             * check if the user's CreditCardList needs to be saved; if so, save
+             */
+            if(wallet.getSaveNeeded())
+            {
+                // assuming a save is needed, save the file
+                wallet.save();
+            } // END: if save needed
+
+            /*
              * Create a String array of the various ways the user can
              * manipulate their wallet
              */
@@ -199,10 +208,110 @@ public class CreditCardListDriver
 	 */
     private static void outro(CreditCardList wallet)
     {
+        if (wallet.getImported())
+        {
+            /*
+             * ask the user if they would like to save their CreditCardList to
+             * a new location
+             * 
+             * if the user selects 'yes' : allow them to select a new file
+             * if the user selects 'no' : save to the original file
+             * if the user closes the window : save to the original file
+             */
+            int choice = JOptionPane.showConfirmDialog(
+                                        null,
+                                        "Would you like to save your CreditCardList to a new location?",
+                                        "Credit Card List Manager",
+                                        JOptionPane.YES_NO_OPTION);
+
+            /*
+             * If the user selects 'yes', allow them to select a new file and
+             *     location
+             * If the user selects or does anything else, save to the original file
+             */
+            if (choice == JOptionPane.YES_OPTION)
+            {
+                // create a new JFileChooser object in the 'textfiles' directory
+                JFileChooser chooser = new JFileChooser("textfiles");
+
+                // set the file extension filter to only show 'txt' files
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text");
+
+                // set the file filter
+                chooser.setFileFilter(filter);
+
+                // set the dialog title
+                chooser.setDialogTitle("Select Save Location");
+
+                // set the tooltip
+                chooser.setApproveButtonToolTipText("Select where you would like to save your wallet");
+
+                // display the save dialog box
+                int button = chooser.showSaveDialog(null);
+
+                // if the user selects the approve option
+                if (button == JFileChooser.APPROVE_OPTION)
+                {
+                    // save the file to the specified location
+                    wallet.save(chooser.getSelectedFile().getPath());
+                } // END: if the user selects the approve option
+
+                // if the user selects anything but approve
+                else
+                {
+                    // save to the original location
+                    wallet.save();
+                } // END: if user selects anything but approve
+            } // END: if user selects 'yes'
+            // Assuming the user doesn't select 'yes'
+            else
+            {
+                // save to the original file
+                wallet.save();
+            } // END: if user doesn't select 'yes'
+        } // END: if file was imported
+        
         /*
-         * TODO Implement functionality allowing the user to save their credit
-         * card list to a given file
+         * Since this CreditCardList wasn't imported, prompt the user to select
+         * a save location until a valid answer is received
          */
+        else
+        {
+            String path = null; // to hold the user's desired save location
+
+            // loop until the user enters an appropriate answer
+            do
+            {
+                // create a new JFileChooser object in the 'textfiles' directory
+                JFileChooser chooser = new JFileChooser("textfiles");
+
+                // set the file extension filter to only show 'txt' files
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Text Files", "txt", "text");
+
+                // set the file filter
+                chooser.setFileFilter(filter);
+
+                // set the dialog title
+                chooser.setDialogTitle("Select Save Location");
+
+                // set the tooltip
+                chooser.setApproveButtonToolTipText("Select where you would like to save your wallet");
+
+                // display the save dialog box
+                int button = chooser.showSaveDialog(null);
+
+                // if the user selects the approve option
+                if (button == JFileChooser.APPROVE_OPTION)
+                {
+                    // save the file to the specified location
+                    path = chooser.getSelectedFile().getPath();
+                } // END: if the user selects the approve option
+            } while (path == null);
+
+            // save to the desired location and remove the tmp file
+            wallet.save(path);
+            wallet.deleteTempFile();
+        } // END: if file wasn't imported
 
         // ask the user if they are sure they would like to exit the program
         int result = JOptionPane.showConfirmDialog(null,

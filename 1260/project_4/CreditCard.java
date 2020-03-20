@@ -443,4 +443,21 @@ public class CreditCard
 				break;
 		} // END: switch statement
 	} // END: determineIndustry method
+
+	/**
+	 * Create a String object containing various information about the
+	 * CreditCard object. This information will be presented in the following
+	 * order: <Card Holder Name>, <Card Number>, <Expiration Date>. Each of
+	 * these data will be seperated by a pipe '|' delimiter
+	 *
+	 * <hr>
+	 * Date created: March 19, 2020
+	 *
+	 * <hr>
+	 */
+	public String toString()
+	{
+		// return the appropriate data in the form of a String object
+		return (this.cardHolderName + "|" + this.cardNumber + "|" + this.expirationDate);
+	} // END: toString() method
 } // END: CreditCard class

@@ -11,6 +11,7 @@
 
 // Required Packages
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.StringBuilder;
@@ -33,13 +34,13 @@ import java.util.Scanner;
     private ArrayList<CreditCard> wallet;
 
     // create a boolean attribute to determine when a save is needed
-    boolean saveNeeded;
+    private boolean saveNeeded = false;
 
     // create a boolean attribute to determine if the list was imported
-    boolean imported;
+    private boolean imported;
 
     // create a String attribute representing the location of the CreditCardList
-    String filePath = null;
+    private String filePath = null;
 
     /**
 	 * default, no-arg constructor for the CreditCardList class
@@ -55,7 +56,7 @@ import java.util.Scanner;
         this.wallet = new ArrayList<CreditCard>();
 
         // set the default file path
-        this.filePath = "tmp.text";
+        this.filePath = "CreditCardData/tmp.text";
 
         // set the saveNeedted and imported attributes to 'false'
         this.imported = false;
@@ -105,17 +106,22 @@ import java.util.Scanner;
                  *     some form of data, even an empty String
                  * 4) cardDetails[1] != null : this ensures that the second data attribute contains
                  *     soem form of data, even an empty String
-                 * 5) isNumeric(cardDetails) : this ensure the data within the second data attribute
-                 *     is numerical
+                 * 5) isNumeric(cardDetails) : this ensures the data within the second data
+                 *     attribute is numerical
                  * 6) cardDetails[2] != null : this ensures that there is some form of data within
                  *     within the third data attribute, even an empty String
                  * 7) cardDetails[2].length() == 7 : this ensures that the third data attribute is
                  *     in the correct format (MM/YYYY)
-                 * 8) isNumeric(cardDetails[2].replace("/", "")) : aside from the forward slash,
-                 *     this ensures the third attribute contains numerical data
+                 * 8) isNumeric(cardDetails[2].substring(0,2) : aside from the forward slash,
+                 *     this ensures the month section in the third data attribute contains
+                 *     numerical data
+                 * 9) isNumeric(cardDetails[2].substring(4)) : aside from the forward slash, this
+                 *     ensures the year section in the third data attribute contains numerical data
                  */
-                if (cardDetails != null && cardDetails.length == 3 && cardDetails[0] != null && cardDetails[1] != null && 
-                    isNumeric(cardDetails[1]) && cardDetails[2] != null && cardDetails[2].length() == 7 && isNumeric(cardDetails[2].substring(0,2)) && isNumeric(cardDetails[2].substring(4)))
+                if (cardDetails != null && cardDetails.length == 3 && cardDetails[0] != null &&
+                    cardDetails[1] != null && isNumeric(cardDetails[1]) && cardDetails[2] != null &&
+                    cardDetails[2].length() == 7 && isNumeric(cardDetails[2].substring(0,2)) &&
+                    isNumeric(cardDetails[2].substring(4)))
                 {
                     /*
                      * Create a new CreditCard object based upon the data in the cardDetails String[]
@@ -128,12 +134,20 @@ import java.util.Scanner;
                     wallet.add(new CreditCard(cardDetails[0], cardDetails[1], cardDetails[2]));
                 } // END: if data at line n is valid
             } // END: looping through all lines within the file
+
+            // set the imported, filePath, and saveNeed attributes
+            this.filePath = path;
+            this.imported = true;
+            this.saveNeeded = false;
+
+            // close the Scanner object
+            inputFile.close();
         } // END: attempting to read from file
         // catch any errors that may arise
         catch(IOException e)
         {
             // set the default file path
-            this.filePath = "tmp.text";
+            this.filePath = "CreditCardData/tmp.text";
 
             // set the saveNeedted and imported attributes to 'false'
             this.imported = false;
@@ -189,6 +203,9 @@ import java.util.Scanner;
 
         // add the card to the ArrayList
         this.wallet.add(card);
+
+        // toggle the saveNeeded boolean
+        this.saveNeeded = true;
     } // END: addCard() method
 
     /**
@@ -208,6 +225,9 @@ import java.util.Scanner;
         {
             // remove the CreditCard object at index n
             wallet.remove(n);
+
+            // toggle the saveNeeded boolean
+            this.saveNeeded = true;
 
             // assuming the removal is a success, return true;
             return true;
@@ -502,6 +522,9 @@ import java.util.Scanner;
                 } // END: determining max
             } // END: iterating over entire loop
         } // END: selection sort algorithm
+
+        // toggle the saveNeeded boolean
+        this.saveNeeded = true;
     } // END: sortCardsByNumber() method
 
     /**
@@ -554,6 +577,9 @@ import java.util.Scanner;
                 } // END: determining max
             } // END: iterating over entire loop
         } // END: selection sort algorithm
+
+        // toggle the saveNeeded boolean
+        this.saveNeeded = true;
     } // END: sortCardsByName method
 
     /**
@@ -589,7 +615,8 @@ import java.util.Scanner;
     } // END: isNumeric() method
 
     /**
-	 * TODO Finish Documentation
+	 * save the user's CreditCardList to either the imported file or a
+     * temporary file
 	 *
 	 * <hr>
 	 * Date created: March 15, 2020
@@ -597,12 +624,46 @@ import java.util.Scanner;
 	 * <hr>
 	 */
     public void save()
-    {
-        // TODO: Finish Implementation
+    {   
+        PrintWriter outfile = null; // to hold the PrintWriter object
+
+        // create and open a new PrintWriter file object
+        try
+        {
+            outfile = new PrintWriter (this.filePath);
+        } // END: attempting to create a PrintWriter object at the savePath
+        catch (FileNotFoundException e) 
+        {
+            // Display the error to the command prompt
+            System.out.println("An unexpected error has occured.");
+
+            // Terminate the progam
+            System.exit(0);
+        } // END: catching potential errors during PrintWriter initialization
+
+        /*
+         * loop through every CreditCard in the list except the last one
+         */
+        for (int i = 0; i < wallet.size() - 1; i++)
+        {
+            outfile.println(wallet.get(i).toString());
+        }
+
+        /*
+         * Print the last CreditCard in the ArrayList; print is used rather
+         * than println to avoid leaving a blank line at the end of the file
+         */
+        outfile.print(wallet.get(wallet.size() - 1).toString());
+
+        // close the PrintWriter object
+        outfile.close();
+
+        // toggle the saveNeeded boolean attribute
+        this.saveNeeded = false;
     } // END: save() method
 
     /**
-	 * TODO Finish Documentation
+	 * save the user's CreditCardList to the specified file
 	 *
 	 * <hr>
 	 * Date created: March 15, 2020
@@ -611,6 +672,61 @@ import java.util.Scanner;
 	 */
     public void save(String path)
     {
-        // TODO: Finish Implementation
+        PrintWriter outfile = null; // to hold the PrintWriter object
+
+        // create and open a new PrintWriter file object
+        try
+        {
+            outfile = new PrintWriter (path);
+        } // END: attempting to create a PrintWriter object at the savePath
+        catch (FileNotFoundException e) 
+        {
+            // Display the error to the command prompt
+            System.out.println("An unexpected error has occured.");
+
+            // Terminate the progam
+            System.exit(0);
+        } // END: catching potential errors during PrintWriter initialization
+
+        /*
+         * loop through every CreditCard in the list except the last one
+         */
+        for (int i = 0; i < wallet.size() - 1; i++)
+        {
+            outfile.println(wallet.get(i).toString());
+        }
+
+        /*
+         * Print the last CreditCard in the ArrayList; print is used rather
+         * than println to avoid leaving a blank line at the end of the file
+         */
+        outfile.print(wallet.get(wallet.size() - 1).toString());
+
+        // close the PrintWriter object
+        outfile.close();
+
+        // toggle the saveNeeded boolean attribute
+        this.saveNeeded = false;
     } // END: save() method
+
+    /**
+	 * delete the program's temp file
+	 *
+	 * <hr>
+	 * Date created: March 15, 2020
+	 *
+	 * <hr>
+	 */
+    public void deleteTempFile()
+    {
+        // make sure the file wasn't imported
+        if (!imported)
+        {
+            // create a new file object of the temp file
+            File file = new File(this.filePath);
+
+            // delete the temp file
+            file.delete();
+        } // END: if not imported
+    } // END: deleteTempFile() method
 } // END: CreditCardList class
