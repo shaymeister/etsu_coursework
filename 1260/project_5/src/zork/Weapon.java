@@ -12,7 +12,8 @@
 package zork;
 
 /**
- * TODO Put Class Description Here
+ * represent a general weapon that can
+ * be used by a participant
  *
  * <hr>
  * Date created: April 6, 2020
@@ -26,24 +27,47 @@ public class Weapon
     protected String type; // to hold the type of weapon
 
     /**
-	 * TODO Put Method Description Here
+	 * Initialize the Weapon class
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public Weapon()
     {
-        // TODO Finish Implementation
+        // set the weapon's damage to 6
+        this.damage = 5;
+
+        // set the weapon's title to "Weapon"
+        this.type = "Weapon";
     } // END: Weapon() no-arg constructor
 
     /**
-	 * TODO Put Method Description Here
+	 * return an integer value representing the
+     * damage dealt due to an attack by a
+     * given weapon
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public int attack()
     {
-
+        /*
+         * return an integer value representing the
+         * damage dealt due to an attack by a
+         * given weapon
+         */
+        return this.damage;
     } // END: attack() method
+
+    /**
+	 * return the weapon's type
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public String getType()
+    {
+        // return the weapon's type
+        return this.type;
+    } // END: getType() method
 } // END: Weapon class

@@ -12,7 +12,7 @@
 package zork;
 
 /**
- * TODO Put Class Description Here
+ * represent the entire entity of a game of Zork
  *
  * <hr>
  * Date created: April 6, 2020
@@ -36,25 +36,34 @@ public class Zork
     } // END: Zork() no-arg constructor
 
     /**
-	 * TODO Put Method Description Here
+	 * return a visualization of the game
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public String display()
     {
-        // TODO Finish Implementation
+        /*
+         * Use the dungeon's showDungeon() method to return a visualization
+         * of the game that shows the map and various information
+         */
+        return dungeon.showDungeon();
     } // END: Display() method
 
     /**
-	 * TODO Put Method Description Here
+	 * return a String object that details the results of the user's
+     * previous move
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public String move(String move)
     {
-        // TODO Finish Implementation
+        /*
+         * use the dungeon's move() method to return a String that details
+         * the results of the user's previous move
+         */
+        return dungeon.move(move);
     } // END: move() method
 
     /**

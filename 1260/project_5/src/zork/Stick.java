@@ -12,7 +12,7 @@
 package zork;
 
 /**
- * TODO Put Class Description Here
+ * represent a Stick as a Weapon object
  *
  * <hr>
  * Date created: April 6, 2020
@@ -20,16 +20,20 @@ package zork;
  *
  * @author Shay Snyder
  */
-public class Stick extends Monster
+public class Stick extends Weapon
 {
     /**
-	 * TODO Put Method Description Here
+	 * Initialize the Stick class
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public Stick()
     {
-        // TODO Finish Implementation
+        // set the Stick's damage to 4
+        super.damage = 4;
+
+        // set the Stick's title to "Stick"
+        super.type = "Stick";
     } // END: Stick() default no-arg constructor
 } // END: Laser class

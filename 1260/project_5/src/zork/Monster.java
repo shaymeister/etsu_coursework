@@ -44,7 +44,8 @@ public class Monster extends Participant
     } // END: Monster() default constructor
 
     /**
-	 * TODO Put Method Description Here
+	 * return an integer value that represents the damage done
+     * during a monster's attack
      *
 	 * <hr>
 	 * Date created: April 6, 2020
@@ -53,4 +54,16 @@ public class Monster extends Participant
     {
         return super.damage;
     } // END: attack() method
+
+    /**
+	 * return the monster's type
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public String getType()
+    {
+        // return the monster's type
+        return this.type;
+    } // END: getType() method
 } // END: Monster class

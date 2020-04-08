@@ -12,7 +12,7 @@
 package zork;
 
 /**
- * TODO Put Class Description Here
+ * represemt a laser as a weapon
  *
  * <hr>
  * Date created: April 6, 2020
@@ -20,16 +20,21 @@ package zork;
  *
  * @author Shay Snyder
  */
-public class Laser extends Monster
+public class Laser extends Weapon
 {
     /**
-	 * TODO Put Method Description Here
+	 * initialize the laser class and define
+     * the required attributes
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public Laser()
     {
-        // TODO Finish Implementation
+        // set the weapon's damage to 8
+        super.damage = 8;
+
+        // set the weapon's title to "Laser"
+        super.type = "Laser";
     } // END: Laser() default no-arg constructor
 } // END: Laser class

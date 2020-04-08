@@ -12,7 +12,7 @@
 package zork;
 
 /**
- * TODO Put Class Description Here
+ * represent a gun as a weapon
  *
  * <hr>
  * Date created: April 6, 2020
@@ -20,16 +20,21 @@ package zork;
  *
  * @author Shay Snyder
  */
-public class Gun extends Monster
+public class Gun extends Weapon
 {
     /**
-	 * TODO Put Method Description Here
+	 * initialize the Gun class and define
+     * the initial value
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public Gun()
     {
-        // TODO Finish Implementation
+        // set the weapons's damage to 7
+        super.damage = 7;
+
+        // set the weapon's title to "Gun"
+        super.type = "Gun";
     } // END: Gun() default no-arg constructor
 } // END: Laser class

@@ -12,7 +12,7 @@
 package zork;
 
 /**
- * TODO Put Class Description Here
+ * represent a hand as a weapon
  *
  * <hr>
  * Date created: April 6, 2020
@@ -23,13 +23,18 @@ package zork;
 public class Hand extends Weapon
 {
     /**
-	 * TODO Put Method Description Here
+	 * initialize the hand class and define
+     * the weapon's attributes
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public Hand()
     {
-        // TODO Finish Implementation
+        // set the weapon's damage to 3
+        super.damage = 3;
+
+        // set the weapon's type to hand
+        super.type = "Hand";
     } // END: Hand() no-arg constructor
 } // END: Hand class

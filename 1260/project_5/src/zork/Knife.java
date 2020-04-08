@@ -12,7 +12,7 @@
 package zork;
 
 /**
- * TODO Put Class Description Here
+ * represent a knife as a weapon
  *
  * <hr>
  * Date created: April 6, 2020
@@ -20,16 +20,21 @@ package zork;
  *
  * @author Shay Snyder
  */
-public class Knife extends Monster
+public class Knife extends Weapon
 {
     /**
-	 * TODO Put Method Description Here
+	 * initialize the knife class and define
+     * the weapon's attributes
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public Knife()
     {
-        // TODO Finish Implementation
+        // set the weapon's damage to 5
+        super.damage = 5;
+
+        // set the weapon's title to "Knife"
+        super.type = "Knife";
     } // END: Knife() default no-arg constructor
 } // END: Laser class
