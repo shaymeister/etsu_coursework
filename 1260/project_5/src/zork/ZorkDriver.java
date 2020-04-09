@@ -49,9 +49,31 @@ public class ZorkDriver
 	 */
     private static void intro()
     {
+        // Create a String to introduce the user to the game
+        String introPrompt = "\nWelcome to the Zork game!"
+                           + "\n"
+                           + "\n-------------------------------------------------------------------"
+                           + "\nIn this game, there is a dungeon containing 5 to 10 cells. The"
+                           + "\nplayer begins in the west-most cell and tries to to get the"
+                           + "\neast-most cell which contains the dungeon exit. A successful exit"
+                           + "\nfrom the final cell wins the game. Along the way, each cell may"
+                           + "\nhave a monster that must be defeated. One cell contains a weapon"
+                           + "\nwhich may be used on the monster, if any, in that cell."
+                           + "\n"
+                           + "\nThe game continues until the player is defeated by a monster or"
+                           + "\nuntil the player successfully exits the eastmost cell. In each"
+                           + "\ncell, a player may move one cell to the east or one cell to the"
+                           + "\nwest, if there is an exit in that direction."
+                           + "\n"
+                           + "\nTypes of weapons and their damage: Hand (3), Stick 'St' (4), Knife 'Kn' (5),"
+                           + "\n\tSword 'Sw' (6), Gun 'Gu' (7), Laser 'La' (8)"
+                           + "\n"
+                           + "\nTypes of monsters and their damage: Zombie 'Zo' (3), Skeleton 'Sk' (5),"
+                           + "\n\tCreeper 'Cr' (6)"
+                           + "\n-------------------------------------------------------------------";
         // use JOptionPane to welcome the user to the game
         JOptionPane.showMessageDialog(null,
-                        "Welcome to my Zork game!",
+                        introPrompt,
                         "Zork",
                         JOptionPane.INFORMATION_MESSAGE);
     } // END: intro() method
@@ -150,6 +172,29 @@ public class ZorkDriver
                     break;
             } // END: switching through user responses
         } // END: while game is in progress
+
+        // assuming the game is over, ask the user if they would like to play again
+        /*
+         * Using a JOptionPane.showConfirmDialog, asking the user if they want
+         * to play again
+         */
+        int response = JOptionPane.showConfirmDialog(null,
+                                                    "Would you like to play again?",
+                                                    "Zork",
+                                                    JOptionPane.YES_NO_OPTION);
+
+        /*
+         * Use an if statement to manage the various outputs of the
+         * ConfirmDialog box
+         *
+         * if the user selects 'yes', restart the game
+         * otherwise, terminate the program.
+         */
+        if (response == JOptionPane.YES_OPTION)
+        {
+            // restart the game
+            startGame();
+        } // END: if user selects yes
     } // END: startGame() method
 
     /**
@@ -174,7 +219,7 @@ public class ZorkDriver
          * ConfirmDialog box
          *
          * if the user selects 'yes', quit the program
-         * otherwise, return to the main screen
+         * otherwise, terminate
          */
         if (response == JOptionPane.YES_OPTION)
         {

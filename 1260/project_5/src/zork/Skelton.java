@@ -37,6 +37,6 @@ public class Skelton extends Monster
         super.health = 20;
 
         // set the skeleton's type to "skelton"
-        super.type = "Skelton";
+        super.type = "Skeleton";
     } // END: Skeleton() default no-arg constructor
 } // END: Skeleton class

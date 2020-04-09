@@ -32,7 +32,7 @@ public abstract class Participant
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
-    public int getHealth()
+    public final int getHealth()
     {
         // return the participant's health
         return this.health;
@@ -44,13 +44,13 @@ public abstract class Participant
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
-    public boolean isAlive()
+    public final boolean isAlive()
     {
         /*
          * if the participant's health is lower than 0, return true; otherwise,
          * return true
          */
-        if(this.health <= 0)
+        if(this.health > 0)
         {
             return true; // return true
         }
@@ -66,7 +66,7 @@ public abstract class Participant
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
-    public void decreaseHealth(int damage)
+    public final void decreaseHealth(int damage)
     {
         // decrease the participant's health by the argumented value
         this.health -= damage;

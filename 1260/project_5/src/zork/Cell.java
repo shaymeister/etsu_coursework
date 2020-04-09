@@ -46,7 +46,6 @@ public class Cell
 
         // set the Cell's player
         this.player = player;
-
         // set the Cell's random object
         this.rnd = rnd;
 
@@ -167,6 +166,7 @@ public class Cell
      */
     public String showCell()
     {
+        // return a String that represents the cell
         return " |_" + showPlayer() + "_" + showWeapon() + "_" + showMonster() + "_| ";
     } // END: showCell() method
 
@@ -334,7 +334,7 @@ public class Cell
             /*
              * Assuming this is the starting cell, the user can only move right
              */
-            if (move.equals("right"))
+            if (move.equals("east"))
             {
                 // assuming the move is valid, return true
                 return true;
@@ -378,29 +378,6 @@ public class Cell
     } // END: isMoveAvailable(String move) method
 
     /**
-	 * equip the player with the weapon in the cell; if the cell doesn't have
-     * the player or a weapon, do nothing
-     *
-	 * <hr>
-	 * Date created: April 6, 2020
-	 */
-    public void equipPlayer()
-    {
-        // make sure the cell has the player and a weapon
-        if (this.player == null || this.weapon == null)
-        {
-            // simply return
-            return;
-        } // END: if cell doesn't have required attributes
-
-        // return this cell's weapon
-        this.player.changeWeapon(this.weapon);
-
-        // remove the cell's weapon
-        this.weapon = null;
-    } // END: getWeapon() method
-
-    /**
 	 * set the Cell's monster
      *
 	 * <hr>
@@ -411,4 +388,28 @@ public class Cell
         // set the Cell's monster
         this.monster = monster;
 	} // END: setMonster()
+
+    /**
+	 * return the cell's weapon
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public Weapon getWeapon()
+    {
+        // return the cell's weapon
+		return this.weapon;
+	} // END: getWeapon() method
+
+    /**
+	 * remove the cell's weapon
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public void removeWeapon()
+    {
+        // remove the cell's weapon
+        this.weapon = null;
+	} // END: removeWeapon() method
 } // END: Cell class

@@ -41,6 +41,8 @@ public class Dungeon
 	 */
     public Dungeon()
     {
+        // Initialize the 'cells' ArrayList
+        cells = new ArrayList<Cell>();
 
         // Initialize the Random class
         this.rnd = new Random();
@@ -75,12 +77,12 @@ public class Dungeon
                 /*
                  * Add a cell to the dungeon that:
                  * is of CellType.START
-                 * has the player,
+                 * has the player
                  * has a Random object
                  * doesn't have a weapon
                  * can't generate a monster
                  */
-                cells.add(new Cell(CellType.START, new Player(), rnd, false, false));
+                cells.add(i, new Cell(CellType.START, new Player(), this.rnd, false, false));
             } // END: if generating start cell
 
             /*
@@ -97,7 +99,7 @@ public class Dungeon
                  * has a weapon
                  * can generate a monster
                  */
-                cells.add(new Cell(CellType.NORMAL, null, rnd, true, rnd.nextBoolean()));
+                cells.add(i, new Cell(CellType.NORMAL, null, rnd, true, rnd.nextBoolean()));
             } // END: if generating normal cell with weapon
 
             /*
@@ -113,7 +115,7 @@ public class Dungeon
                  * doesn't have a weapon
                  * can't generate a monster
                  */
-                cells.add(new Cell(CellType.EXIT, null, rnd, false, false));
+                cells.add(i, new Cell(CellType.EXIT, null, rnd, false, false));
             } // END: if generating last cell
 
             /*
@@ -129,7 +131,7 @@ public class Dungeon
                  * doesn't have a weapon
                  * can generate a monster
                  */
-                cells.add(new Cell(CellType.NORMAL, null, rnd, false, rnd.nextBoolean()));
+                cells.add(i, new Cell(CellType.NORMAL, null, rnd, false, rnd.nextBoolean()));
             } // END: if generating normal cell
         } // END: looping throough desired number of cells
     } // EMD: Dungeon() constructor
@@ -156,17 +158,16 @@ public class Dungeon
              * at each iteration, add the visualization of said cell to the
              * display
              */
-            display.append(cells.get(0).showCell());
+            display.append(cells.get(i).showCell());
         } // END: looping through every cell within the dungeon
 
         /*
          * add the player's health and the current cell information to the
          * display
          */
-        display.append("\n Player Health: " +
-                       cells.get(this.currentCell).getPlayer().getHealth() +
-                       " points\nCurrent Cell: "
-                       + (this.currentCell + 1));
+        display.append("\nPlayer Health: " + cells.get(this.currentCell).getPlayer().getHealth() + " points"
+                     + "\nCurrent Weapon: " + cells.get(this.currentCell).getPlayer().getWeaponTitle()
+                     + "\nCurrent Cell: " +(this.currentCell + 1));
 
         // return the display
         return display.toString();
@@ -206,14 +207,16 @@ public class Dungeon
             // move the player to the previous move
             returnToPreviousRoom();
         } // END: if user wants to move to the previous room
-
         /*
          * At this point, we can assume the user is wanting to advance to the
          * next room. We will move the player to the next room, check if their
          * is a weapon available for pickup, and check if their is monster in
          * the room.
          */
-        advanceToNextRoom(); // advance the player to the next room
+        else if (move.equals("east"))
+        {
+            advanceToNextRoom(); // advance the player to the next room
+        } // END: if user wants to move to the next room
 
         /*
          * check if the user has reached the end of the dungeon; if so, return
@@ -225,17 +228,14 @@ public class Dungeon
             this.gameOver = true;
 
             // return a String congradulating the user
-            return "Congradulations! You have on the game!";
+            return "Congradulations! You have won the game!";
         } // END: if game is over
-
-        // equip the player with the weapon from the current cell
-        cells.get(this.currentCell).equipPlayer();
 
         // if the new cell has a monster, return the results of the fight
         if (cells.get(this.currentCell).getMonster() != null)
         {
             // assuming the current cell has a monster, return the result of the fight
-            return fight(cells.get(this.currentCell));
+            return equipPlayer() + "\n" + fight(cells.get(this.currentCell));
         } // END: if the cell has a monster
 
         /*
@@ -243,7 +243,7 @@ public class Dungeon
          * east; simple return a String containing the success status of the
          * move
          */
-        return "SUCCESS: Move was successful.";
+        return "SUCCESS: Move was successful\n" + equipPlayer();
     } // END: move(String move) method
 
 
@@ -278,7 +278,6 @@ public class Dungeon
 	 */
     private String fight(Cell cell)
     {
-        // TODO Finish Implementation
         // get the player from the cell
         Player player = cell.getPlayer();
 
@@ -289,7 +288,7 @@ public class Dungeon
         StringBuilder fightReport = new StringBuilder();
 
         // add the first line of the report
-        fightReport.append("There is a monster here and the fight begins:\n");
+        fightReport.append("There is a " + monster.getType() + " here and the fight begins:\n");
 
         // loop until either party dies
         while (player.isAlive() && monster.isAlive())
@@ -300,21 +299,28 @@ public class Dungeon
                 // decrease the monster's health by the player's damage capability
                 monster.decreaseHealth(player.attack());
 
-                // determine the monster is no dead
+                // determine the monster is dead
                 if(!monster.isAlive())
                 {
                     // update the report
-                    fightReport.append("The Monster is Dead!");
+                    fightReport.append("The " + monster.getType() + " is Dead!\n");
+
+                    // remove the monster from the cell
+                    cell.setMonster(null);
+
+                    // return the String builder object since the fight is over
+                    return fightReport.toString();
                 } // END: monster is dead
                 else
                 {
                     // update the report
-                    fightReport.append("The Monster was hit: ")
+                    fightReport.append("The " + monster.getType() + " was hit: " + monster.getHealth() + " points\n");
                 } // END: monster isn't dead
             } // END: if the player hits the monster
             else // Assuming the player misses
             {
-
+                // update the report
+                fightReport.append("The " + monster.getType() + " was not hit: " + monster.getHealth() + " points\n");
             } // END: player's move
 
             /*
@@ -322,16 +328,41 @@ public class Dungeon
              *
              * The monster has a 80% chance of hitting the player
              */
-            if (rnd.nextInt(100000) > 20000) // Assuming the monster hits
+            if (rnd.nextInt(1000) > 200) // Assuming the monster hits
             {
+                // decrease the player's health by the monster's damage capability
+                player.decreaseHealth(monster.attack());
 
+                // update the report
+                fightReport.append("The Player was hit: " + player.getHealth() + " points\n");
             }
             else // Assuming the monster misses
             {
-
+                // update the report
+                fightReport.append("The Player was not hit: " + player.getHealth() + " points\n");
             } // END: monster's move
-
         } // END: looping until one party dies
+
+        /*
+         * if the player is dead following the fight, return a String containing
+         * said information and toggle the 'gameOver' boolean attribute to true
+         */
+        if (!player.isAlive()) // Assuming the player isn't alive
+        {
+            // toggle the 'gameOver' boolean attribute to true
+            gameOver = true;
+
+            /*
+             * return a String containing the information that the player is
+             * dead and the game is over
+             */
+            return "The player is dead. Game Over.";
+        } // END: if player isn't alive
+        else // Assuming the player is alive
+        {
+            // simply return the fight report
+            return fightReport.toString();
+        } // END: if player is alive
     } // END: fight(Monster monster) method
 
     /**
@@ -368,7 +399,7 @@ public class Dungeon
         oldCell.setPlayer(null);
 
         // iterate the currentCell attribute
-        this.currentCell--;
+        this.currentCell -= 1;
     } // END: returnToPreviousRoom() method
 
     /**
@@ -407,4 +438,44 @@ public class Dungeon
         // iterate the currentCell attribute
         this.currentCell++;
     } // END: advanceToNextRoom() method
+
+    /**
+	 * equip the player with the weapon in the cell; if the cell doesn't have
+     * the player or a weapon, do nothing
+     *
+     * this method will also return a String that contains information about
+     * the equiped weapon
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    private String equipPlayer()
+    {
+        // get the current cell
+        Cell cell = cells.get(currentCell);
+
+        // get the current cell's player
+        Player player = cell.getPlayer();
+
+        // get the current cell's weapon
+        Weapon weapon = cell.getWeapon();
+
+        // make sure the cell has the player and a weapon
+        if (player == null || weapon == null)
+        {
+            // simply return
+            return "";
+        } // END: if cell doesn't have required attributes
+
+        // return this cell's weapon
+        player.changeWeapon(weapon);
+
+        // Create the String that will be returned to the runtime environment
+        String newWeaponString = "You have found a new " + weapon.getType() + "!";
+
+        // remove the cell's weapon
+        cell.removeWeapon();
+
+        // return the String
+        return newWeaponString;
+    } // END: getWeapon() method
 } // END: Dungeon class

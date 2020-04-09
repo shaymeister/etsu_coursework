@@ -32,8 +32,10 @@ public class Player extends Participant
 	 */
     public Player()
     {
+        super();
+
         // set the player's health to 100
-        super.health = 100;
+        this.health = 100;
 
         // set the player's weapon to their hand
         this.weapon = new Hand();
@@ -66,4 +68,15 @@ public class Player extends Participant
          */
         return this.weapon.attack();
     } // END: attack() method
+
+    /**
+	 * return a String representing the player's current weapon
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public String getWeaponTitle()
+    {
+		return this.weapon.getType(); // return the player's weapon type
+	} // END: getWeaponTitle() method
 } // END: Player class
