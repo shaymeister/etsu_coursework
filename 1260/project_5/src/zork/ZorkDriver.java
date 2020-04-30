@@ -71,6 +71,7 @@ public class ZorkDriver
                            + "\nTypes of monsters and their damage: Zombie 'Zo' (3), Skeleton 'Sk' (5),"
                            + "\n\tCreeper 'Cr' (6)"
                            + "\n-------------------------------------------------------------------";
+
         // use JOptionPane to welcome the user to the game
         JOptionPane.showMessageDialog(null,
                         introPrompt,

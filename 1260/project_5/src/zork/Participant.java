@@ -61,14 +61,14 @@ public abstract class Participant
     } // END: isAlive() method
 
     /**
-	 * decrease the participant's health by the argumented value
+	 * decrease the participant's health by the argued value
      *
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
     public final void decreaseHealth(int damage)
     {
-        // decrease the participant's health by the argumented value
+        // decrease the participant's health by the argued value
         this.health -= damage;
     } // END: decreaseHealth(int damage) method
 

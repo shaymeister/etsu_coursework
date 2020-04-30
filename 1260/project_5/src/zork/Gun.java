@@ -31,7 +31,7 @@ public class Gun extends Weapon
 	 */
     public Gun()
     {
-        // set the weapons's damage to 7
+        // set the weapon's damage to 7
         super.damage = 7;
 
         // set the weapon's title to "Gun"

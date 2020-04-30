@@ -12,7 +12,7 @@
 package zork;
 
 /**
- * represemt a laser as a weapon
+ * represent a laser as a weapon
  *
  * <hr>
  * Date created: April 6, 2020

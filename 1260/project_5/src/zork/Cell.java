@@ -41,7 +41,7 @@ public class Cell
 	 */
     public Cell(CellType type, Player player, Random rnd, boolean generateWeapon, boolean generateMonster)
     {
-        // set the Cell's type to the argumented value
+        // set the Cell's type to the argued value
         this.type = type;
 
         // set the Cell's player
@@ -50,10 +50,10 @@ public class Cell
         this.rnd = rnd;
 
         /*
-         * if the argumented 'generateWeapon' attribute is true, randomly
+         * if the argued 'generateWeapon' attribute is true, randomly
          * generate a weapon and assign it to this cell's 'weapon' attribute
          *
-         * if the argumented 'generateWeapon' attribute is false, set this
+         * if the argued 'generateWeapon' attribute is false, set this
          * cell's 'weapon' attribute to 'null'
          */
         if (generateWeapon == true)
@@ -68,10 +68,10 @@ public class Cell
         } // END: if 'generateWeapon' == false
 
         /*
-         * if the argumented 'generateMonster' attribute is true, randomly
+         * if the argued 'generateMonster' attribute is true, randomly
          * generate a monster and assign it to this cell's 'monster' attribute
          *
-         * if the argumented 'generateMonster' attribute is false, set this
+         * if the argued 'generateMonster' attribute is false, set this
          * cell's 'monster' attribute to 'null'
          *
          */
@@ -86,6 +86,154 @@ public class Cell
             this.monster = null;
         } // END: if 'generateWeapon' == false
     } // END: Cell(ArrayList<Wall> walls, boolean generateWeapon) constructor
+
+    /**
+     * return a String that represents the Cell and its constants
+     *
+     * <hr>
+     * Date created: April 6, 2020
+     */
+    public String showCell()
+    {
+        // return a String that represents the cell
+        return " |_" + showPlayer() + "_" + showWeapon() + "_" + showMonster() + "_| ";
+    } // END: showCell() method
+
+    /**
+     * return this Cell's player; if the cell doesn't contain the player, this
+     * method will return 'null'
+     *
+     * <hr>
+     * Date created: April 6, 2020
+     */
+    public Player getPlayer()
+    {
+        // return this Cell's player
+        return this.player;
+    } // END: getPlayer() method
+
+    /**
+	 * add the argued player to the cell
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public void setPlayer(Player player)
+    {
+        // add the player to this cell
+        this.player = player;
+    } // END: setPlayer() method
+
+    /**
+	 * return the cell's monster; if the cell doesn't have a monster
+     * this method will return null
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public Monster getMonster()
+    {
+        // return the cell's monster
+        return this.monster;
+    } // END: getMonster() method
+
+    /**
+	 * return a boolean attribute specifying whether the argued
+     * value is valid
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public boolean isMoveAvailable(String move)
+    {
+        /*
+         * This method will do calculations based upon the type of Cell; this
+         * first if-statement will be used to determine which calculations
+         * are appropriate
+         */
+        if (this.type == CellType.START) // assuming this cell is the starting cell
+        {
+            /*
+             * Assuming this is the starting cell, the user can only move right
+             */
+            if (move.equals("east"))
+            {
+                // assuming the move is valid, return true
+                return true;
+            } // END: if move correct
+
+            // default: return false
+            return false;
+
+        } // END: starting cell
+        else if (this.type == CellType.NORMAL) // assuming this cell is a normal cell
+        {
+            /*
+             * Assuming this is a normal cell, the user can move right or left
+             */
+            if (move.equals("east") || move.equals("west"))
+            {
+                // assuming the move is valid, return true
+                return true;
+            } // END: if move is correct
+
+            // default: return false
+            return false;
+        } // END: normal cell
+        else if (this.type == CellType.EXIT) // assuming this cell is the exit cell
+        {
+            /*
+             * Assuming this is the exit cell, the user can only move right
+             */
+            if (move.equals("west"))
+            {
+                // assuming the move is valid
+                return true;
+            } // END: if move correct
+
+            // default: return false
+            return false;
+        } // END: exit cell
+
+        // default: return false
+        return false;
+    } // END: isMoveAvailable(String move) method
+
+    /**
+	 * set the Cell's monster
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public void setMonster(Monster monster)
+    {
+        // set the Cell's monster
+        this.monster = monster;
+	} // END: setMonster()
+
+    /**
+	 * return the cell's weapon
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public Weapon getWeapon()
+    {
+        // return the cell's weapon
+		return this.weapon;
+	} // END: getWeapon() method
+
+    /**
+	 * remove the cell's weapon
+     *
+	 * <hr>
+	 * Date created: April 6, 2020
+	 */
+    public void removeWeapon()
+    {
+        // remove the cell's weapon
+        this.weapon = null;
+	} // END: removeWeapon() method
 
     /**
      * randomly create a weapon and return the created weapon
@@ -157,18 +305,6 @@ public class Cell
         // default to return null
         return null;
     } // END: createMonster() method
-
-    /**
-     * return a String that represents the Cell and its constants
-     *
-     * <hr>
-     * Date created: April 6, 2020
-     */
-    public String showCell()
-    {
-        // return a String that represents the cell
-        return " |_" + showPlayer() + "_" + showWeapon() + "_" + showMonster() + "_| ";
-    } // END: showCell() method
 
     /**
      * return a String that represents the Cell's monster
@@ -276,140 +412,4 @@ public class Cell
         // if the cell doesn't have the player, return "__"
         return "__";
     } // END: showPlayer() method
-
-    /**
-     * return this Cell's player; if the cell doesn't contain the player, this
-     * method will return 'null'
-     *
-     * <hr>
-     * Date created: April 6, 2020
-     */
-    public Player getPlayer()
-    {
-        // return this Cell's player
-        return this.player;
-    } // END: getPlayer() method
-
-    /**
-	 * add the argumented player to the cell
-     *
-	 * <hr>
-	 * Date created: April 6, 2020
-	 */
-    public void setPlayer(Player player)
-    {
-        // add the player to this cell
-        this.player = player;
-    } // END: setPlayer() method
-
-    /**
-	 * return the cell's monster; if the cell doesn't have a monster
-     * this method will return null
-     *
-	 * <hr>
-	 * Date created: April 6, 2020
-	 */
-    public Monster getMonster()
-    {
-        // return the cell's monster
-        return this.monster;
-    } // END: getMonster() method
-
-    /**
-	 * return a boolean attribute specifying whether the argumented
-     * value is valid
-     *
-	 * <hr>
-	 * Date created: April 6, 2020
-	 */
-    public boolean isMoveAvailable(String move)
-    {
-        /*
-         * This method will do calculations based upon the type of Cell; this
-         * first if-statement will be used to determine which calculations
-         * are appropriate
-         */
-        if (this.type == CellType.START) // assuming this cell is the starting cell
-        {
-            /*
-             * Assuming this is the starting cell, the user can only move right
-             */
-            if (move.equals("east"))
-            {
-                // assuming the move is valid, return true
-                return true;
-            } // END: if move correct
-
-            // default: return false
-            return false;
-
-        } // END: starting cell
-        else if (this.type == CellType.NORMAL) // assuming this cell is a normal cell
-        {
-            /*
-             * Assuming this is a normal cell, the user can move right or left
-             */
-            if (move.equals("east") || move.equals("west"))
-            {
-                // assuming the move is valid, return true
-                return true;
-            } // END: if move is correct
-
-            // default: return false
-            return false;
-        } // END: normal cell
-        else if (this.type == CellType.EXIT) // assuming this cell is the exit cell
-        {
-            /*
-             * Assuming this is the exit cell, the user can only move right
-             */
-            if (move.equals("west"))
-            {
-                // assuming the move is valid
-                return true;
-            } // END: if move correct
-
-            // default: return false
-            return false;
-        } // END: exit cell
-
-        // default: return false
-        return false;
-    } // END: isMoveAvailable(String move) method
-
-    /**
-	 * set the Cell's monster
-     *
-	 * <hr>
-	 * Date created: April 6, 2020
-	 */
-    public void setMonster(Monster monster)
-    {
-        // set the Cell's monster
-        this.monster = monster;
-	} // END: setMonster()
-
-    /**
-	 * return the cell's weapon
-     *
-	 * <hr>
-	 * Date created: April 6, 2020
-	 */
-    public Weapon getWeapon()
-    {
-        // return the cell's weapon
-		return this.weapon;
-	} // END: getWeapon() method
-
-    /**
-	 * remove the cell's weapon
-     *
-	 * <hr>
-	 * Date created: April 6, 2020
-	 */
-    public void removeWeapon()
-    {
-        // remove the cell's weapon
-        this.weapon = null;
-	} // END: removeWeapon() method
 } // END: Cell class

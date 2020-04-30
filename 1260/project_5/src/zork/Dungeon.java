@@ -133,7 +133,7 @@ public class Dungeon
                  */
                 cells.add(i, new Cell(CellType.NORMAL, null, rnd, false, rnd.nextBoolean()));
             } // END: if generating normal cell
-        } // END: looping throough desired number of cells
+        } // END: looping through desired number of cells
     } // EMD: Dungeon() constructor
 
     /**
@@ -147,7 +147,7 @@ public class Dungeon
     {
         /*
          * Create a instance of the StringBuilder class that will be used to
-         * build the game's vizualization
+         * build the game's visualization
          */
         StringBuilder display = new StringBuilder();
 
@@ -178,7 +178,7 @@ public class Dungeon
      * move
      *
 	 * <hr>
-	 * Date created: April 6, 2020≠
+	 * Date created: April 6, 2020
 	 */
     public String move(String move)
     {
@@ -220,15 +220,15 @@ public class Dungeon
 
         /*
          * check if the user has reached the end of the dungeon; if so, return
-         * a String object congradulating the user for winning the game
+         * a String object congratulating the user for winning the game
          */
         if (currentCell == numberOfCells - 1)
         {
-            // toggle the isOver boolea
+            // toggle the isOver boolean
             this.gameOver = true;
 
-            // return a String congradulating the user
-            return "Congradulations! You have won the game!";
+            // return a String congratulating the user
+            return "Congratulations! You have won the game!";
         } // END: if game is over
 
         // if the new cell has a monster, return the results of the fight
@@ -264,7 +264,7 @@ public class Dungeon
          * dungeon has been complete
          *
          * true = game is over
-         * fale = game isn't over
+         * false = game isn't over
          */
         return this.gameOver;
     } // END: isGameOver
@@ -444,7 +444,7 @@ public class Dungeon
      * the player or a weapon, do nothing
      *
      * this method will also return a String that contains information about
-     * the equiped weapon
+     * the equipped weapon
 	 * <hr>
 	 * Date created: April 6, 2020
 	 */
