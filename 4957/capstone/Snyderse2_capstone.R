@@ -86,9 +86,9 @@ visualizeData <- function(data)
     
     # show the distribution of patient gender
     plot5 <- showDist(data, "gender")
-    plot5 + labs(title = "Distribution of Age",
+    plot5 + labs(title = "Distribution of Gender",
                  y = "Number of Instances",
-                 x = "Age")
+                 x = "Gender")
     ggsave("gender distribution.png")
     
     # show the distribution of patients living
